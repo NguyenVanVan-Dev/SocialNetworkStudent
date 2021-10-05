@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+Route::get('/', function () {
+    return view('user_authen');
+});
 Route::get('/main', function () {
     return view('PagesUser.home');
-});
-Route::get('/userlogin', function () {
-    return view('user_authen');
 });
 Auth::routes();
 

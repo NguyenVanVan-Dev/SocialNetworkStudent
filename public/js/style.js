@@ -24,3 +24,14 @@ $("#btn__signup").on('click',function(){
 $('#btn_showtwo').on("click",function(){
     $("#sign_in").addClass("scale-0 hidden")
 })
+$('#show_more_menu').on('click',function(){
+   $('.menu_hidden').removeClass('hidden')
+   $(this).addClass("hidden")
+   $("#menu_hidden").removeClass("hidden")
+})
+$('#hidden_more_menu').on('click',function(){
+    $('.menu_hidden').addClass('hidden')
+    $("#show_more_menu").removeClass("hidden")
+    $("#menu_hidden").addClass("hidden")
+  
+})
