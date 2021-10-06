@@ -35,3 +35,9 @@ $('#hidden_more_menu').on('click',function(){
     $("#menu_hidden").addClass("hidden")
   
 })
+// $("#messenger_icon").on('click',function(){
+//     $("#messenger_box").removeClass('md:hidden')
+// })
+// $("#").on('click', function(){
+//     $(this).addClass('md:hidden')
+// })

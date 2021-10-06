@@ -2,207 +2,668 @@
 
 @section('content')
 <!-- MAIN CONTENT -->
-    <div class="flex justify-center h-screen">
-        <!-- LEFT MENU -->
-        <div class="w-1/5 pt-16 h-full hidden xl:flex flex-col fixed top-0 left-0 shadow-md overflow-y-scroll">
-            <ul class="p-4 ">
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Nguyễn Văn Vấn</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/friends.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Friends</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Pages</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/market.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Market</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/group.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Groups</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Nguyễn Văn Vấn</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/friends.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Friends</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Pages</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/market.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Market</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/group.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Groups</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Nguyễn Văn Vấn</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/friends.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Friends</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Pages</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/market.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Market</span>
-                    </a>
-                </li>
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/group.png') }}" alt="" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold block">Groups</span>
-                    </a>
-                </li> 
-                <li class=" menu_show" >
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third " id="show_more_menu"> 
-                        <span class="w-10 h-10 rounded-full grid place-items-center bg-gray-300
+<div class="flex justify-center h-screen">
+    <!-- LEFT MENU -->
+    <div class="w-1/5 pt-16 h-full hidden xl:flex flex-col fixed top-0 left-0 shadow-md overflow-y-scroll">
+        <ul class="p-4 ">
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Nguyễn Văn Vấn</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/friends.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Friends</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Pages</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/market.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Market</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/group.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Groups</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Nguyễn Văn Vấn</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/friends.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Friends</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Pages</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/market.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Market</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/group.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Groups</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Nguyễn Văn Vấn</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/friends.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Friends</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Pages</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/market.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Market</span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/group.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Groups</span>
+                </a>
+            </li>
+            <li class=" menu_show">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third " id="show_more_menu">
+                    <span class="w-10 h-10 rounded-full grid place-items-center bg-gray-300
                         dark:bg-dark-second">
-                            <i class='bx bx-chevron-down'></i>
-                        </span>
-                        <span class="font-semibold block" > Show More</span></span>
-                    </a>
-                </li> 
-                <li class="hidden menu_hidden">
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third " id="hidden_more_menu"> 
-                        <span class="w-10 h-10 rounded-full grid place-items-center bg-gray-300
+                        <i class='bx bx-chevron-down'></i>
+                    </span>
+                    <span class="font-semibold block"> Show More</span></span>
+                </a>
+            </li>
+            <li class="hidden menu_hidden">
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third " id="hidden_more_menu">
+                    <span class="w-10 h-10 rounded-full grid place-items-center bg-gray-300
                         dark:bg-dark-second">
-                            <i class='bx bx-chevron-down'></i>
-                        </span>
-                        <span class="font-semibold block" > Hidden Away</span></span>
-                    </a>
-                </li> 
-                <li class=" border-b border-gray-300 dark:border-dark-third mt-6">
-                </li> 
-            </ul>
-            <div class="flex justify-between items-center px-4 h-4 group">
-                <span class="font-semibold text-gray-500 text-lg dark:text-dark-txt">Your Shortcuts</span>
-                <span class="text-blue-500 cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-thirdp-2 p-2
+                        <i class='bx bx-chevron-down'></i>
+                    </span>
+                    <span class="font-semibold block"> Hidden Away</span></span>
+                </a>
+            </li>
+            <li class=" border-b border-gray-300 dark:border-dark-third mt-6">
+            </li>
+        </ul>
+        <div class="flex justify-between items-center px-4 h-4 group">
+            <span class="font-semibold text-gray-500 text-lg dark:text-dark-txt">Your Shortcuts</span>
+            <span class="text-blue-500 cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-thirdp-2 p-2
                 rounded-md hidden group-hover:inline-block">Edit</span>
-            </div>
-            <ul class="p-4">
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/f8_icon.png') }}" alt="" class="w-10 h-10 rounded-md">
-                        <span class="font-semibold block text-md">F8 Học Lập Trình Để Đi Làm</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/congdong.jpg') }}" alt="" class="w-10 h-10 rounded-md">
-                        <span class="font-semibold block text-md">Cộng đồng Front-end(HTML/CSS/JS) Việt Nam</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/chiendich.png') }}" alt="" class="w-10 h-10 rounded-md">
-                        <span class="font-semibold block text-md">Chiến Dịch Gây Quỹ</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/kiniem.png') }}" alt="" class="w-10 h-10 rounded-md">
-                        <span class="font-semibold block text-md">Kỉ Niệm</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
-                    transition-all dark:text-dark-txt dark:hover:bg-dark-third"> 
-                        <img src="{{ asset('image/suckhoe.png') }}" alt="" class="w-10 h-10 rounded-md">
-                        <span class="font-semibold block text-md">Sức Khỏe Cảm Xúc</span>
-                    </a>
-                </li> 
-            </ul>
-            <div class="mt-auto p-6 text-sm text-gray-500 dark:text-dark-txt">
-                <a href="">Privacy</a>
-                <span>.</span>
-                <a href="">Terms</a>
-                <span>.</span>
-                <a href="">Advertising</a>
-                <span>.</span>
-                <a href="">Cookies</a>
-                <span>.</span>
-                <a href="">Ad choices</a>
-                <span>.</span>
-                <a href="">More</a>
-                <span>.</span>
-                <a href="">Vấn Nguyễn 2021</a>
-            </div>
         </div>
-        <!--  END LEFT MENU -->
-        <!-- MID CONTENT -->
-        <div class="w-full lg:w-2/3 xl:w-2/5 pt-32 lg:pt-16 px-2 bg-green-400">
-
+        <ul class="p-4">
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/f8_icon.png') }}" alt="" class="w-10 h-10 rounded-md">
+                    <span class="font-semibold block text-md">F8 Học Lập Trình Để Đi Làm</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/congdong.jpg') }}" alt="" class="w-10 h-10 rounded-md">
+                    <span class="font-semibold block text-md">Cộng đồng Front-end(HTML/CSS/JS) Việt Nam</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/chiendich.png') }}" alt="" class="w-10 h-10 rounded-md">
+                    <span class="font-semibold block text-md">Chiến Dịch Gây Quỹ</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/kiniem.png') }}" alt="" class="w-10 h-10 rounded-md">
+                    <span class="font-semibold block text-md">Kỉ Niệm</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-md
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/suckhoe.png') }}" alt="" class="w-10 h-10 rounded-md">
+                    <span class="font-semibold block text-md">Sức Khỏe Cảm Xúc</span>
+                </a>
+            </li>
+        </ul>
+        <div class="mt-auto p-6 text-sm text-gray-500 dark:text-dark-txt">
+            <a href="">Privacy</a>
+            <span>.</span>
+            <a href="">Terms</a>
+            <span>.</span>
+            <a href="">Advertising</a>
+            <span>.</span>
+            <a href="">Cookies</a>
+            <span>.</span>
+            <a href="">Ad choices</a>
+            <span>.</span>
+            <a href="">More</a>
+            <span>.</span>
+            <a href="">Vấn Nguyễn 2021</a>
         </div>
-        <!-- END MID CONTENT-->
-        <!-- RIGHT MENU -->
-        <div class="w-1/5 pt-16 h-full hidden xl:flex flex-col  fixed top-0 right-0 bg-blue-200">
-
-        </div>
-        <!-- eND RIGHT MENU -->
     </div>
+    <!--  END LEFT MENU -->
+    <!-- MID CONTENT -->
+    <div class="w-full lg:w-2/3 xl:w-2/5 pt-32 lg:pt-16 px-2 bg-green-400">
+
+    </div>
+    <!-- END MID CONTENT-->
+    <!-- RIGHT MENU -->
+    <div class="w-1/5 pt-16 h-full hidden xl:flex flex-col  fixed top-0 right-0  overflow-y-scroll ">
+        <div class="h-full">
+            <div class="flex justify-between items-center px-4 pt-4">
+                <span class="font-semibold text-gray-500 text-lg dark:text-dark-txt">Friend requests</span>
+                <span class="text-blue-500 cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-thirdp-2 p-2
+                    rounded-md ">See All</span>
+            </div>
+            <div class=p-2>
+                <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                dark:bg-dark-third rounded-lg transition-all">
+                    <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
+                    <div class="flex-1 h-full">
+                        <div class="dark:text-dark-txt">
+                            <span class="font-semibold">Hải Ba Đông</span>
+                            <span class="float-right"> 6d</span>
+                        </div>
+                        <div class="flex space-x-2 mt-2">
+                            <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center
+                            font-semibold text-white rounded-lg">
+                                Confirm
+                            </div>
+                            <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center
+                            font-semibold text-black rounded-lg">
+                                Delete
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="border-b border-gray-200 dark:border-dark-third mt-6"></div>
+            <!-- CONTACTS -->
+            <div class="flex justify-between items-center px-4 pt-4 text-gray-500
+            dark:text-dark-txt">
+                <span class="font-semibold text-lg">Contacts</span>
+                <div class="flex space-x-1">
+                    <div class="w-8 h-8 grid place-items-center text-xl hover:bg-gray-200
+                    dark:hover:bg-dark-third rounded-full cursor-pointer">
+                        <i class='bx bx-search '></i>
+                    </div>
+                    <div class="w-8 h-8 grid place-items-center text-xl hover:bg-gray-200
+                    dark:hover:bg-dark-third rounded-full cursor-pointer">
+                        <i class='bx bx-dots-horizontal-rounded'></i>
+                    </div>
+                </div>
+            </div>
+            <ul class="pt-2  ">
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Đường Tam</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="border-b border-gray-200 dark:border-dark-third mt-6"></div>
+            <div class="flex justify-between items-center px-4 pt-4 text-gray-500
+            dark:text-dark-txt">
+                <span class="font-semibold text-lg">Group chat</span>
+            </div>
+            <ul class="pt-2  ">
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Trí tuệ nhân tạo</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Chuyên Đề Drone</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                    dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
+                        <div class="relative">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        <div>
+                            <span class="font-semibold">Lập Trình Website</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="pb-3">
+                    <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third " id="hidden_more_menu">
+                        <span class="w-10 h-10 rounded-full grid place-items-center bg-gray-300
+                        dark:bg-dark-second">
+                        <i class='bx bx-plus' ></i>
+                        </span>
+                        <span class="font-semibold block"> Create New Group Chat</span></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- eND RIGHT MENU -->
+</div>
 <!--  END MAIN CONTENT -->
 @endsection

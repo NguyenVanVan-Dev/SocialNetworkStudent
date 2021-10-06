@@ -27,12 +27,17 @@ module.exports = {
   
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
+      },
+      height: {
+        'almostfull': '90vh',
+        '80%': '80%',
+
       }
     }
   },
   variants: {
     extend:{
-      display:['group-hover'],
+      display:['group-hover','group-focus' ,'focus-within'],
       transform:['group-hover'],
       scale:['group-hover'],
     },
