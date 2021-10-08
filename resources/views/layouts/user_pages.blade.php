@@ -32,6 +32,10 @@
     ::-webkit-scrollbar-thumb:hover {
     background:#BCC0C4; 
     }
+    .btn_friend:focus .box_friend,
+    .btn_messenger:focus .box_messenger{
+        display: block;
+    }
     </style>
 </head>
 

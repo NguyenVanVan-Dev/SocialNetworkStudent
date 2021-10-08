@@ -96,9 +96,9 @@
             </li>
             <li>
                 <button id="messenger_icon" class="text-xl hidden xl:grid place-items-center bg-gray-200
-                dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-3 cursor-pointer hover:bg-gray-300 relative group">
+                dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-3 cursor-pointer hover:bg-gray-300 relative btn_messenger">
                     <i class='bx bxl-messenger'></i>
-                    <div id="messenger_box" class="absolute w-96 p-2 h-almostfull md:hidden group-focus:block bg-white shadow-2xl rounded-lg top-12 -right-24">
+                    <div id="messenger_box" class=" box_messenger absolute w-96 p-2 h-almostfull md:hidden group-focus:block bg-white shadow-2xl rounded-lg top-12 -right-24">
                         <div class=" px-2 flex justify-between items-center">
                             <span class="font-semibold text-2xl mb-2">Messenger</span>
                             <ul>

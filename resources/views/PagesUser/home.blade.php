@@ -199,34 +199,89 @@
     </div>
     <!-- END MID CONTENT-->
     <!-- RIGHT MENU -->
-    <div class="w-1/5 pt-16 h-full hidden xl:flex flex-col  fixed top-0 right-0  overflow-y-scroll ">
-        <div class="h-full">
-            <div class="flex justify-between items-center px-4 pt-4">
-                <span class="font-semibold text-gray-500 text-lg dark:text-dark-txt">Friend requests</span>
-                <span class="text-blue-500 cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-thirdp-2 p-2
-                    rounded-md ">See All</span>
-            </div>
-            <div class=p-2>
-                <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
-                dark:bg-dark-third rounded-lg transition-all">
-                    <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
-                    <div class="flex-1 h-full">
-                        <div class="dark:text-dark-txt">
-                            <span class="font-semibold">Hải Ba Đông</span>
-                            <span class="float-right"> 6d</span>
-                        </div>
-                        <div class="flex space-x-2 mt-2">
-                            <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center
-                            font-semibold text-white rounded-lg">
-                                Confirm
-                            </div>
-                            <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center
-                            font-semibold text-black rounded-lg">
-                                Delete
-                            </div>
-                        </div>
+    <div class="w-1/5 pt-16 h-full hidden xl:flex flex-col  fixed top-0 right-0  ">
+        <div class="h-full  overflow-y-scroll overflow-x-auto">
+            <div class="p-3 bg-white rounded-lg mr-2 max-h-64 ">
+                <div class="flex justify-between items-center  pt-4">
+                    <div class="flex justify-center items-center">
+                        <img src="{{ asset('image/friends.png') }}" alt="" class="w-4 h-4 m-2">
+                        <span class="font-semibold text-gray-800 text-base dark:text-dark-txt"> Friend requests</span>
                     </div>
-                </a>
+                    <button class="relative  btn_friend">
+                        <span class="text-blue-500 cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-thirdp-2 p-2 rounded-xl ">
+                            <i class='bx bx-dots-horizontal-rounded w-4 h-4'></i>
+                        </span>
+                        <div class=" box_friend absolute right-0 w-80 top-7 bg-white shadow-2xl rounded-lg overflow-hidden p-3 hidden group-focus:block">
+                            <div class="p-2 hover:bg-gray-300 rounded-xl" >
+                                <a href="http://127.0.0.1:8000/" class=" flex  items-center">
+                                    <span class="w-10 h-10 grid place-items-center text-xl bg-gray-200
+                                        dark:hover:bg-dark-third rounded-full cursor-pointer">
+                                        <i class='bx bxs-x-square'></i>
+                                    </span>
+                                    <span  class="text-base ml-4">
+                                        Hidden friend requests
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="p-2 hover:bg-gray-300 rounded-xl">
+                                <a href="" class=" flex  items-center">
+                                    <span class="w-10 h-10 grid place-items-center text-xl bg-gray-200
+                                    dark:hover:bg-dark-third rounded-full cursor-pointer">
+                                        <i class='bx bxs-group'></i>
+                                    </span>
+                                    <span class="text-base ml-4">
+                                        Hidden friend requests
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                <div class="my-2">
+                    <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                dark:bg-dark-third rounded-lg transition-all">
+                        <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
+                        <div class="flex-1 h-full">
+                            <div class="dark:text-dark-txt">
+                                <span class="font-semibold">Hải Ba Đông</span>
+                                <span class="float-right"> 6 Day</span>
+                            </div>
+                            <div class="flex space-x-2 mt-2">
+                                <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center
+                            font-semibold text-white rounded-lg">
+                                    Confirm
+                                </div>
+                                <div class="w-1/2 bg-gray-300 cursor-pointer py-1 text-center
+                            font-semibold text-black rounded-lg">
+                                    Delete
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="my-2">
+                    <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                dark:bg-dark-third rounded-lg transition-all">
+                        <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
+                        <div class="flex-1 h-full">
+                            <div class="dark:text-dark-txt">
+                                <span class="font-semibold">Tiêu Viêm</span>
+                                <span class="float-right"> 6Day</span>
+                            </div>
+                            <div class="flex space-x-2 mt-2">
+                                <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center
+                            font-semibold text-white rounded-lg">
+                                    Confirm
+                                </div>
+                                <div class="w-1/2 bg-gray-300 cursor-pointer py-1 text-center
+                            font-semibold text-black rounded-lg">
+                                    Delete
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
             </div>
             <div class="border-b border-gray-200 dark:border-dark-third mt-6"></div>
             <!-- CONTACTS -->
@@ -653,7 +708,7 @@
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third " id="hidden_more_menu">
                         <span class="w-10 h-10 rounded-full grid place-items-center bg-gray-300
                         dark:bg-dark-second">
-                        <i class='bx bx-plus' ></i>
+                            <i class='bx bx-plus'></i>
                         </span>
                         <span class="font-semibold block"> Create New Group Chat</span></span>
                     </a>
