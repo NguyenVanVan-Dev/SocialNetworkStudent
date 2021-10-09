@@ -1,6 +1,6 @@
     <!-- NAV -->
     <nav class="bg-gray-50 dark:bg-dark-second h-max md:h-14 w-full shadow-md flex flex-col md:flex-row 
-        items-center justify-center md:justify-between fixed top-0 z-50 border-b
+        items-center justify-center md:justify-between fixed top-0 z-30 border-b
         dark:border-dark-third">
         <!-- LEFT NAV -->
         <div class="flex items-center justify-between w-full md:w-max px-4 py-2">
@@ -35,7 +35,7 @@
             <li class="w-1/5 md:w-max text-center">
                 <a href="" class="w-full text-3xl py-2 px-3 xl:px-12 cursor-pointer 
                 text-center inline-block text-blue-500 border-b-4 border-blue-500 ">
-                    <i class='bx bxs-home-heart'></i>
+                    <i class='bx bxs-home'></i>
                 </a>
             </li>
             <li class="w-1/5 md:w-max text-center">
@@ -76,7 +76,7 @@
                 dark:text-dark-txt relative">
                     <i class='bx bx-menu'></i>
                 </a>
-            </li>
+            </li>           
         </ul>
         <!-- END MAIN NAV -->
         <!-- RIGHT NAV -->
@@ -85,7 +85,8 @@
                 <a href="" class="inline-flex items-center justify-center p-1 rounded-full
                 hover:bg-gray-200 dark:hover:bg-dark-third mx-1">
                     <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="Profile picture" class="rounded-full h-7 w-7">
-                    <span class="mx-2 font-semibold dark:text-dark-txt"> Vấn Nguyễn</span>
+                    <!-- <span class="mx-2 font-semibold dark:text-dark-txt"> Vấn Nguyễn</span> -->
+                    <span class="mx-2 font-semibold dark:text-dark-txt">{{ Auth::user()->name }}</span>
                 </a>
             </li>
             <li>
@@ -104,26 +105,26 @@
                             <ul>
                                 <li class="inline-block mx-1 ">
                                     <span>
-                                    <i class='bx bx-customize'></i>
+                                        <i class='bx bx-customize'></i>
                                     </span>
                                 </li>
-                                <li  class="inline-block mx-1 ">
+                                <li class="inline-block mx-1 ">
                                     <span>
                                         <i class='bx bx-exit-fullscreen'></i>
                                     </span>
                                 </li>
-                                <li  class="inline-block mx-1 ">
+                                <li class="inline-block mx-1 ">
                                     <span>
                                         <i class='bx bx-camera-movie'></i>
                                     </span>
                                 </li>
-                                <li  class="inline-block">
+                                <li class="inline-block">
                                     <span>
-                                    <i class='bx bxs-edit'></i>
+                                        <i class='bx bxs-edit'></i>
                                     </span>
                                 </li>
                             </ul>
-                        </div>   
+                        </div>
                         <div class=" px-2 w-full relative my-2">
                             <span class="absolute top-1.5 left-4 text-gray-500"><i class='bx bx-search'></i></span>
                             <input type="text" class="w-full bg-gray-200 rounded-full px-9 overflow-hidden py-3 outline-none h-9 text-sm text-gray-700" placeholder="Tìm kiếm trên Messenger">
@@ -142,12 +143,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -170,12 +171,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -198,12 +199,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -226,12 +227,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -254,12 +255,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -282,12 +283,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -310,12 +311,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -338,12 +339,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -366,12 +367,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -394,12 +395,12 @@
                                                     <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
                                                 </div>
                                                 <div class="text-gray-500 text-sm flex justify-between items-center">
-                                                    <div class="w-4/5 ">    
+                                                    <div class="w-4/5 ">
                                                         <p class="truncate w-56">
-                                                        <span>
-                                                            You:
-                                                        </span>
-                                                           Xin chào các bạn mình là vấn best yasuo
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
                                                         </p>
                                                     </div>
                                                     <div class="w-1/5">
@@ -431,6 +432,140 @@
                 dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-3 cursor-pointer hover:bg-gray-300 relative">
                     <i class='bx bxs-moon'></i>
                 </div>
+            </li>
+            <li>
+                <button class="text-xl hidden xl:grid place-items-center bg-gray-200
+                dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-3 group cursor-pointer hover:bg-gray-300 relative btn_option_setting">
+                    <i class='bx bxs-chevron-down transform '></i>
+                    <div class="absolute w-96 p-2 hidden bg-white shadow-2xl group-hover:block rounded-lg top-12 -right-2 box_setting">
+                        <div class="my-2 mb-2">
+                            <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                            dark:bg-dark-third rounded-lg transition-all">
+                                <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
+                                <div class="flex-1">
+                                    <div class="text-left">
+                                        <span class="font-semibold text-xl dark:text-dark-txt">Hải Ba Đông</span>
+                                    </div>
+                                    <div class="flex space-x-2 ">
+                                        <span class="text-gray-500 text-sm">See your profile</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class=" border-b border-gray-300 border-2"></div>
+                        <div class="my-2 mb-2">
+                            <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                            dark:bg-dark-third rounded-lg transition-all">
+                                <span class="grid place-items-center text-3xl text-gay-500 bg-gray-300 w-14 h-14 rounded-full">
+                                    <i class='bx bxs-receipt'></i>
+                                </span>
+                                <div class="flex-1">
+                                    <div class="text-left">
+                                        <span class="font-semibold text-xl dark:text-dark-txt"> Contribute Opinion</span>
+                                    </div>
+                                    <div class="flex space-x-2 ">
+                                        <span class="text-gray-500 text-sm">Contribute New Student Network</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class=" border-b border-gray-300 border-2"></div>
+                        <div>
+                            <ul>
+                                <li class="p-2">
+                                    <div class=" flex-1 flex justify-between items-center">
+                                        <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                                            dark:bg-dark-third rounded-lg transition-all">
+                                            <img src="{{ asset('image/anh-ysauo.jpg') }}" class="w-10 h-10 rounded-full" alt="">
+                                            <div class="flex-1">
+                                                <div class="text-left">
+                                                    <span class="font-semibold text-xl dark:text-dark-txt"> Account transfer </span>
+                                                </div>
+                                                <div class="flex space-x-2 ">
+                                                    <span class="text-gray-500 text-sm">Contribute New Student Network</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <span class="grid place-items-center text-2xl text-gay-500 w-10 h-10 rounded-md bg-gray-300">
+                                            <i class='bx bx-dots-horizontal-rounded'></i>
+                                        </span>
+                                    </div>
+                                </li>
+                                <li class="p-2 hover:bg-gray-300 rounded-md">
+                                    <div class="flex justify-between items-center">
+                                        <div class=" flex-1 flex items-center">
+                                            <span class="grid place-items-center text-3xl text-gray-500 bg-gray-300 w-10 h-10 rounded-full">
+                                                <i class='bx bxs-cog'></i>
+                                            </span>
+                                            <span class="ml-4 font-medium text-lg"> Settings & Pravite rule</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-3xl text-gray-500"><i class='bx bx-chevron-right'></i></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="p-2 hover:bg-gray-300 rounded-md">
+                                    <div class="flex justify-between items-center">
+                                        <div class=" flex-1 flex items-center">
+                                            <span class="grid place-items-center text-3xl text-gray-500 bg-gray-300 w-10 h-10 rounded-full">
+                                                <i class='bx bx-question-mark'></i>
+                                            </span>
+                                            <span class="ml-4 font-medium text-lg"> Question & Help</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-3xl text-gray-500"><i class='bx bx-chevron-right'></i></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="p-2 hover:bg-gray-300 rounded-md">
+                                    <div class="flex justify-between items-center">
+                                        <div class=" flex-1 flex items-center">
+                                            <span class="grid place-items-center text-3xl text-gray-500 bg-gray-300 w-10 h-10 rounded-full">
+                                                <i class='bx bxs-brightness-half'></i>
+                                            </span>
+                                            <span class="ml-4 font-medium text-lg"> Screen & Accessibility</span>
+                                        </div>
+                                        <div>
+                                            <span class="text-3xl text-gray-500"><i class='bx bx-chevron-right'></i></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="p-2 hover:bg-gray-300 rounded-md">
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                        <div class="flex justify-between items-center">
+                                            <div class=" flex-1 flex items-center">
+                                                <span class="grid place-items-center text-3xl text-gray-500 bg-gray-300 w-10 h-10 rounded-full">
+                                                    <i class='bx bx-log-out'></i>
+                                                </span>
+                                                <span class="ml-4 font-medium text-lg"> Logout </span>
+                                            </div>
+                                        </div>
+                                    </a>                                  
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+
+                            </ul>
+                            <div class="mt-auto p-4 text-sm text-gray-500 dark:text-dark-txt">
+                                <a href="">Privacy</a>
+                                <span>.</span>
+                                <a href="">Terms</a>
+                                <span>.</span>
+                                <a href="">Advertising</a>
+                                <span>.</span>
+                                <a href="">Cookies</a>
+                                <span>.</span>
+                                <a href="">Ad choices</a>
+                                <span>.</span>
+                                <a href="">More</a>
+                                <span>.</span>
+                                <a href="">Vấn Nguyễn 2021</a>
+                            </div>
+                        </div>
+                    </div>
+                </button>
             </li>
 
 
