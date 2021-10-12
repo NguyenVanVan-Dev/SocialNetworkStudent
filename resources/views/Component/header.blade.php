@@ -23,7 +23,7 @@
                 </div>
                 <div class="text-2xl grid place-items-center  md:hidden bg-gray-200
                 dark:bg-dark-third rounded-full w-10 h-10 cursor-pointer hover:bg-gray-300
-                dark:text-dark-txt">
+                dark:text-dark-txt" id="dark_mode">
                     <i class='bx bxs-moon'></i>
                 </div>
             </div>
@@ -429,22 +429,22 @@
             </li>
             <li>
                 <div class="text-xl hidden xl:grid place-items-center bg-gray-200
-                dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-3 cursor-pointer hover:bg-gray-300 relative">
+                dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-3 cursor-pointer hover:bg-gray-300 relative" id="dark_mode_mb">
                     <i class='bx bxs-moon'></i>
                 </div>
             </li>
             <li>
                 <button class="text-xl hidden xl:grid place-items-center bg-gray-200
-                dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-3 group cursor-pointer hover:bg-gray-300 relative btn_option_setting">
+                dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-3 group cursor-pointer hover:bg-gray-300 relative btn_option_setting" >
                     <i class='bx bxs-chevron-down transform '></i>
-                    <div class="absolute w-96 p-2 hidden bg-white shadow-2xl group-hover:block rounded-lg top-12 -right-2 box_setting">
+                    <div class="absolute w-96 p-2 hidden bg-white shadow-2xl rounded-lg top-12 -right-2 box_setting" tabindex="0">
                         <div class="my-2 mb-2">
                             <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
                             dark:bg-dark-third rounded-lg transition-all">
                                 <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
                                 <div class="flex-1">
                                     <div class="text-left">
-                                        <span class="font-semibold text-xl dark:text-dark-txt">Hải Ba Đông</span>
+                                        <span class="font-semibold text-xl dark:text-dark-txt">{{ Auth::user()->name }}</span>
                                     </div>
                                     <div class="flex space-x-2 ">
                                         <span class="text-gray-500 text-sm">See your profile</span>
