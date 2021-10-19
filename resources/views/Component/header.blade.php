@@ -33,7 +33,7 @@
         <!-- MAIN NAV -->
         <ul class="flex w-full lg:w-max items-center justify-center text-gray-600">
             <li class="w-1/5 md:w-max text-center">
-                <a href="" class="w-full text-3xl py-2 px-3 xl:px-12 cursor-pointer 
+                <a href="{{URL::TO('/main')}}" class="w-full text-3xl py-2 px-3 xl:px-12 cursor-pointer 
                 text-center inline-block text-blue-500 border-b-4 border-blue-500 ">
                     <i class='bx bxs-home'></i>
                 </a>
@@ -82,7 +82,7 @@
         <!-- RIGHT NAV -->
         <ul class="hidden md:flex mx-4 items-center justify-center ">
             <li class="h-full hidden xl:flex">
-                <a href="" class="inline-flex items-center justify-center p-1 rounded-full
+                <a href="{{URL::TO('/profile/'. Auth::user()->id)}}" class="inline-flex items-center justify-center p-1 rounded-full
                 hover:bg-gray-200 dark:hover:bg-dark-third mx-1">
                     <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="Profile picture" class="rounded-full h-7 w-7">
                     <!-- <span class="mx-2 font-semibold dark:text-dark-txt"> Vấn Nguyễn</span> -->
@@ -439,7 +439,7 @@
                     <i class='bx bxs-chevron-down transform '></i>
                     <div class="absolute w-96 p-2 hidden bg-white shadow-2xl rounded-lg top-12 -right-2 box_setting" tabindex="0">
                         <div class="my-2 mb-2">
-                            <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                            <a href="{{URL::TO('/profile/')}}" class="flex items-center space-x-4 p-2 hover:bg-gray-200
                             dark:bg-dark-third rounded-lg transition-all">
                                 <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
                                 <div class="flex-1">

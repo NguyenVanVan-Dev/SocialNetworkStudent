@@ -12,6 +12,9 @@ module.exports = {
         'dark-third':'#3a3b3c',
         'dark-txt':'#B8BBBF',
       },
+      margin: {
+        '63vh': '63vh',
+      },
       screens: {
         'sm': '640px',
         // => @media (min-width: 640px) { ... }
@@ -30,8 +33,12 @@ module.exports = {
       },
       height: {
         'almostfull': '90vh',
+        '70vh': '70vh',
         '80%': '80%',
 
+      },
+      width: {
+        '942': '942px'
       }
     }
   },

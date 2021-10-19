@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,8 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/main', function () {
-    return view('PagesUser.home');
-});
+Route::get('/main',[\App\Http\Controllers\HomeController::class, 'index']) ;
+Route::get('/profile/{user_id}',[\App\Http\Controllers\HomeController::class, 'profile'])->name('profile') ;
 Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
