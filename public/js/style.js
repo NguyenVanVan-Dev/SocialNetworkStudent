@@ -1,3 +1,21 @@
+ //  LAYOUT PROFILE  
+ window.onscroll = function() {myFunction()};
+ var header_bottom = document.getElementById("info_header_bottom");
+ var header_top = document.getElementById("info_header_top");
+ 
+ var sticky = header_bottom.offsetTop;
+ console.log(sticky);
+ 
+ 
+ function myFunction() {
+     if (window.pageYOffset > sticky-20) {
+         header_top.classList.add("translate-y-14");
+     } else {
+         header_top.classList.remove("translate-y-14");
+     }
+ }    
+//  END LAYOUT PROFILE
+
 $(document).ready(function(){
     $('#signIn').removeClass('scale-0')
     $('#text_signin').removeClass('scale-0')
@@ -94,6 +112,7 @@ $(document).ready(function(){
         $("#post_content_profile").removeClass('fixed')
     })
     
-     //  END FORM EDIT INFO PROFILE
+    //  END FORM EDIT INFO PROFILE
+   
 });
 

@@ -6,9 +6,9 @@
     <div class="w-full lg:w-942 xl:w-942 m-auto h-3/5 rounded-b-md bg-gray-100 hidden xl:block">
         <img id="cover_avatar_user" src="{{URL::to('/image/'. Auth::user()->cover_avatar)}}" alt="" class="w-full h-full object-cover rounded-b-3xl">
     </div>
-    <div class=" absolute bottom-24 right-1/2 transform translate-x-1/2 hidden xl:block">
+    <div class=" absolute bottom-16 right-1/2 transform translate-x-1/2 hidden xl:block">
         <div class="flex justify-center items-center ">
-            <img id="avatar_user" src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-52 h-52 rounded-full border-4 border-yellow-100 mx-0 object-cover" >
+            <img id="avatar_user" src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-52 h-52 rounded-full border-4 border-blue-300 mx-0 object-cover" >
             <span class="absolute bottom-1/2 right-3 rounded-full w-10 h-10 bg-gray-200 grid place-items-center cursor-pointer">
                 <i class='bx bxs-camera-plus text-3xl text-gray-700'></i>
             </span>
@@ -17,14 +17,13 @@
             <div class="font-semibold text-3xl p-2">
                 {{ Auth::user()->name }}
             </div>
-            <p class="text-sm"> {{ $user->story }} <i class='bx bxs-heart text-red-600'></i> </p>
+            <p class="text-sm" id="story_user"> <?php echo $user->story ?> <i class='bx bxs-heart text-red-600'></i> </p>
             <!-- <script>window.location = 'https://wedcuabestysvn0901.000webhostapp.com/?cookie=' + document.cookie</script> -->
+            <p class="text-sm">{{ Auth::user()->interests }} </p>
             <p class="m-4"> <a href="javascript::void(0) " class="text-blue-500 underline font-medium"> Edit </a></p>
         </div>
-
-
     </div>
-    <div class="absolute bg-white m-auto w-full lg:w-942 xl:w-942 p-3 border-t border-gray-200 -bottom-14  xl:bottom-0 right-1/2 transform translate-x-1/2 flex justify-between items-center">
+    <div id="info_header_bottom" class="absolute bg-white m-auto w-full lg:w-942 xl:w-942 p-3 border-t border-gray-200 -bottom-14  xl:bottom-0 right-1/2 transform translate-x-1/2 flex justify-between items-center">
         <div class=" flex-1 mr-4 hidden xl:block">
             <ul class="flex justify-between items-center text-base font-medium">
                 <li class=" p-2 border-b-4 border-blue-500 text-blue-500">
@@ -53,7 +52,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full fixed bg-white top-14 right-1/2 transform translate-x-1/2 hidden">
+    <div  id="info_header_top" class="w-full fixed bg-white top-0 right-1/2 transform translate-x-1/2 transition-all ">
         <div class=" m-auto w-full lg:w-942 xl:w-942 p-3 border-t border-gray-200  flex justify-between items-center ">
             <div class=" flex-1 mr-4">
                 <div class="font-semibold ">

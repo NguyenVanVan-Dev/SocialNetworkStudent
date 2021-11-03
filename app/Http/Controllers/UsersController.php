@@ -29,6 +29,14 @@ class UsersController extends Controller
             $get_cover_avatar->move(\public_path('image'),$new_avatar_cover);
             $data['cover_avatar'] = $new_avatar_cover;
         }
+        if($request->story)
+        {
+            $data['story'] = $request->story;
+        }
+        if($request->interests)
+        {
+            $data['interests'] = $request->interests;
+        }
         $check_update = DB::table('users')->where('id',$request->id)->update($data);
         if ($check_update) {
             return response()->json([
@@ -36,6 +44,8 @@ class UsersController extends Controller
                 'title' => 'Edit Profile Notification',
                 'cover_avatar' => !empty($data['cover_avatar']) ? 'true' : 'false',
                 'avatar' => !empty($data['avatar']) ? 'true' : 'false',
+                'story' => !empty($data['story']) ? $data['story'] : '',
+                'interests' => !empty( $data['interests']) ?  $data['interests'] : '',
             ]);
         }
         else{

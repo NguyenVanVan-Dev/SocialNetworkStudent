@@ -86,7 +86,7 @@
                 <a href="{{URL::TO('/profile/'. Auth::user()->id)}}" class="inline-flex items-center justify-center p-1 rounded-full
                 hover:bg-gray-200 dark:hover:bg-dark-third mx-1">
                     <img id="nav_avatar" src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="Profile picture" class="rounded-full h-7 w-7">
-                    <span class="mx-2 font-semibold dark:text-dark-txt">{{ Auth::user()->name }}</span>
+                    <span class="mx-2 font-semibold dark:text-dark-txt truncate">{{ Auth::user()->name }}</span>
                 </a>
             </li>
             <li>

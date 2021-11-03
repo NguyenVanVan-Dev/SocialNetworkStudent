@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="{{ asset('image/logo_md.png') }}" type="image/x-icon">
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-    <!-- <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'> -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <style>
         /* width */
         ::-webkit-scrollbar {
@@ -80,51 +80,49 @@
                 </span>
             </div>
             <div class="flex justify-center items-center">
-                <img id="review_avatar" src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-52 h-52 rounded-full border-4 object-cover border-yellow-100 mx-0">
+                <img id="review_avatar" src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-52 h-52 rounded-full border-8 object-cover border-yellow-400 mx-0">
             </div>
         </div>
         <div class=" p-4">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center mb-2">
                 <span class=" font-semibold text-2xl">The avatar cover </span>
                 <span id="edit_cover_avatar" class="text-xl rounded-md text-blue-500  px-2 py-1 hover:bg-gray-200 cursor-pointer">
                     Edit
                 </span>
             </div>
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center border-8 border-pink-400 rounded-lg">
                 <img id="review_cover_avatar" src="{{URL::to('/image/'. Auth::user()->cover_avatar)}}" alt="" class="rounded-md h-56 w-full object-cover  m-10">
             </div>
         </div>
         <div class=" p-4">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center mb-2">
                 <span class=" font-semibold text-2xl">Story </span>
                 <span class="text-xl rounded-md text-blue-500  px-2 py-1 hover:bg-gray-200 cursor-pointer">
                     Edit
                 </span>
             </div>
-            <div class="flex justify-center items-center">
-                <span class="p-6 text-xl "> iu bé Mỹ Linh </span>
+            <div class="">
+                <textarea  id="story" name="story"  class=" p-3 w-full text-xl outline-none border-8 border-pink-400 rounded-lg"  rows="3" placeholder=" What's on your story, {{Auth::user()->name}}?">
+                    {{Auth::user()->story}}
+                </textarea>
             </div>
         </div>
         <div class=" p-4">
             <div class="flex justify-between items-center">
                 <span class=" font-semibold text-2xl">Edit Introduce </span>
-                <span class="text-xl rounded-md text-blue-500  px-2 py-1 hover:bg-gray-200 cursor-pointer">
-                    Edit
-                </span>
             </div>
             <div class="flex justify-start items-center">
                 <span class="my-2 flex  items-center"><i class='bx bx-paper-plane mr-2 text-2xl text-gray-500'></i> 1000 following </span>
             </div>
         </div>
         <div class=" p-4">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center mb-2">
                 <span class=" font-semibold text-2xl">Interests </span>
-                <span class="text-xl rounded-md text-blue-500  px-2 py-1 hover:bg-gray-200 cursor-pointer">
-                    Edit
-                </span>
             </div>
-            <div class="flex justify-start items-center">
-                <span class="p-6 text-xl "> Chơi game , đá bóng </span>
+            <div >
+                <textarea id="interests" name="interests" class=" p-3 w-full text-xl outline-none border-8 border-blue-400 rounded-lg"  rows="3" placeholder=" what's your hobby, {{Auth::user()->name}} ">
+                {{Auth::user()->interests}}
+                </textarea>  
             </div>
         </div>
         <div class=" p-4">
@@ -147,11 +145,11 @@
     </div>
     <form action="" id="form_edit_profile" >
         @csrf
-        <input type="file" name="avatar" id="profile_avatar" style="display: none;">
+        <input type="file" name="avatar" id="profile_avatar" accept="image/*" style="display: none;">
         <input type="hidden" name="story" id="profile_story">
-        <input type="hidden" name="phone" id="profile_phone">
+        <input type="hidden" name="interests" id="profile_interests">
         <input type="hidden" name="id" id="profile_id" value="{{ Auth::user()->id }}">
-        <input type="file" name="cover_avatar" id="profile_cover_avatar" style="display: none;">
+        <input type="file" name="cover_avatar" accept="image/*" id="profile_cover_avatar" style="display: none;">
     </form>
     <!-- END EDIT PROFILE -->
     <script src="{{ asset('js/style.js') }}"></script>
@@ -195,6 +193,9 @@
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
             });
+            $('#profile_story').val($('#story').val());
+            $('#profile_interests').val($('#interests').val());
+            console.log($('#profile_story').val());
             $.ajax({
                 url : "{{ route('profile_update')}}",
                 type : 'POST',
@@ -210,6 +211,7 @@
                         $('#overlay_profile').addClass('hidden')
                         $("#post_content_profile").addClass('relative')
                         $("#post_content_profile").removeClass('fixed')
+                        $('#story_user').text(msg.story);
                         if(msg.avatar == 'true'){
                             const file =  $('#profile_avatar')[0].files[0];
                             if(file){
