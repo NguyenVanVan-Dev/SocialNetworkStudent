@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="{{ asset('image/logo_md.png') }}" type="image/x-icon">
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'> -->
     <style>
         /* width */
         ::-webkit-scrollbar {

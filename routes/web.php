@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::get('/main',[\App\Http\Controllers\HomeController::class, 'index']) ;
-Route::get('/profile/{user_id}',[\App\Http\Controllers\HomeController::class, 'profile'])->name('profile') ;
+Route::get('/profile/{user_id}',[HomeController::class, 'profile'])->name('profile') ;
+Route::post('/profile/update',[UsersController::class, 'update'])->name('profile_update') ;
+
 Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');

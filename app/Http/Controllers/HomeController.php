@@ -30,9 +30,12 @@ class HomeController extends Controller
         //             ->select('users.id','users.name')->where('users.id','!=',Auth::user()->id)
         //             ->;
         $friends = User::leftJoin('friends', 'users.id', '=', 'friends.id_userTo')
-                        ->select('users.id','users.name')->where('users.id','!=',Auth::user()->id)
+                        ->where('users.id','!=',Auth::user()->id)
                         ->get();
-        
+        // echo '<pre>';
+        // print_r($friends);
+       
+        // echo '</pre>';
         return view('PagesUser.home')->with('friends',$friends);
         // SELECT users.name
         // FROM users
@@ -42,10 +45,5 @@ class HomeController extends Controller
     {
         $user = User::find($user_id);
         return view('PagesUser.profile')->with('user',$user);
-        // echo '<pre>';
-        // print_r($user);
-        // echo $user->password;
-        // echo '</pre>';
-        // dd($user);
     }
 }
