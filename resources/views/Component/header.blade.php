@@ -14,7 +14,19 @@
                 <div class="relative bg-gray-100 dark:bg-dark-third px-2 py-2 w-10 h-10 sm:-w-11
                 sm:h-11 lg:h-10 lg:w-10 xl:w-max  xl:pl-3 xl:pr-8 rounded-full flex items-center justify-center cursor-pointer">
                     <i class='bx bx-search text-xl xl:mr-2 dark:text-dark-txt'></i>
-                    <input type="text" class="outline-none hidden xl:inline-block bg-transparent " placeholder="Search ">
+                    <input type="text" class="outline-none hidden xl:inline-block bg-transparent " placeholder="Search " id="search">
+                    <div class="absolute right-0 left-0 top-11 bg-gray-100 rounded-md shadow-md max-h-96 overflow-hidden">
+                        <ul class="flex flex-col w-full items-center justify-center text-gray-600">
+                            <li class=" hidden w-full text-center p-1 border-b-2 border-gray-200 dark:hover:bg-dark-third items-center dark:text-dark-txt">
+                                <a href="#" class="flex items-center space-x-2 p-2 rounded-md hover:bg-white">
+                                    <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-10 h-10 rounded-full">
+                                    <span class="font-semibold block">{{ Auth::user()->name }}</span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+
                 </div>
                 <div class="text-2xl grid place-items-center  md:hidden bg-gray-200
                 dark:bg-dark-third rounded-full w-10 h-10 cursor-pointer hover:bg-gray-300
@@ -573,3 +585,8 @@
         <!-- END RIGHT NAV -->
     </nav>
     <!-- End Nav -->
+    <!-- SEARCH  -->
+    <script>
+       
+    </script>
+    <!-- SEARCH  -->

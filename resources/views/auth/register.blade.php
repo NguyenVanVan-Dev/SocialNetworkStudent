@@ -61,6 +61,7 @@
                             </svg>
                         </span>
                         <input class="shadow bg-gray-200 appearance-none border rounded-lg w-full py-4 px-10 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline" name="password_confirmation" required autocomplete="new-password" id="password" type="password" placeholder="Confirm Password">
+                        <input class="shadow bg-gray-200 appearance-none border rounded-lg w-full py-4 px-10 text-gray-700 leading-tight focus:outline-none focus:border-blue-500 focus:shadow-outline" name="id" required  type="hidden" placeholder="Confirm Password" value="<?php echo 1000000000000000 + rand(1000000,9999999);?>">
                         <!-- <p class="text-red-500 text-xs italic">Please choose a password.</p> -->
                     </div>
                     <button type="submit" class=" w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-3 rounded-lg focus:outline-none focus:shadow-outline" type="button">
