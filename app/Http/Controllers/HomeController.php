@@ -25,18 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        // $friends = DB::table('users')
-        //             ->leftJoin('friends', 'users.id', '=', 'friends.id_userTo')
-        //             ->select('users.id','users.name')->where('users.id','!=',Auth::user()->id)
-        //             ->;
         $friends = User::leftJoin('friends', 'users.id', '=', 'friends.id_userTo')
                         ->where('users.id','!=',Auth::user()->id)
                         ->get();
+        return view('PagesUser.home')->with('friends',$friends);
         // echo '<pre>';
         // print_r($friends);
-       
         // echo '</pre>';
-        return view('PagesUser.home')->with('friends',$friends);
         // SELECT users.name
         // FROM users
         // INNER JOIN friends ON friends.id_userTo=users.id WHERE users.id != 1;
@@ -45,5 +40,38 @@ class HomeController extends Controller
     {
         $user = User::find($user_id);
         return view('PagesUser.profile')->with('user',$user);
+    }
+    public function viewuser($id)
+    {
+        $user = User::find($id);
+        return view('PagesUser.viewuser')->with('user',$user);
+    }
+    public function search(Request $request){
+        $text_search = $request->querytext;
+        $hostname = $_SERVER['HTTP_HOST'];
+        $output = '<ul class="flex flex-col w-full items-center justify-center text-gray-600" >';
+        // $reuslt_search =  User::where('product_name','like','%'.$text_search.'%')->orWhere('product_price','like',$text_search)->get();
+        $reuslt_search =  User::where('name','like','%'.$text_search.'%')->where('id','!=',Auth::user()->id)->limit(10)->get();
+        if($reuslt_search->count() > 0){
+
+            foreach ($reuslt_search as $key => $value) {
+                $output .= '<li class=" w-full text-center p-1 border-b-2 border-gray-200 dark:hover:bg-dark-third items-center dark:text-dark-txt">
+                                <a href="/viewuser/'.$value->id.'" class="flex items-center space-x-2 p-2 rounded-md hover:bg-white">
+                                    <img src="/image/'.$value->avatar.'" alt="" class="w-10 h-10 rounded-full">
+                                    <span class="font-semibold block">'.$value->name.'</span>
+                                </a>
+                            </li>';
+            }
+        }else{
+            $output .= '<li class=" w-full text-center p-1 border-b-2 border-gray-200 dark:hover:bg-dark-third items-center dark:text-dark-txt">
+                            <a href="#" class="flex items-center space-x-2 p-2 rounded-md hover:bg-white">
+                                <span class="font-semibold block">No Reulst Found </span>
+                            </a>
+                        </li>';
+        };
+        $output .= '</ul>';
+        return response()->json([
+            'data' =>$output,
+        ]);
     }
 }

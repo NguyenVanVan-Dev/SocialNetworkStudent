@@ -945,7 +945,7 @@
                         <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
                         dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
                             <div class="relative">
-                                <img src=" {{URL::to('/uploads/'.$listfriend->avatar)}}" class="rounded-full w-10 h-10" alt="">
+                                <img src=" {{URL::to('/image/'.$listfriend->avatar)}}" class="rounded-full w-10 h-10" alt="">
                                 <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
                             </div>
                             <div>
@@ -1021,5 +1021,6 @@
 <!--  END MAIN CONTENT -->
 <script >
     $('#home').removeClass('rounded-xl')
+    $('#home').addClass('border-b-4')
 </script>
 @endsection

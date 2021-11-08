@@ -21,7 +21,9 @@ Route::get('/', function () {
 });
 Route::get('/main',[\App\Http\Controllers\HomeController::class, 'index']) ;
 Route::get('/profile/{user_id}',[HomeController::class, 'profile'])->name('profile') ;
-Route::post('/profile/update',[UsersController::class, 'update'])->name('profile_update') ;
+Route::post('/profile/update',[UsersController::class, 'update'])->name('profile_update');
+Route::get('/search',[HomeController::class, 'search'])->name('search_user');
+Route::get('/viewuser/{user_id}',[HomeController::class, 'viewuser'])->name('viewuser') ;
 
 Auth::routes();
 

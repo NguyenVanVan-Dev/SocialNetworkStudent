@@ -14,9 +14,12 @@
                 <div class="relative bg-gray-100 dark:bg-dark-third px-2 py-2 w-10 h-10 sm:-w-11
                 sm:h-11 lg:h-10 lg:w-10 xl:w-max  xl:pl-3 xl:pr-8 rounded-full flex items-center justify-center cursor-pointer">
                     <i class='bx bx-search text-xl xl:mr-2 dark:text-dark-txt'></i>
-                    <input type="text" class="outline-none hidden xl:inline-block bg-transparent " placeholder="Search " id="search">
-                    <div class="absolute right-0 left-0 top-11 bg-gray-100 rounded-md shadow-md max-h-96 overflow-hidden">
-                        <ul class="flex flex-col w-full items-center justify-center text-gray-600">
+                    <form  method="post" id="form_search_user" >
+                        @csrf
+                        <input type="text" class="outline-none hidden xl:inline-block bg-transparent " placeholder="Search " name="search_user" id="search" autocomplete="off">
+                    </form>
+                    <div class="absolute right-0 left-0 top-11 bg-gray-100 rounded-md shadow-md max-h-96 overflow-hidden" id="list_user_search">
+                        <ul class="flex flex-col w-full items-center justify-center text-gray-600" >
                             <li class=" hidden w-full text-center p-1 border-b-2 border-gray-200 dark:hover:bg-dark-third items-center dark:text-dark-txt">
                                 <a href="#" class="flex items-center space-x-2 p-2 rounded-md hover:bg-white">
                                     <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-10 h-10 rounded-full">
@@ -46,8 +49,8 @@
         <ul class="flex w-full lg:w-max items-center justify-center text-gray-600">
             <li class="w-1/5 md:w-max text-center" >
                 <a href="{{URL::TO('/main')}}" class="w-full text-3xl py-2 px-3 xl:px-12 cursor-pointer 
-                text-center inline-block border-b-4 hover:bg-gray-100 dark:hover:bg-dark-third
-                dark:text-dark-txt text-blue-500  border-blue-500  rounded-xl " id="home">
+                text-center inline-block hover:bg-gray-100 dark:hover:bg-dark-third
+                dark:text-dark-txt text-blue-500  border-blue-500 rounded-xl " id="home">
                     <i class='bx bx-home'></i>
                 </a>
             </li>
@@ -587,6 +590,31 @@
     <!-- End Nav -->
     <!-- SEARCH  -->
     <script>
-       
+    // SEARCH ANYTHING
+        $("#search").keyup(function(){     
+            var textSearch = $(this).val();
+            // console.log(textSearch);
+            if(textSearch != '')
+            {
+                $.ajax({
+                    url : "{{ route('search_user')}}",
+                    type : 'GET',
+                    data : {
+                        querytext: textSearch
+                    },
+                    success : function(data) {
+                        console.log(data.data)
+                        // let resulst = data.
+                        // data.replace(`\r`, '');
+                        // data.replace(`\n`, '');
+                        $('#list_user_search').html(data.data);
+                    }
+                })
+            }else
+            {
+                $('#list_user_search').html(' ');
+            }
+        });
+    // END SEARCH ANYTHING 
     </script>
     <!-- SEARCH  -->

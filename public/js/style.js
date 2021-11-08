@@ -46,12 +46,7 @@ $(document).ready(function(){
             $(".box_setting").addClass('hidden')
         }, 200);
     })
-    // SEARCH ANYTHING
-    $("#search").keyup(function(){
-            
-        alert('sadsad')
-    });
-    // END SEARCH ANYTHING 
+   
 //   Tạo phòng họp mặt 
     var width_listfriend = $('#friend_group').width();   
     var startWidth = 0;
