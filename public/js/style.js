@@ -96,7 +96,6 @@ $(document).ready(function(){
         $("#post_content_profile").addClass('relative')
         $("#post_content_profile").removeClass('fixed')
     })
-    
     //  END FORM EDIT INFO PROFILE
     //  LAYOUT PROFILE  
     window.onscroll = function() {myFunction()};

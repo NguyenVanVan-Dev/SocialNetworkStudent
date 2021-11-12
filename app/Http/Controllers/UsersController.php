@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Friend;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -55,5 +57,64 @@ class UsersController extends Controller
             ]);
         }
         
+    }
+    public function handleFriend(Request $request)
+    {
+        
+        $from_id = Auth::user()->id;
+        $action = $request->action;
+        $data = array();
+        if($action == 'send_request')
+        {
+            $to_id = $request->toID;
+            $data['id_userFrom'] = $from_id;
+            $data['id_userTo'] = $to_id;
+            $data['status'] = 'Pending';
+            $data['accepted'] = 'No';
+            Friend::insert($data);
+        }
+        elseif($action == 'count_notifi_send_friends')
+        {
+           $result_notifi =  Friend::where('id_userTo',Auth::user()->id)->where('status' ,'Pending')->where('accepted','No')->count();
+           return response()->json([
+            'data' => $result_notifi,
+            ]);
+        }
+        elseif($action == 'accepte_request')
+        {
+            $to_id = $request->toID;
+            $data['status'] = 'Accepted';
+            $result_request =  Friend::where('id_userFrom',$from_id)->where('id_userTo',$to_id)->orWhere('id_userFrom',$to_id)->where('id_userTo',$from_id)->update($data);
+            if($result_request)
+            {
+                return response()->json([
+                    'accepte' => 'true',
+                ]);
+            }
+        }
+       
+    }
+    //myself friend
+    public static function statusFriend($fromID,$toID)
+    {
+        $output = '';
+        $result_status = Friend::where('id_userFrom',$fromID)->where('id_userTo',$toID)->get();
+        $check_request_forfriends = Friend::where('id_userFrom',$toID)->where('id_userTo',$fromID)->where('status','!=','Accepted')->get();
+        $check_accepte_friends = Friend::where('id_userFrom',$toID)->where('id_userTo',$fromID)->orWhere('id_userTo',$toID)->where('id_userFrom',$fromID)->where('status','Accepted')->get();
+        foreach($result_status as $key =>$value)
+        {
+            $output = $value->status;
+        }        
+        
+        if($check_accepte_friends->count() == 1)
+        {
+            $output = 'Accepted';
+        }
+        if( $check_request_forfriends->count() == 1)
+        {
+            $output = 'RequestFriend';
+        }
+
+        return  $output;
     }
 }

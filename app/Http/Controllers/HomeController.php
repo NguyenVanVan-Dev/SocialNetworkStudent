@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 class HomeController extends Controller
 {
@@ -73,5 +74,18 @@ class HomeController extends Controller
         return response()->json([
             'data' =>$output,
         ]);
+    }
+    public function search_user(Request $request)
+    {
+        $text_search = $request->search_user;
+        $reuslt_user =  User::where('name','like','%'.$text_search.'%')->where('id','!=',Auth::user()->id)->get();
+        if(count($reuslt_user) == 0){
+            Session::put('message',$text_search);
+        }else
+        {
+            Session::forget('message');
+        }
+        return view('PagesUser.search-user')->with('users',$reuslt_user);
+        // dd(count($reuslt_user));
     }
 }

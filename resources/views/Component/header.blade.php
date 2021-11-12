@@ -14,7 +14,7 @@
                 <div class="relative bg-gray-100 dark:bg-dark-third px-2 py-2 w-10 h-10 sm:-w-11
                 sm:h-11 lg:h-10 lg:w-10 xl:w-max  xl:pl-3 xl:pr-8 rounded-full flex items-center justify-center cursor-pointer">
                     <i class='bx bx-search text-xl xl:mr-2 dark:text-dark-txt'></i>
-                    <form  method="post" id="form_search_user" >
+                    <form action="{{ route('search_user')}}" method="POST" id="form_search_user" >
                         @csrf
                         <input type="text" class="outline-none hidden xl:inline-block bg-transparent " placeholder="Search " name="search_user" id="search" autocomplete="off">
                     </form>
@@ -22,7 +22,7 @@
                         <ul class="flex flex-col w-full items-center justify-center text-gray-600" >
                             <li class=" hidden w-full text-center p-1 border-b-2 border-gray-200 dark:hover:bg-dark-third items-center dark:text-dark-txt">
                                 <a href="#" class="flex items-center space-x-2 p-2 rounded-md hover:bg-white">
-                                    <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-10 h-10 rounded-full">
+                                    <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-10 h-10 rounded-full object-cover">
                                     <span class="font-semibold block">{{ Auth::user()->name }}</span>
                                 </a>
                             </li>
@@ -75,6 +75,10 @@
                 text-center inline-block hover:bg-gray-100 dark:hover:bg-dark-third rounded-xl
                 dark:text-dark-txt relative">
                     <i class='bx bx-group'></i>
+                    <div class="text-xs absolute top-0 right-1/4 bg-red-500 text-white
+                    font-semibold rounded-full px-1 text-center " id="notifi_send_friend">
+                    
+                    </div>
                 </a>
             </li>
             <li class="w-1/5 md:w-max text-center hidden md:inline-block">
@@ -100,7 +104,7 @@
             <li class="h-full hidden xl:flex">
                 <a href="{{URL::TO('/profile/'. Auth::user()->id)}}" class="inline-flex items-center justify-center p-1 rounded-full
                 hover:bg-gray-200 dark:hover:bg-dark-third mx-1">
-                    <img id="nav_avatar" src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="Profile picture" class="rounded-full h-7 w-7">
+                    <img id="nav_avatar" src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="Profile picture" class="rounded-full h-7 w-7 object-cover">
                     <span class="mx-2 font-semibold dark:text-dark-txt truncate">{{ Auth::user()->name }}</span>
                 </a>
             </li>
@@ -597,7 +601,7 @@
             if(textSearch != '')
             {
                 $.ajax({
-                    url : "{{ route('search_user')}}",
+                    url : "{{ route('search')}}",
                     type : 'GET',
                     data : {
                         querytext: textSearch
@@ -615,6 +619,36 @@
                 $('#list_user_search').html(' ');
             }
         });
-    // END SEARCH ANYTHING 
+    // END SEARCH ANYTHING
+    // REQUEST FOR FRIENDS 
+    function countNotifiSendFriends()
+    {
+        let action = 'count_notifi_send_friends';
+    
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('handleFriend')}}",
+            method:"POST",
+            data : {
+                action:action
+            },
+            success:function(data)
+            {
+                console.log(data.data);
+                if(data.data > 0)
+                {
+                    $('#notifi_send_friend').html('<span>+'+data.data+'</span>')
+                }
+            },
+        })
+    }
+    setInterval(() => {
+        countNotifiSendFriends();
+    }, 2000);
+    // END REQUEST FOR FRIENDS 
     </script>
     <!-- SEARCH  -->

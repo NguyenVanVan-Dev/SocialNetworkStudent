@@ -9,7 +9,7 @@
             <li>
                 <a href="{{URL::TO('/profile/'. Auth::user()->id)}}" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
-                    <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-10 h-10 rounded-full">
+                    <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="w-10 h-10 rounded-full object-cover">
                     <span class="font-semibold block">{{ Auth::user()->name }}</span>
                 </a>
             </li>
@@ -140,7 +140,7 @@
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third " id="hidden_more_menu">
                     <span class="w-10 h-10 rounded-full grid place-items-center bg-gray-300
                         dark:bg-dark-second">
-                        <i class='bx bx-chevron-down'></i>
+                        <i class='bx bx-chevron-up'></i>
                     </span>
                     <span class="font-semibold block"> Hidden Away</span></span>
                 </a>
@@ -206,7 +206,7 @@
         <div class="relative flex space-x-2 pt-4">
             <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden flex flex-col group cursor-pointer">
                 <div class="h-4/6 overflow-hidden">
-                    <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+                    <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" class="group-hover:transform object-cover group-hover:scale-110 transition-all duration-700" alt="">
                 </div>
                 <div class="flex-1 relative flex items-center justify-center pb-2 text-center
                 leading-none dark:bg-dark-second dark:text-dark-txt">
@@ -277,7 +277,7 @@
         <!-- POST FORM -->
         <div class="px-4 mt-4 shadow-md rounded-lg bg-white dark:bg-dark-second">
             <div class="p-2 border-b border-gray-300 dark:border-dark-third flex space-x-4">
-                <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="rounded-full w-10 h-10 ">
+                <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="rounded-full w-10 h-10 object-cover">
                 <div id="input_post" class="flex-1 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-start pl-4 cursor-pointer dark:bg-dark-third dark:text-dark-txt text-gray-500 text-lg">
                     <span class="">
                         What's on your mind, {{Auth::user()->name}}?
@@ -945,7 +945,7 @@
                         <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
                         dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
                             <div class="relative">
-                                <img src=" {{URL::to('/image/'.$listfriend->avatar)}}" class="rounded-full w-10 h-10" alt="">
+                                <img src=" {{URL::to('/image/'.$listfriend->avatar)}}" class="rounded-full w-10 h-10 object-cover" alt="">
                                 <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
                             </div>
                             <div>
