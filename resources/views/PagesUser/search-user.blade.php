@@ -284,19 +284,19 @@
            
             @if(!empty($users))  
                 @foreach ($users as $key => $search_user)
-                    <li class="m-4">
+                    <li class="m-4" id="item-{{$search_user->id}}">
                         <div class="flex justify-between items-center space-x-4 p-4 bg-white 
                          dark:text-dark-txt rounded-lg">
                             <div class="flex flex-1">
                                 <img src=" {{URL::to('/image/'.$search_user->avatar)}}" class="rounded-full w-14 h-14 object-cover" alt="">
                                 <div class="ml-4">
                                     <span class="font-semibold block text-lg"> 
-                                        <a href="{{URL::TO('/viewuser/'.$search_user->id)}}" class="hover:underline text-black">{{ $search_user->name }}</a>
+                                        <a href="{{URL::TO('/viewuser/'.$search_user->id)}}" class="hover:underline text-black name_friend">{{ $search_user->name }}</a>
                                     </span>
                                     <span class="text-sm block"> Trường Đại học CNTT và Truyền thông Việt Hàn - VKU</span>
                                 </div>
                             </div>
-                            <div class="flex items-center"> 
+                            <div class="flex items-center" id="action_friends"> 
                                 <div class="text-2xl grid place-items-center  bg-gray-200 hover:text-purple-500
                                 dark:bg-dark-third rounded-full w-10 h-10 cursor-pointer hover:bg-gray-100
                                 dark:text-dark-txt">
@@ -321,11 +321,11 @@
                                     </span>
                                 </div>
                                 @else
-                                    <div class=" grid place-items-center btn-addfriend" data-id="{{ $search_user->id }}" id="btn-addfriend-{{ $search_user->id }}">
-                                        <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2  cursor-pointer dark:text-dark-txt bg-gray-100">
-                                            <i class="bx bxs-user-check text-2xl mr-2"></i>Add Frined
-                                        </span>
-                                    </div>
+                                <div class=" grid place-items-center btn-addfriend" data-id="{{ $search_user->id }}" id="btn-addfriend-{{ $search_user->id }}">
+                                    <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2  cursor-pointer dark:text-dark-txt bg-gray-100">
+                                        <i class="bx bxs-user-check text-2xl mr-2"></i>Add Frined
+                                    </span>
+                                </div>
                                 @endif
 
                             </div>
@@ -375,6 +375,7 @@
     });
     $('.btn-acceptefriend').click(function(){
         let toID = $(this).data('id');
+        console.log(toID);
         let action = 'accepte_request';
         if(toID >0){
                 $.ajaxSetup({
@@ -392,7 +393,14 @@
                 
                 success:function(data)
                 {
-                    alert(data.accepte)
+                    if(data.accepte == 'true')
+                    {
+                        Notiflix.Report.Success('Accepted Notification',' Now you and "'+ $('#item-'+toID+' .name_friend').text()+'" are friends','Exit');
+                        $('#btn-acceptefriend-'+toID).addClass('hidden');
+                        let btn_friend = '<div class=" grid place-items-center btn-unfriend " data-id="'+ toID +'" id="btn-unfriend-'+ toID+'" ><span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100"><i class="bx bxs-user text-2xl mr-2"></i>Friend</span></div>'
+                        $('#item-'+toID+' #action_friends').append(btn_friend);
+                    }
+                    // alert(data.accepte)
                 },
             })
         }

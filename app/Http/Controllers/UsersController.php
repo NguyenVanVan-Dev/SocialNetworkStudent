@@ -71,13 +71,20 @@ class UsersController extends Controller
             $data['id_userTo'] = $to_id;
             $data['status'] = 'Pending';
             $data['accepted'] = 'No';
+            // DB::table('friends')->insert($data);
             Friend::insert($data);
         }
         elseif($action == 'count_notifi_send_friends')
         {
            $result_notifi =  Friend::where('id_userTo',Auth::user()->id)->where('status' ,'Pending')->where('accepted','No')->count();
+           $result_friends =  Friend::where('id_userTo',Auth::user()->id)->where('status' ,'Pending')->where('accepted','No')->get();
+           foreach($result_friends as $key => $value)
+           {
+              $list_friends_request = User::where('id',$value->id_userFrom)->get();
+           }
            return response()->json([
-            'data' => $result_notifi,
+            'quantity_notifi' => $result_notifi,
+            'list_request' =>  $list_friends_request
             ]);
         }
         elseif($action == 'accepte_request')

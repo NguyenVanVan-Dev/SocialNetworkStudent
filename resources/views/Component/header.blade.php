@@ -14,7 +14,7 @@
                 <div class="relative bg-gray-100 dark:bg-dark-third px-2 py-2 w-10 h-10 sm:-w-11
                 sm:h-11 lg:h-10 lg:w-10 xl:w-max  xl:pl-3 xl:pr-8 rounded-full flex items-center justify-center cursor-pointer">
                     <i class='bx bx-search text-xl xl:mr-2 dark:text-dark-txt'></i>
-                    <form action="{{ route('search_user')}}" method="POST" id="form_search_user" >
+                    <form action="{{ route('search_user')}}" method="GET" id="form_search_user" >
                         @csrf
                         <input type="text" class="outline-none hidden xl:inline-block bg-transparent " placeholder="Search " name="search_user" id="search" autocomplete="off">
                     </form>
@@ -638,17 +638,70 @@
             },
             success:function(data)
             {
-                console.log(data.data);
-                if(data.data > 0)
-                {
-                    $('#notifi_send_friend').html('<span>+'+data.data+'</span>')
+                console.log(data.quantity_notifi);
+                console.log(data.list_request[0].name);
+                console.log(data.list_request);
+                let friendRequest = '<div class="my-2">\
+                        <div  class="flex items-center space-x-4 p-2 hover:bg-gray-200 dark:bg-dark-third rounded-lg transition-all">\
+                            <img src="image/'+data.list_request[0].avatar +'" class="w-16 h-16 rounded-full" alt="">\
+                            <div class="flex-1 h-full">\
+                                <div class="dark:text-dark-txt">\
+                                    <span class="font-semibold">'+data.list_request[0].name+'</span>\
+                                    <span class="float-right"> 6 Day</span>\
+                                </div>\
+                                <div class="flex space-x-2 mt-2">\
+                                    <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center\
+                                font-semibold text-white rounded-lg btn-acceptefriend" data-id="'+data.list_request[0].id+'" id="btn-acceptefriend-'+data.list_request[0].id+'">\
+                                        Confirm\
+                                    </div>\
+                                    <div class="w-1/2 bg-gray-300 cursor-pointer py-1 text-center\
+                                font-semibold text-black rounded-lg">\
+                                        Delete\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>'
+                if(data.quantity_notifi > 0)
+                {   $('#list-request-friend').html(friendRequest);
+                    $('#notifi_send_friend').html('<span>+'+data.quantity_notifi+'</span>');
                 }
             },
         })
     }
     setInterval(() => {
         countNotifiSendFriends();
-    }, 2000);
+    }, 5000);
+    $('body').on('click','.btn-acceptefriend',function(){
+        let toID = $(this).data('id');
+        console.log(toID);
+        let action = 'accepte_request';
+        if(toID >0){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                url: "{{ route('handleFriend')}}",
+                method:"POST",
+                data : {
+                            toID: toID,
+                            action:action
+                        },
+                
+                success:function(data)
+                {
+                    if(data.accepte == 'true')
+                    {
+                        Notiflix.Report.Success('Accepted Notification',' Now you and "'+ $('#item-'+toID+' .name_friend').text() +'" are friends','Exit');
+                        $('#list-request-friend').html(' ');
+                    }
+                    // alert(data.accepte)
+                },
+            })
+        }
+    })
     // END REQUEST FOR FRIENDS 
     </script>
     <!-- SEARCH  -->

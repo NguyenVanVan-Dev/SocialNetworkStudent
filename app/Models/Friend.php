@@ -9,6 +9,12 @@ class Friend extends Model
 {
     use HasFactory;
     
-    public $timestamps = true;
+    public $timestamps = TRUE;
+    protected $fillable = [
+        'id_userFrom',
+        'id_userTo',
+        'status',
+        'accepted',
+    ];
 
 }

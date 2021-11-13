@@ -876,49 +876,28 @@
                         </div>
                     </button>
                 </div>
-                <div class="my-2">
-                    <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
-                dark:bg-dark-third rounded-lg transition-all">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
-                        <div class="flex-1 h-full">
-                            <div class="dark:text-dark-txt">
-                                <span class="font-semibold">Hải Ba Đông</span>
-                                <span class="float-right"> 6 Day</span>
-                            </div>
-                            <div class="flex space-x-2 mt-2">
-                                <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center
-                            font-semibold text-white rounded-lg">
-                                    Confirm
+                <div class="list-request-friend" id="list-request-friend">
+                    <!-- <div class="my-2">
+                        <div  class="flex items-center space-x-4 p-2 hover:bg-gray-200 dark:bg-dark-third rounded-lg transition-all">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
+                            <div class="flex-1 h-full">
+                                <div class="dark:text-dark-txt">
+                                    <span class="font-semibold">Hải Ba Đông</span>
+                                    <span class="float-right"> 6 Day</span>
                                 </div>
-                                <div class="w-1/2 bg-gray-300 cursor-pointer py-1 text-center
-                            font-semibold text-black rounded-lg">
-                                    Delete
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="my-2">
-                    <a href="#" class="flex items-center space-x-4 p-2 hover:bg-gray-200
-                dark:bg-dark-third rounded-lg transition-all">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="w-16 h-16 rounded-full" alt="">
-                        <div class="flex-1 h-full">
-                            <div class="dark:text-dark-txt">
-                                <span class="font-semibold">Tiêu Viêm</span>
-                                <span class="float-right"> 6Day</span>
-                            </div>
-                            <div class="flex space-x-2 mt-2">
-                                <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center
-                            font-semibold text-white rounded-lg">
-                                    Confirm
-                                </div>
-                                <div class="w-1/2 bg-gray-300 cursor-pointer py-1 text-center
-                            font-semibold text-black rounded-lg">
-                                    Delete
+                                <div class="flex space-x-2 mt-2">
+                                    <div class="w-1/2 bg-blue-500 cursor-pointer py-1 text-center
+                                font-semibold text-white rounded-lg">
+                                        Confirm
+                                    </div>
+                                    <div class="w-1/2 bg-gray-300 cursor-pointer py-1 text-center
+                                font-semibold text-black rounded-lg">
+                                        Delete
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div> -->
                 </div>
 
             </div>
@@ -939,8 +918,12 @@
                 </div>
             </div>
             <ul class="pt-2  ">
+            <?php
+                use App\http\Controllers\UsersController;
+            ?>
             @if(!empty($friends))  
                 @foreach ($friends as $key => $listfriend)
+                    @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) == 'Accepted')
                     <li>
                         <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
                         dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
@@ -953,7 +936,7 @@
                             </div>
                         </div>
                     </li>
-                
+                    @endif
                 @endforeach
             @endif
                

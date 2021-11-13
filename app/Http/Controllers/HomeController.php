@@ -26,16 +26,20 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        $friends = User::leftJoin('friends', 'users.id', '=', 'friends.id_userTo')
-                        ->where('users.id','!=',Auth::user()->id)
-                        ->get();
-        return view('PagesUser.home')->with('friends',$friends);
-        // echo '<pre>';
-        // print_r($friends);
-        // echo '</pre>';
-        // SELECT users.name
-        // FROM users
-        // INNER JOIN friends ON friends.id_userTo=users.id WHERE users.id != 1;
+        $friend = DB::table('users')->where('id','!=',Auth::user()->id)->get();
+                // ->join('friends',function($join)
+                // {
+                //     $join->on('friends.id_userFrom', 'users.id');
+                //     $join->orOn('friends.id_userTo','users.id');
+                // })
+                // ->where('users.id','!=',Auth::user()->id)
+                // ->where('friends.status','Accepted')
+                // ->where('friends.id_userFrom',Auth::user()->id)
+                // ->orWhere('friends.id_userTo',Auth::user()->id)
+                // ->orderby('friends.id','desc')->get();
+                // dd($friend);
+        return view('PagesUser.home')->with('friends',$friend);
+        //SELECT users.name ,friends.id_userFrom,friends.id_userTo FROM `users` INNER JOIN friends ON friends.id_userFrom = users.id OR friends.id_userTo = users.id  WHERE friends.id_userFrom = '2' OR friends.id_userTo = '2' AND users.id != '2' AND friends.status = 'Accepted';
     }
     public function profile($user_id)   
     {
