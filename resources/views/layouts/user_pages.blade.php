@@ -52,7 +52,7 @@
     </style>
 </head>
 
-<body id="app" class="bg-gray-100 dark:bg-dark-main relative overlay flex items-center justify-center ">
+<body id="app" class=" dark:bg-dark-main relative overlay flex items-center justify-center ">
     <!-- FORM POST MODAL -->
     <div id="overlay" class="absolute w-full h-full bg-gray-200 z-40 bg-opacity-70 hidden">
     </div>

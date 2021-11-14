@@ -26,6 +26,7 @@ Route::get('/search',[HomeController::class, 'search'])->name('search');
 Route::get('/viewuser/{user_id}',[HomeController::class, 'viewuser'])->name('viewuser');
 Route::get('/search-user',[HomeController::class, 'search_user'])->name('search_user');
 
+Route::get('/friends',[UsersController::class,'showFriends'])->name('show_friends');
 Route::post('/handle-friends',[UsersController::class, 'handleFriend'])->name('handleFriend');
 Route::post('/profile/update',[UsersController::class, 'update'])->name('profile_update');
 

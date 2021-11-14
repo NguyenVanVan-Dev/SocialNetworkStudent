@@ -74,6 +74,17 @@ class UsersController extends Controller
             // DB::table('friends')->insert($data);
             Friend::create($data);
         }
+        elseif($action == 'undo_request')
+        {
+            $to_id = $request->toID;
+            $result_request =  Friend::where('id_userFrom',$from_id)->where('id_userTo',$to_id)->orWhere('id_userFrom',$to_id)->where('id_userTo',$from_id)->where('status','Pending')->delete();
+            if($result_request)
+            {
+                return response()->json([
+                    'status' => 'true',
+                ]);
+            }
+        }
         elseif($action == 'count_notifi_send_friends')
         {
            $result_notifi =  Friend::where('id_userTo',Auth::user()->id)->where('status' ,'Pending')->where('accepted','No')->count();
@@ -133,5 +144,10 @@ class UsersController extends Controller
         }
 
         return  $output;
+    }
+    public function showFriends()
+    {
+        $friend = DB::table('users')->where('id','!=',Auth::user()->id)->get();
+        return view('PagesUser.show-friends')->with('friends',$friend);
     }
 }

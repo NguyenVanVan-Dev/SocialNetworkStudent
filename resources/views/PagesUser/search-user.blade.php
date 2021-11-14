@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                <a href="{{ route('show_friends') }}" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
                     <img src="{{ asset('image/friends.png') }}" alt="" class="w-10 h-10 rounded-full">
                     <span class="font-semibold block">Friends</span>
@@ -303,11 +303,16 @@
                                     <i class='bx bxl-messenger'></i>
                                 </div>
                                 @if(UsersController::statusFriend(Auth::user()->id,$search_user->id) == 'Pending')
-                                <div class=" grid place-items-center btn-addfriend pointer-events-none opacity-50 cursor-default" >
-                                    <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2  dark:text-dark-txt text-blue-500 bg-blue-100">
-                                        <i class="bx bxs-user-check text-2xl mr-2"></i>Request Send
+                                <div class=" grid place-items-center btn-unrequest" data-id="{{$search_user->id}}" id="btn-unrequest-{{$search_user->id}}" >
+                                    <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100">
+                                        <i class="bx bxs-user-check text-2xl mr-2"></i>Undo Request
                                     </span>
                                 </div>
+                                <div class=" grid place-items-center btn-addfriend hidden" data-id="{{ $search_user->id }}" id="btn-addfriend-{{ $search_user->id }}">
+                                    <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2  cursor-pointer dark:text-dark-txt bg-gray-100">
+                                        <i class="bx bxs-user-check text-2xl mr-2"></i>Add Frined
+                                    </span>
+                                </div>  
                                 @elseif(UsersController::statusFriend(Auth::user()->id,$search_user->id) == 'Accepted')
                                 <div class=" grid place-items-center btn-unfriend openModal " data-id="{{ $search_user->id }}" id="btn-unfriend-{{ $search_user->id }}" >
                                     <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100">
@@ -404,11 +409,46 @@
                     },
                     success:function(data)
                     {
-                        $('#btn-addfriend-'+toID).html(' <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2  dark:text-dark-txt text-blue-500 bg-blue-100"><i class="bx bxs-user-check text-2xl mr-2"></i>Request Send</span>');
+                        $('#btn-addfriend-'+toID).addClass('hidden');
+                        let btn_friend = '<div class=" grid place-items-center btn-unrequest" data-id="'+ toID +'" id="btn-unrequest-'+ toID+'" ><span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100"><i class="bx bxs-user text-2xl mr-2"></i>Undo Request</span></div>'
+                        $('#item-'+toID+' #action_friends').append(btn_friend);
+                        // $('#btn-addfriend-'+toID).html(' <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2  dark:text-dark-txt text-blue-500 bg-blue-100"><i class="bx bxs-user-check text-2xl mr-2"></i>Request Send</span>');
                     },
             })
         }
     });
+    // END ADD FRIENDS
+    // UNREQUEST ADD FRIEND
+    $('body').on('click','.btn-unrequest',function(){
+        let toID = $(this).data('id');
+        let action = 'undo_request';
+        if(toID >0){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                url: "{{ route('handleFriend')}}",
+                method:"POST",
+                data : {
+                            toID: toID,
+                            action:action
+                        },
+                    success:function(data)
+                    {
+                        if(data.status =='true')
+                        {
+                            $('#btn-addfriend-'+toID).removeClass('hidden');
+                            $('#btn-unrequest-'+toID).remove();
+                            $('#btn-addfriend-'+toID).removeClass('pointer-events-none opacity-50 cursor-default ');
+                            $('#btn-addfriend-'+toID).html('<span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2  cursor-pointer dark:text-dark-txt bg-gray-100"><i class="bx bxs-user-check text-2xl mr-2"></i>Add Frined</span>');
+                        }
+                    },
+            })
+        }
+    });
+    //END UNREQUEST ADD FRIEND
     $('.btn-acceptefriend').click(function(){
         let toID = $(this).data('id');
         console.log(toID);
@@ -489,6 +529,6 @@
         })
         
     });
-    // END ADD FRIENDS
+    
 </script>
 @endsection
