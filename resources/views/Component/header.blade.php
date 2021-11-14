@@ -47,14 +47,14 @@
         <!-- END LEFT NAV -->
         <!-- MAIN NAV -->
         <ul class="flex w-full lg:w-max items-center justify-center text-gray-600">
-            <li class="w-1/5 md:w-max text-center" >
+            <li class="w-1/5  text-center" >
                 <a href="{{URL::TO('/main')}}" class="w-full text-3xl py-2 px-3 xl:px-12 cursor-pointer 
                 text-center inline-block hover:bg-gray-100 dark:hover:bg-dark-third
                 dark:text-dark-txt text-blue-500  border-blue-500 rounded-xl " id="home">
                     <i class='bx bx-home'></i>
                 </a>
             </li>
-            <li class="w-1/5 md:w-max text-center">
+            <li class="w-1/5  text-center">
                 <a href="" class="w-full text-3xl py-2 px-3 xl:px-12  cursor-pointer 
                 text-center inline-block hover:bg-gray-100 dark:hover:bg-dark-third rounded-xl
                 dark:text-dark-txt relative">
@@ -63,14 +63,14 @@
                     font-semibold rounded-full px-1 text-center">9+</span>
                 </a>
             </li>
-            <li class="w-1/5 md:w-max text-center">
+            <li class="w-1/5  text-center">
                 <a href="" class="w-full text-3xl py-2 px-3 xl:px-12  cursor-pointer 
                 text-center inline-block hover:bg-gray-100 dark:hover:bg-dark-third rounded-xl
                 dark:text-dark-txt relative">
                     <i class='bx bx-store'></i>
                 </a>
             </li>
-            <li class="w-1/5 md:w-max text-center">
+            <li class="w-1/5  text-center">
                 <a href="" class="w-full text-3xl py-2 px-3 xl:px-12  cursor-pointer 
                 text-center inline-block hover:bg-gray-100 dark:hover:bg-dark-third rounded-xl
                 dark:text-dark-txt relative">
@@ -81,7 +81,7 @@
                     </div>
                 </a>
             </li>
-            <li class="w-1/5 md:w-max text-center hidden md:inline-block">
+            <li class="w-1/5  text-center hidden md:inline-block">
                 <a href="" class="w-full text-3xl py-2 px-3 xl:px-12  cursor-pointer 
                 text-center inline-block hover:bg-gray-100 dark:hover:bg-dark-third rounded-xl
                 dark:text-dark-txt relative">
@@ -90,7 +90,7 @@
                     font-semibold rounded-full px-1 text-center">9+</span>
                 </a>
             </li>
-            <li class="w-1/5 md:w-max text-center inline-block md:hidden">
+            <li class="w-1/5  text-center inline-block md:hidden">
                 <a href="" class="w-full text-3xl py-2 px-3 xl:px-12  cursor-pointer 
                 text-center inline-block hover:bg-gray-100 dark:hover:bg-dark-third rounded-xl
                 dark:text-dark-txt relative">
@@ -646,7 +646,7 @@
                             <img src="image/'+data.list_request[0].avatar +'" class="w-16 h-16 rounded-full" alt="">\
                             <div class="flex-1 h-full">\
                                 <div class="dark:text-dark-txt">\
-                                    <span class="font-semibold">'+data.list_request[0].name+'</span>\
+                                    <span class="font-semibold" id="name_friend-'+data.list_request[0].id+'" >'+data.list_request[0].name+'</span>\
                                     <span class="float-right"> 6 Day</span>\
                                 </div>\
                                 <div class="flex space-x-2 mt-2">\
@@ -666,6 +666,11 @@
                 {   $('#list-request-friend').html(friendRequest);
                     $('#notifi_send_friend').html('<span>+'+data.quantity_notifi+'</span>');
                 }
+                else
+                {
+                    $('#notifi_send_friend').html(' ');
+                }
+                
             },
         })
     }
@@ -694,7 +699,7 @@
                 {
                     if(data.accepte == 'true')
                     {
-                        Notiflix.Report.Success('Accepted Notification',' Now you and "'+ $('#item-'+toID+' .name_friend').text() +'" are friends','Exit');
+                        Notiflix.Report.Success('Accepted Notification',' Now you and "'+ $('#name_friend-'+toID).text() +'" are friends','Exit');
                         $('#list-request-friend').html(' ');
                     }
                     // alert(data.accepte)

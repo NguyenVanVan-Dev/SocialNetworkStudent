@@ -219,55 +219,57 @@
                     </div>
                 </div>
             </div>
-            <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden">
-                <div class="relative h-full group cursor-pointer">
-                    <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full" alt="">
-                    <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                    <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                        Your Story
-                    </span>
-                    <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+            <div class="w-3/4 sm:w-4/5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-1  gap-2 overflow-hidden">
+                <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
+                    <div class="relative h-full group cursor-pointer">
+                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
+                        <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
+                        <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
+                            Your Story
+                        </span>
+                        <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
+                    <div class="relative h-full group cursor-pointer">
+                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
+                        <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
+                        <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
+                            Your Story
+                        </span>
+                        <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
+                    <div class="relative h-full group cursor-pointer">
+                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
+                        <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
+                        <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
+                            Your Story
+                        </span>
+                        <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
+                    <div class="relative h-full group cursor-pointer">
+                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
+                        <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
+                        <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
+                            Your Story
+                        </span>
+                        <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden">
-                <div class="relative h-full group cursor-pointer">
-                    <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full" alt="">
-                    <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                    <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                        Your Story
-                    </span>
-                    <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
-                    </div>
-                </div>
-            </div>
-
-            <div class=" hidden md:inline-block w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden">
-                <div class="relative h-full group cursor-pointer">
-                    <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full" alt="">
-                    <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                    <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                        Your Story
-                    </span>
-                    <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                        <img src="{{ asset('image/logo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class=" hidden md:inline-block w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden">
-                <div class="relative h-full group cursor-pointer">
-                    <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full" alt="">
-                    <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                    <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                        Your Story
-                    </span>
-                    <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
-                    </div>
-                </div>
-            </div>
+           
             <div class="w-12 h-12 rounded-full hidden lg:grid place-items-center text-2xl bg-white absolute -right-6 top-1/2 transform -translate-y-1/2 border border-gray-200
             cursor-pointer hover:bg-gray-100 shadow-md text-gray-500 dark:bg-dark-third dark:text-dark-txt dark:border-dark-third">
                 <i class='bx bx-right-arrow-alt'></i>

@@ -72,7 +72,7 @@ class UsersController extends Controller
             $data['status'] = 'Pending';
             $data['accepted'] = 'No';
             // DB::table('friends')->insert($data);
-            Friend::insert($data);
+            Friend::create($data);
         }
         elseif($action == 'count_notifi_send_friends')
         {
@@ -84,7 +84,7 @@ class UsersController extends Controller
            }
            return response()->json([
             'quantity_notifi' => $result_notifi,
-            'list_request' =>  $list_friends_request
+            'list_request' => empty( $list_friends_request) ? ' ' : $list_friends_request
             ]);
         }
         elseif($action == 'accepte_request')
@@ -96,6 +96,16 @@ class UsersController extends Controller
             {
                 return response()->json([
                     'accepte' => 'true',
+                ]);
+            }
+        }elseif($action == 'remove_friend')
+        {
+            $to_id = $request->toID;
+            $result_request =  Friend::where('id_userFrom',$from_id)->where('id_userTo',$to_id)->orWhere('id_userFrom',$to_id)->where('id_userTo',$from_id)->where('status','Accepted')->delete();
+            if($result_request)
+            {
+                return response()->json([
+                    'status' => 'true',
                 ]);
             }
         }
