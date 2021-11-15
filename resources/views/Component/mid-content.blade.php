@@ -25,7 +25,7 @@
                             Your Story
                         </span>
                         <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                             Your Story
                         </span>
                         <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                             Your Story
                         </span>
                         <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
                         </div>
                     </div>
                 </div>
@@ -61,10 +61,10 @@
                             Your Story
                         </span>
                         <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
                         </div>
                     </div>
-                </div>
+                </div>        
             </div>
            
             <div class="w-12 h-12 rounded-full hidden lg:grid place-items-center text-2xl bg-white absolute -right-6 top-1/2 transform -translate-y-1/2 border border-gray-200
@@ -304,13 +304,14 @@
         <!-- END ROOM -->
         <!-- LIST POST -->
         <div class="" id="listPosts">
-            @foreach($posts as $key => $value )
+            <?php    use App\http\Controllers\UsersController;  ?>
+            @foreach($userposts as $key => $value )
             <!-- POST -->
             <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg">
                 <div class="flex items-center justify-between px-4 py-2">
                     <div class="flex space-x-2 items-center">
                         <div class="relative">
-                            <img src="{{asset('image/'.Auth::user()->avatar)}}" class="w-10 h-10 rounded-full" alt="">
+                            <img src="{{URL::to('/image/'. Auth::user()->avatar )}}" class="w-10 h-10 rounded-full" alt="">
                             <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0
                             top-3/4 border-white border-2"></span>
                         </div>
@@ -331,7 +332,9 @@
                 </div>
                
                 <div class="py-2 max-h-96">
-                    <img src="" alt="" class=" m-auto h-96">
+                        @if(!empty($value->imageOrvideo))
+                            <img src="{{URL::to('/image/'. $value->imageOrvideo )}}" alt="" class=" m-auto h-96">
+                        @endif
                 </div>
                
                 <div class="px-4 py-2">
@@ -459,6 +462,167 @@
                    
                 </div>
             </div>
+            @endforeach
+            @foreach($friendposts as $key =>$value)
+                @if(UsersController::statusFriend(Auth::user()->id,$value->user_id) == 'Accepted')
+                <?php $info = UsersController::getInfoUser($value->user_id);?>
+                            <!-- POST -->
+                <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg">
+                    <div class="flex items-center justify-between px-4 py-2">
+                        <div class="flex space-x-2 items-center">
+                            <div class="relative">
+                                <img src="{{URL::to('/image/'. $info->avatar )}}" class="w-10 h-10 rounded-full" alt="">
+                                <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0
+                                top-3/4 border-white border-2"></span>
+                            </div>
+                            <div>
+                                <div class="font-semibold">
+                                {{ $value->user_name }}
+                                </div>
+                                <span class="text-sm text-gray-500">{{ date("h:i:sa d/m/Y", strtotime($value->created_at)) }}</span>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 grid place-items-center text-xl text-gray-500 hover:bg-gray-200 dark:text-dark-txt dark:hover:bg-dark-third rounded-full cursor-pointer">
+                            <i class="bx bx-dots-horizontal-rounded"></i>
+                        </div>
+                    </div>
+                
+                    <div class="text-justify px-4 py-2">
+                        {{$value->content}}
+                    </div>
+                
+                    <div class="py-2 max-h-96">
+                        @if(!empty($value->imageOrvideo))
+                            <img src="{{URL::to('/image/'. $value->imageOrvideo )}}" alt="" class=" m-auto h-96">
+                        @endif
+                    </div>
+                
+                    <div class="px-4 py-2">
+                        <div class=" flex items-center justify-between">
+                            <div class="flex flex-row-reverse items-center">
+                                <span class="ml-2 text-gray-500 dark:text-dark-txt ">999</span>
+                                <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
+                                <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
+                                <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
+                            </div>
+                            <div class=" text-gray-500 dark:text-dark-txt">
+                                <span>900 comment</span>
+                                <span>500 share</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="px-4 py-2 ">
+                        <div class="flex  items-center space-x-2 border-gray-300 border-t border-b">
+                            <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                                <i class="bx bx-like"></i>
+                                <span class="font-semibold text-sm">Like</span>
+                            </div>
+                            <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                                <i class="bx bx-comment-edit"></i>
+                                <span class="font-semibold text-sm">Comment</span>
+                            </div>
+                            <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                                <i class="bx bx-share bx-flip-horizontal"></i>
+                                <span class="font-semibold text-sm">Share</span>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="py-2 px-4" id="commentPost">
+                        
+                        <div class="flex space-x-2 ">
+                            <img src="JJJJJJJJJJJJJJJJJJ" alt="" class="w-9 h-9 rounded-full">
+                            <div>
+                                <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
+                                    <span class="font-semibold block">Hai Ba Dong</span>
+                                    <span>Anh dep qua ,xin chao ban nha </span>
+                                </div>
+                                <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
+                                    <span class="font-semibold cursor-pointer">Like </span>
+                                    <span>. </span>
+                                    <span class="font-semibold cursor-pointer"> Reply </span>
+                                    <span> . </span>
+                                    10m
+                                </div>
+                                <div class="flex space-x-2">
+                                    <img src="QQQQQQQQQQQQQQQQQQQQQQQQQ" alt="" class="w-9 h-9 rounded-full">
+                                    <div>
+                                        <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
+                                            <span class="font-semibold block">Hai Ba Dong</span>
+                                            <span>Anh dep qua ,xin chao ban nha </span>
+                                        </div>
+                                        <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
+                                            <span class="font-semibold cursor-pointer">Like </span>
+                                            <span>. </span>
+                                            <span class="font-semibold cursor-pointer"> Reply </span>
+                                            <span> . </span>
+                                            10m
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2 ">
+                            <div class="w-9">
+                                <img src="LLLLLLLLLLLLLLLLLLLLLLLLLL" alt="" class="w-full h-9 rounded-full">
+                            </div>
+                            <div class="flex-1">
+                                <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
+                                    <span class="font-semibold block">Hai Ba Dong</span>
+                                    <span>Anh dep qua ,xin chao ban nha </span>
+                                </div>
+                                <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
+                                    <span class="font-semibold cursor-pointer">Like </span>
+                                    <span>. </span>
+                                    <span class="font-semibold cursor-pointer"> Reply </span>
+                                    <span> . </span>
+                                    10m
+                                </div>
+                                <div class="flex space-x-2">
+                                    <div class="w-9">
+                                        <img src="MMMMMMMMMMMMMMMMMMMMM" alt="" class="w-full h-9 rounded-full">
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
+                                            <span class="font-semibold block">Hai Ba Dong</span>
+                                            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa asperiores libero cum! Perspiciatis quod accusamus ex esse quos voluptas consequuntur officia amet non accusantium ullam aliquid, saepe deleniti natus harum. </span>
+                                        </div>
+                                        <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
+                                            <span class="font-semibold cursor-pointer">Like </span>
+                                            <span>. </span>
+                                            <span class="font-semibold cursor-pointer"> Reply </span>
+                                            <span> . </span>
+                                            10m
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-4 py-2">
+                            <div class="flex space-x-2">
+                                <img src="CCCCCCCCCCCCCCCCCCCCCCC" class="w-9 h-9 rounded-full" alt="">
+                                <div class="flex flex-1 bg-gray-100 dark:bg-dark-third rounded-full items-center justify-between bg-transparent px-3">
+                                    <input type="text" name="" id="" class="outline-none bg-transparent flex-1" placeholder="Write a comment">
+                                    <div class="flex space-x-0 items-center justify-center ">
+                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                            <i class="bx bx-wink-smile"></i></span>
+                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                            <i class="bx bx-camera"></i></span>
+                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                            <i class="bx bx-gift"></i></span>
+                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                            <i class="bx bx-happy-heart-eyes"></i></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                @endif
             @endforeach
             <!-- END POST -->
         </div>

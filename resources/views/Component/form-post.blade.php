@@ -22,7 +22,7 @@
                        </div>
                     </div>
                 </div>
-                <textarea id="contentPosts" class="w-full text-xl outline-none" name="content"  rows="6" placeholder=" What's on your mind, Van?" ></textarea>
+                <textarea id="contentPosts" class="w-full text-xl outline-none" name="content"  rows="6" placeholder=" What's on your mind, {{Auth::user()->name}}?" ></textarea>
                 <div class=" flex justify-between items-center">
                     <img src="{{ asset('image/bg-post.png') }}" alt="" class=" cursor-pointer rounded-full w-12 h-12 ">
                     <i class='bx bx-smile text-3xl text-gray-500 cursor-pointer '></i>

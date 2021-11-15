@@ -52,7 +52,7 @@
     </style>
 </head>
 
-<body id="app" class=" dark:bg-dark-main relative overlay flex items-center justify-center ">
+<body id="app" class="bg-gray-200 dark:bg-dark-main relative overlay flex items-center justify-center ">
     @include('Component.form-post')
     @include('Component.header')
     @yield('content')
