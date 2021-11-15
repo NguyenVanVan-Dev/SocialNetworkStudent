@@ -38,7 +38,8 @@ class HomeController extends Controller
                 // ->orWhere('friends.id_userTo',Auth::user()->id)
                 // ->orderby('friends.id','desc')->get();
                 // dd($friend);
-        return view('PagesUser.home')->with('friends',$friend);
+        $posts = DB::table('posts')->orderby('created_at','desc')->get();    
+        return view('PagesUser.home')->with('friends',$friend)->with('posts',$posts);
         //SELECT users.name ,friends.id_userFrom,friends.id_userTo FROM `users` INNER JOIN friends ON friends.id_userFrom = users.id OR friends.id_userTo = users.id  WHERE friends.id_userFrom = '2' OR friends.id_userTo = '2' AND users.id != '2' AND friends.status = 'Accepted';
     }
     public function profile($user_id)   
