@@ -3,18 +3,18 @@
 @section('content')
 <!-- MAIN CONTENT -->
 <div class="flex justify-end  w-full">
-    <!-- LEFT MENU -->
+    <!-- LEFT FRIEND MENU -->
     @include('Component.left-friends-menu')
-    <!--  END LEFT MENU -->
+    <!--  END LEFT FRIEND MENU -->
     <!-- MID CONTENT -->
-    <div class="w-full relative right-0 top-0 xl:w-9/12  pt-32 lg:pt-16 px-4 bg-gray-100" >
+    <div class=" w-full relative right-0 top-0  md:block sm:w-3/5  lg:w-8/12 xl:w-9/12  pt-32 lg:pt-16 px-4 bg-gray-100" >
         <div class="flex justify-between items-center p-4">
             <h2 class="text-2xl font-semibold">Request Friends</h2>
             <div>
                 <span class=" grid place-content-center p-3 text-lg cursor-pointer text-blue-400">See all</span>
             </div>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 px-4 pb-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 px-4 pb-4">
             <?php
                 use App\http\Controllers\UsersController;
             ?>
@@ -47,7 +47,7 @@
                 <span class=" grid place-content-center p-3 text-lg cursor-pointer text-blue-400">See all</span>
             </div>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 px-4 pb-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 px-4 pb-4">
             
             @if(!empty($friends))  
                 @foreach ($friends as $key => $listfriend)

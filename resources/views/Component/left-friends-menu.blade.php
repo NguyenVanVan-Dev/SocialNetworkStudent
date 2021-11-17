@@ -1,5 +1,5 @@
  <!-- LEFT MENU -->
- <div class="w-3/12 pt-16 h-full hidden xl:flex flex-col fixed top-0 left-0 shadow-md bg-white">
+ <div class="hidden   md:w-96 xl:w-3/12  pt-28 md:pt-16 h-full z-20 sm:flex md:flex  flex-col fixed top-0 left-0 shadow-md bg-white">
         <div class="flex justify-between items-center p-4">
             <h2 class="text-2xl font-semibold"> Friends</h2>
             <div>
