@@ -18,7 +18,7 @@
                 <a href="{{ route('show_friends') }}" class="flex items-center justify-between space-x-2 p-2 hover:bg-gray-200 rounded-md
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
                     <div class="flex-1 flex items-center ">
-                        <img src="{{ asset('image/friends.png') }}" alt="" class="w-10 h-10 rounded-full">
+                        <img src="{{ asset('image/add-friend.png') }}" alt="" class="w-10 h-10 rounded-full">
                         <span class="font-semibold ml-2 ">Request Friends </span>
                     </div>
                     <div class="transform translate-y-1">
@@ -27,10 +27,10 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center justify-between space-x-2 p-2 hover:bg-gray-200 rounded-md
+                <a href="{{ route('suggestion_friends')}}" class="flex items-center justify-between space-x-2 p-2 hover:bg-gray-200 rounded-md
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
                     <div class="flex-1 flex items-center ">
-                        <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
+                        <img src="{{ asset('image/suggest.png') }}" alt="" class="w-10 h-10 rounded-full">
                         <span class="font-semibold ml-2 ">Suggestions Friends</span>
                     </div>
                     <div class="transform translate-y-1">
@@ -39,10 +39,10 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center justify-between space-x-2 p-2 hover:bg-gray-200 rounded-md
+                <a href="{{ route('list_friends')}}" class="flex items-center justify-between space-x-2 p-2 hover:bg-gray-200 rounded-md
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
                     <div class="flex-1 flex items-center ">
-                        <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
+                        <img src="{{ asset('image/friends.png') }}" alt="" class="w-10 h-10 rounded-full">
                         <span class="font-semibold ml-2 ">All Friends</span>
                     </div>
                     <div class="transform translate-y-1">
@@ -54,7 +54,7 @@
                 <a href="#" class="flex items-center justify-between space-x-2 p-2 hover:bg-gray-200 rounded-md
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
                     <div class="flex-1 flex items-center ">
-                        <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
+                        <img src="{{ asset('image/birthday-cake.png') }}" alt="" class="w-10 h-10 rounded-full">
                         <span class="font-semibold ml-2 ">Happy Birthday Friends</span>
                     </div>
                 </a>

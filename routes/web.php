@@ -30,6 +30,9 @@ Route::get('/search-user',[HomeController::class, 'search_user'])->name('search_
 // FRIEND PAGE
 Route::get('/friends',[UsersController::class,'showFriends'])->name('show_friends');
 Route::post('/handle-friends',[UsersController::class, 'handleFriend'])->name('handleFriend');
+Route::get('friends/list',[UsersController::class,'listFriends'])->name('list_friends');
+Route::get('friends/suggestion',[UsersController::class,'suggestionFriends'])->name('suggestion_friends');
+Route::get('friends/profile',[UsersController::class,'showProfileFriend'])->name('profile_friends');
 // POST PAGE
 Route::resource('posts', PostsController::class);
 // AUTHENTICATOR

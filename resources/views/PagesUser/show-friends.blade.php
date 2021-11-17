@@ -7,7 +7,7 @@
     @include('Component.left-friends-menu')
     <!--  END LEFT MENU -->
     <!-- MID CONTENT -->
-    <div class="w-full relative right-0 top-0 xl:w-9/12  pt-32 lg:pt-16 px-4 bg-gray-100">
+    <div class="w-full relative right-0 top-0 xl:w-9/12  pt-32 lg:pt-16 px-4 bg-gray-100" >
         <div class="flex justify-between items-center p-4">
             <h2 class="text-2xl font-semibold">Request Friends</h2>
             <div>
@@ -21,19 +21,19 @@
             @if(!empty($friends))  
                 @foreach ($friends as $key => $listfriend)
                     @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) == 'RequestFriend')
-                        <div class=" shadow-lg rounded-lg bg-white overflow-hidden ">
+                        <div class=" shadow-lg rounded-lg bg-white overflow-hidden " id="request-{{ $listfriend->id}}">
                             <a href="{{URL::TO('/viewuser/'.$listfriend->id)}}">
                                 <div class="bg-gray-700 opacity-80">
                                     <img src="{{URL::to('/image/'. $listfriend->avatar)}}" alt="" class="w-full h-52 rounded-t-lg object-cover">
                                 </div>
                                 <div class="p-3 pb-0 ">
-                                    <span class="font-semibold block">{{ $listfriend->name }}</span>
+                                    <span class="font-semibold block name-friend">{{ $listfriend->name }}</span>
                                     <span class="font-semibold block text-base">Story: <span class="text-sm font-normal">{{ $listfriend->story }}</span></span>
                                 </div>
                             </a>
                             <div class="p-3 ">
-                                <button class="w-full p-2 text-md text-center font-medium bg-blue-500 text-white mb-2 rounded-md">Accepte</button>
-                                <button class="w-full p-2 text-md text-center font-medium  bg-gray-200 rounded-md">Delete</button>
+                                <button class="w-full p-2 text-md text-center font-medium bg-blue-500 text-white mb-2 rounded-md btn-acceptefriend " data-id="{{ $listfriend->id }}" id="btn-acceptefriend-{{ $listfriend->id }}">Accepte</button>
+                                <button class="w-full p-2 text-md text-center font-medium  bg-gray-200 rounded-md btn-removerequest" data-id="{{$listfriend->id}}" id="btn-removerequest-{{$listfriend->id}}">Delete</button>
                             </div>
                         </div>
                     @endif
@@ -179,5 +179,65 @@
         }
     });
     //END UNREQUEST ADD FRIEND
+    // ACCEPTED FRIEND
+    $('.btn-acceptefriend').click(function(){
+        let toID = $(this).data('id');
+        console.log(toID);
+        let action = 'accepte_request';
+        if(toID >0){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                url: "{{ route('handleFriend')}}",
+                method:"POST",
+                data : {
+                            toID: toID,
+                            action:action
+                        },
+                
+                success:function(data)
+                {
+                    if(data.accepte == 'true')
+                    {
+                        Notiflix.Report.Success('Accepted Notification',' Now you and "'+ $('#request-'+toID+' .name-friend').text()+'" are friends','Exit');
+                        $('#request-'+toID).remove();
+                    }
+                    // alert(data.accepte)
+                },
+            })
+        }
+    })
+    // END ACCEPTED FRIEND
+    // REMOVE REQUEST FOR FRIEND
+    $('body').on('click','.btn-removerequest',function(){
+        let toID = $(this).data('id');
+        let action = 'undo_request';
+        if(toID >0){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                url: "{{ route('handleFriend')}}",
+                method:"POST",
+                data : {
+                            toID: toID,
+                            action:action
+                        },
+                    success:function(data)
+                    {
+                        if(data.status =='true')
+                        {
+                            $('#request-'+toID).remove();
+                        }
+                    },
+            })
+        }
+    }); 
+    // END REMOVE REQUEST FOR FRIEND 
 </script>
 @endsection

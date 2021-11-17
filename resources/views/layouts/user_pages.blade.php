@@ -62,6 +62,7 @@
         var userID = '{{ Auth::user()->id }}';
         var userAvatar = '{{ Auth::user()->avatar }}';
         var urlPosts = ' {{ route('posts.store')}}';
+        var showProfileFriend = '{{ route('profile_friends')}}';
     </script>
     <script src="{{ asset('js/style.js') }}"></script>
 </body>

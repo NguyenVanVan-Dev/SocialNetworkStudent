@@ -5,7 +5,7 @@
         <!-- LEFT NAV -->
         <div class="flex items-center justify-between w-full md:w-max px-4 py-2">
             <a href="#" class="mr-2 hidden md:inline-block">
-                <img src="{{ asset('image/logo_md.png') }}" alt=" Logo " width="30" height="30" class="w-24 sm:w-20 lg:w-10 h-auto">
+                <img src="{{ asset('image/logo_md.png') }}" alt=" Logo " class="w-24 sm:w-20 lg:w-14 h-auto">
             </a>
             <a href="" class="inline-block md:hidden">
                 <img src="{{ asset('image/facebook-md.png') }}" alt="Logo" class="w-32 h-auto">

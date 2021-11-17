@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Friend;
+use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -31,14 +32,16 @@ class UsersController extends Controller
             $get_cover_avatar->move(\public_path('image'),$new_avatar_cover);
             $data['cover_avatar'] = $new_avatar_cover;
         }
-        if($request->story)
-        {
-            $data['story'] = $request->story;
-        }
-        if($request->interests)
-        {
-            $data['interests'] = $request->interests;
-        }
+        // if($request->story)
+        // {
+        //     $data['story'] = $request->story;
+        // }
+        // if($request->interests)
+        // {
+        //     $data['interests'] = $request->interests;
+        // }
+        $data['story'] = $request->story;
+        $data['interests'] = $request->interests;
         $check_update = DB::table('users')->where('id',$request->id)->update($data);
         if ($check_update) {
             return response()->json([
@@ -154,5 +157,341 @@ class UsersController extends Controller
     {
         $friend = DB::table('users')->where('id','!=',Auth::user()->id)->get();
         return view('PagesUser.show-friends')->with('friends',$friend);
+    }
+    public function listFriends()
+    {
+        $count_friend =  Friend::where('id_userTo',Auth::user()->id)->orWhere('id_userFrom',Auth::user()->id)->where('status' ,'Accepted')->count();
+        $friend = DB::table('users')->where('id','!=',Auth::user()->id)->get();
+        return view('PagesUser.list-friends')->with('friends',$friend)->with('qtyfriend',$count_friend);
+    }
+    public function showProfileFriend(Request $request)
+    {
+        $friend_id = $request->friendID;
+        $data_friend = User::where('id',$friend_id)->get();
+        $check_friend = Friend::where('id_userFrom',$friend_id)->where('id_userTo',Auth::user()->id)->orWhere('id_userTo',$friend_id)->where('id_userFrom',Auth::user()->id)->where('status','Accepted')->get();
+        // dd($check_friend);
+        if($check_friend->count() == 1){
+            $btn_handle_friend = '<button class="outline-none bg-blue-500 p-2 hover:bg-blue-700 rounded-md text-base font-medium text-white"><i class="bx bxs-user text-2xl  mr-2 text-white"></i>Friend</button> ';
+        }else if($check_friend->count() == 0)
+        {
+            $btn_handle_friend = '<button class="outline-none bg-blue-500 p-2 hover:bg-blue-700 rounded-md text-base font-medium text-white"><i class="bx bxs-user text-2xl  mr-2 text-white"></i>Add Friends</button> ';
+        }
+
+        foreach($data_friend as $key => $value)
+        {
+            $name = $value->name;
+            $avatar = $value->avatar;
+            $cover_avatar = $value->cover_avatar;
+            $story = $value->story;
+            $interests = $value->interests;
+        }
+        $data_posts = Post::where('user_id',$friend_id)->orderby('created_at','desc')->get();
+        $list_posts = '';
+        if($data_posts->count() == 0)
+        {
+            $list_posts = '<div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg">
+                                <div class="flex items-center justify-between px-4 py-2">
+                                    <div class="flex flex-col justify-center items-center">
+                                        <div>
+                                            <img src="/image/undraw_people.svg" alt="">
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-xl text-gray-500"> Your friend hasn\'t posted any posts yet.</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+        }
+        foreach($data_posts as $key=>$value)
+        {
+            $image_post = '';
+            if(!empty($value->imageOrvideo)){
+                $image_post = '<img src="/image/'.$value->imageOrvideo.'" alt="" class=" m-auto h-96">';
+            }
+            $list_posts .= ' <div>
+                            <!-- POST -->
+                            <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg">
+                                <div class="flex items-center justify-between px-4 py-2">
+                                    <div class="flex space-x-2 items-center">
+                                        <div class="relative">
+                                            <img src="/image/'.$avatar.'" class="w-10 h-10 rounded-full" alt="">
+                                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0
+                                        top-3/4 border-white border-2"></span>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold">
+                                                '.$name.'
+                                            </div>
+                                            <span class="text-sm text-gray-500">'.$value->created_at.'</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-8 h-8 grid place-items-center text-xl text-gray-500 hover:bg-gray-200 dark:text-dark-txt dark:hover:bg-dark-third rounded-full cursor-pointer">
+                                        <i class="bx bx-dots-horizontal-rounded"></i>
+                                    </div>
+                                </div>
+                                <!-- END POST AUTHOR -->
+                                <!-- POST CONTENT -->
+                                <div class="text-justify px-4 py-2">
+                                    '.$value->content.'
+                                </div>
+                                <!-- END POST CONTENT -->
+                                <!-- POST IMAGE -->
+                                <div class="py-2 max-h-96">
+                                '.$image_post.' 
+                                </div>
+                                <!-- END POST IMAGE -->
+                                <!-- POST REACT -->
+                                <div class="px-4 py-2">
+                                    <div class=" flex items-center justify-between">
+                                        <div class="flex flex-row-reverse items-center">
+                                            <span class="ml-2 text-gray-500 dark:text-dark-txt ">999</span>
+                                            <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
+                                            <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
+                                            <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
+                                        </div>
+                                        <div class=" text-gray-500 dark:text-dark-txt">
+                                            <span>900 comment</span>
+                                            <span>500 share</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- END POST REACT -->
+                                <!-- POST ACTION -->
+                                <div class="px-4 py-2 ">
+                                    <div class="flex  items-center space-x-2 border-gray-300 border-t border-b">
+                                        <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                                            <i class="bx bx-like"></i>
+                                            <span class="font-semibold text-sm">Like</span>
+                                        </div>
+                                        <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                                            <i class="bx bx-comment-edit"></i>
+                                            <span class="font-semibold text-sm">Comment</span>
+                                        </div>
+                                        <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                                            <i class="bx bx-share bx-flip-horizontal"></i>
+                                            <span class="font-semibold text-sm">Share</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- END POST ACTION -->
+                                <!-- LIST COMMENT -->
+                                <div class="py-2 px-4">
+                                    <!-- COMMENT FORM -->
+                                    <div class="px-4 py-2">
+                                        <div class="flex space-x-2">
+                                            <img src="/image/'.Auth::user()->avatar.'" class="w-9 h-9 rounded-full" alt="">
+                                            <div class="flex flex-1 bg-gray-100 dark:bg-dark-third rounded-full items-center justify-between bg-transparent px-3">
+                                                <input type="text" name="" id="" class="outline-none bg-transparent flex-1" placeholder="Write a comment">
+                                                <div class="flex space-x-0 items-center justify-center ">
+                                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                                        <i class="bx bx-wink-smile"></i></span>
+                                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                                        <i class="bx bx-camera"></i></span>
+                                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                                        <i class="bx bx-gift"></i></span>
+                                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                                        <i class=" bx-happy-heart-eyes"></i></span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END COMMENT FORM -->
+                                </div>
+                                <!-- END LIST COMMENT -->
+                            </div>
+                            <!-- END POST -->
+                        </div>';
+        }
+        $info = '<div class="fixed xl:absolute w-full bg-white top-16 md:top-6 xl:h-70vh  xl:top-0 right-0 z-20  h-14">
+                    <div class="w-full lg:w-942 xl:w-942 mx-auto h-3/5 rounded-b-md bg-gray-100 hidden xl:block">
+                        <img id="cover_avatar_user" src="/image/'.$cover_avatar.'" alt="" class="w-full h-full object-cover rounded-b-3xl">
+                    </div>
+                    <div class=" absolute bottom-16 right-1/2 transform translate-x-1/2 hidden xl:block">
+                        <div class="flex justify-center items-center ">
+                            <img id="avatar_user" src="/image/'.$avatar.'" alt="" class="w-52 h-52 rounded-full border-4 border-blue-300 mx-0 object-cover" >
+                            <span class="absolute bottom-1/2 right-3 rounded-full w-10 h-10 bg-gray-200 grid place-items-center cursor-pointer">
+                                <i class="bx bxs-camera-plus text-3xl text-gray-700"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-semibold text-3xl p-2">
+                              '.$name.'
+                            </div>
+                            <p class="text-sm" id="story_user">'.$story.'<i class="bx bxs-heart text-red-600"></i> </p>
+                            <p class="text-sm">'.$interests.'</p>
+                            <p class="m-4"> <a href="javascript::void(0) " class="text-blue-500 underline font-medium"> Edit </a></p>
+                        </div>
+                    </div>
+                    <div id="info_header_bottom" class="absolute bg-white m-auto w-full lg:w-942 xl:w-942 p-3 border-t border-gray-200 -bottom-14  xl:bottom-0 right-1/2 transform translate-x-1/2 flex justify-between items-center">
+                        <div class=" flex-1 mr-4 hidden xl:block">
+                            <ul class="flex justify-between items-center text-base font-medium">
+                                <li class=" p-2 border-b-4 border-blue-500 text-blue-500">
+                                    <a href=""> Bài viết</a>
+                                </li>
+                                <li class="hover:bg-gray-200 p-2 rounded-md ">
+                                    <a href=""> Giới thiệu</a>
+                                </li>
+                                <li class="hover:bg-gray-200 p-2 rounded-md ">
+                                    <a href=""> Bạn bè <span>1000</span></a>
+                                </li>
+                                <li class="hover:bg-gray-200 p-2 rounded-md ">
+                                    <a href=""> Xem Thêm <i class="bx bx-chevron-down"></i> </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex-1 flex justify-around items-center">
+                            <div>
+                                '.$btn_handle_friend.'
+                            </div>
+                            <div>
+                                <button id="edit_info_profile" class="outline-none bg-gray-100 p-2 hover:bg-gray-200 rounded-md text-base font-medium"><i class="bx bxl-messenger mr-2"></i>Messenger</button>
+                            </div>
+                            <div>
+                                <button class="outline-none bg-gray-100 p-2 hover:bg-gray-200 rounded-md text-base font-medium"><i class="bx bx-dots-horizontal-rounded px-1 "></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div  id="info_header_top" class="w-max md:w-9/12 fixed bg-white top-0 right-0 transform  transition-all ">
+                        <div class=" m-auto w-full lg:w-942 xl:w-942 p-2 border-t border-gray-200  flex justify-between items-center ">
+                            <div class=" flex-1 mr-4">
+                                <div class="font-semibold ">
+                                    <img src="/image/'.$avatar.'" class="w-10 h-10 rounded-full inline-block" alt="">
+                                    '.$name.'
+                                </div>
+                            </div>
+                            <div class="flex-1 flex justify-between items-center">
+                                <div>
+                                    <button class="outline-none bg-blue-500 p-2 hover:bg-blue-700 rounded-md text-base font-medium text-white"><i class="bx bxs-plus-circle mr-2 text-white"></i>Thêm vào tin</button>
+                                </div>
+                                <div>
+                                    <button class="outline-none bg-gray-100 p-2 hover:bg-gray-200 rounded-md text-base font-medium"><i class="bx bxs-edit-alt mr-2"></i>Chỉnh sửa trang cá nhân</button>
+                                </div>
+                                <div>
+                                    <button class="outline-none bg-gray-100 p-2 hover:bg-gray-200 rounded-md text-base font-medium"><i class="bx bx-dots-horizontal-rounded px-1"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+        $listpost = '<div class="w-full xl:w-942 lg:w-942 mx-auto flex flex-col lg:flex-row relative xl:mt-63vh">
+            <!-- INTRODUCE  -->
+            <div class="xl:w-2/5 lg:w-full mt-44 md:mt-36  xl:mt-0 px-2  h-full w-full xl:block">
+                <div class="p-3 bg-white rounded-md mt-4 shadow-md">
+                    <h3 class="text-left text-3xl text-black font-semibold">Introduce</h3>
+                    <span class="my-2 flex  items-center"><i class="bx bx-paper-plane mr-2 text-2xl text-gray-500"></i> 1000 following </span>
+                    <div class="flex flex-col">
+                        <button class="outline-none bg-gray-100 p-2 my-2 rounded-md hover:bg-gray-200 font-medium text-gray-900">Detailed editing</button>
+                        <button class="outline-none bg-gray-100 p-2 my-2 rounded-md hover:bg-gray-200 font-medium text-gray-900">More hobbies</button>
+                        <button class="outline-none bg-gray-100 p-2 my-2 rounded-md hover:bg-gray-200 font-medium text-gray-900">More interesting content</button>
+                    </div>
+                </div>
+                <div class="p-3 bg-white rounded-md mt-4 shadow-md">
+                    <div class="flex justify-between items-center px-4  mb-5 ">
+                        <span class="font-semibold text-gray-500 text-2xl dark:text-dark-txt">Imgae</span>
+                        <span class="text-blue-500 cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-thirdp-2 p-2
+                            rounded-md ">See all image</span>
+                    </div>
+                    <div class="rounded-lg grid grid-cols-3 grid-rows-3 gap-1 overflow-hidden">
+                        <img src="#" class=" inline-block" alt="">
+                        <img src="#" class=" inline-block" alt="">
+                        <img src="#" class=" inline-block" alt="">
+                        <img src="#" class=" inline-block" alt="">
+                        <img src="#" class=" inline-block" alt="">
+                        <img src="#" class=" inline-block" alt="">
+                        <img src="#" class=" inline-block" alt="">
+                        <img src="#" class=" inline-block" alt="">
+                        <img src="#" class=" inline-block" alt="">
+                    </div>
+                </div>
+                <div class="p-3 bg-white rounded-md mt-4 shadow-md">
+                    <div class="flex justify-between items-center px-4  mb-5 ">
+                        <div>
+                            <span class="font-semibold text-gray-500 text-2xl dark:text-dark-txt">Friends </span>
+                            <p class="text-gray-500 text-lg ">1000 friends</p>
+                        </div>   
+                        <span class="text-blue-500 cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-thirdp-2 p-2
+                            rounded-md ">See all friends</span>
+                    </div>
+                    <div class="rounded-lg grid grid-cols-3 grid-rows-3 gap-1 overflow-hidden">
+                       <div class="text-center">
+                          <a href="" class="no-underline text-black">
+                            <img src="#" class=" inline-block rounded-lg " alt="">
+                            <p class="font-medium text-lg">Hải Ba Đông </p>
+                          </a>
+                       </div>
+                       <div class="text-center">
+                          <a href="" class="no-underline text-black">
+                            <img src="#" class=" inline-block rounded-lg " alt="">
+                            <p class="font-medium text-lg">Hải Ba Đông </p>
+                          </a>
+                       </div>
+                       <div class="text-center">
+                          <a href="" class="no-underline text-black">
+                            <img src="#" class=" inline-block rounded-lg " alt="">
+                            <p class="font-medium text-lg">Hải Ba Đông </p>
+                          </a>
+                       </div>
+                       <div class="text-center">
+                          <a href="" class="no-underline text-black">
+                            <img src="#" class=" inline-block rounded-lg " alt="">
+                            <p class="font-medium text-lg">Hải Ba Đông </p>
+                          </a>
+                       </div>
+                       <div class="text-center">
+                          <a href="" class="no-underline text-black">
+                            <img src="#" class=" inline-block rounded-lg " alt="">
+                            <p class="font-medium text-lg">Hải Ba Đông </p>
+                          </a>
+                       </div>
+                       <div class="text-center">
+                          <a href="" class="no-underline text-black">
+                            <img src="#" class=" inline-block rounded-lg " alt="">
+                            <p class="font-medium text-lg">Hải Ba Đông </p>
+                          </a>
+                       </div>
+                       <div class="text-center">
+                          <a href="" class="no-underline text-black">
+                            <img src="#" class=" inline-block rounded-lg " alt="">
+                            <p class="font-medium text-lg">Hải Ba Đông </p>
+                          </a>
+                       </div>
+                    </div>
+                </div>
+                <div class="mt-auto p-6 text-sm text-gray-500 dark:text-dark-txt">
+                    <a href="">Privacy</a>
+                    <span>.</span>
+                    <a href="">Terms</a>
+                    <span>.</span>
+                    <a href="">Advertising</a>
+                    <span>.</span>
+                    <a href="">Cookies</a>
+                    <span>.</span>
+                    <a href="">Ad choices</a>
+                    <span>.</span>
+                    <a href="">More</a>
+                    <span>.</span>
+                    <a href="">Vấn Nguyễn 2021</a>
+                 </div>
+            </div>
+            <!-- END INTRODUCE -->
+            <div class="xl:w-3/5 lg:w-full   px-2  w-full">
+                <!-- LIST POST -->
+                   '.$list_posts.'
+                <!--  END LIST POST -->
+            </div>
+            
+        </div>';
+        return response()->json([
+            'status' => 'true',
+            'data' => $info.$listpost,
+            ]);
+    }
+    public function suggestionFriends()
+    {
+        $suggestion_friend = DB::table('users')->where('id','!=',Auth::user()->id)->get();
+        return view('PagesUser.suggestion-friends')->with('friends',$suggestion_friend);   
     }
 }

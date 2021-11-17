@@ -1,4 +1,4 @@
-
+//  Dat bien file js tu dau viet thuong ,tu tiep theo chu cai dau ghi hoa 
 
 $(document).ready(function(){
     $('#signIn').removeClass('scale-0')
@@ -193,16 +193,46 @@ $(document).ready(function(){
 
     });
     // ENDPOST 
+    // SHOW PROFILE FRIEND
+    $('.showProfileFriend').click(function(){
+        let friendID = $(this).data('id');
+        // console.log(friendID)
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: showProfileFriend,
+            method:"GET",
+            data : {
+                friendID: friendID,
+            },
+            
+            success:function(data)
+            {
+                if(data.status == 'true')
+                {
+                    // console.log(data.data);
+                    $('#profile-friend').html(data.data);
+                }
+            },
+        })
+
+    });
+    // END SHOW PROFILE FRIEND
     //  LAYOUT PROFILE  
    
-    var header_bottom = document.getElementById("info_header_bottom");
-    var header_top = document.getElementById("info_header_top");
-    if(header_bottom != null ){
-        var sticky = header_bottom.offsetTop;
-        window.onscroll = function() {myFunction()};
-    }   
+   
+    window.onscroll = function() {myFunction()};
 
     function myFunction() {
+        var header_bottom = document.getElementById("info_header_bottom");
+        console.log(header_bottom);
+        if(header_bottom != null ){
+            var sticky = header_bottom.offsetTop;
+        }   
+        var header_top = document.getElementById("info_header_top");
         if (window.pageYOffset > sticky-20) {
             header_top.classList.add("translate-y-14");
         } else {
