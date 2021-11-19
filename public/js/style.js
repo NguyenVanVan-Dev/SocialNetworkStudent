@@ -17,28 +17,28 @@ $(document).ready(function(){
     
     })
     // FORM POST
-    $('#input_post').on('click', function(){
-        $("#app").addClass('fixed')
-        $('#app').removeClass('relative')
-        $('#overlay').removeClass('hidden')
-        $('#form_post').removeClass('hidden')
+    // $('#input_post').on('click', function(){
+    //     $("#app").addClass('fixed')
+    //     $('#app').removeClass('relative')
+    //     $('#overlay').removeClass('hidden')
+    //     $('#form_post').removeClass('hidden')
         
-    })
-    $("#btn_off_form_post").on('click', function(){
-        $('#app').removeClass('fixed')
-        $("#app").addClass('relative')
-        $("#content_post").val('')
-        $('#overlay').addClass('hidden')
-        $('#form_post').addClass('hidden')
+    // })
+    // $("#btn_off_form_post").on('click', function(){
+    //     $('#app').removeClass('fixed')
+    //     $("#app").addClass('relative')
+    //     $("#content_post").val('')
+    //     $('#overlay').addClass('hidden')
+    //     $('#form_post').addClass('hidden')
         
-    })
-    $('#overlay').on('click', function(){
-        $('#app').removeClass('fixed')
-        $("#app").addClass('relative')
-        $("#content_post").val('')
-        $('#form_post').addClass('hidden')
-        $(this).addClass('hidden')
-    })
+    // })
+    // $('#overlay').on('click', function(){
+    //     $('#app').removeClass('fixed')
+    //     $("#app").addClass('relative')
+    //     $("#content_post").val('')
+    //     $('#form_post').addClass('hidden')
+    //     $(this).addClass('hidden')
+    // })
     // END FORM POST
     $(".btn_option_setting").on('click',function(){
         $(".box_setting").removeClass('hidden')
@@ -100,6 +100,27 @@ $(document).ready(function(){
     })
     //  END FORM EDIT INFO PROFILE
     // POST 
+    $('body').on('click','.openPost', function(e){
+        e.stopPropagation();
+        $("#app").addClass('fixed')
+        $("#app").removeClass('relative')
+        $('#postModal').removeClass('invisible');
+        $('#boxPost').removeClass('-translate-y-64');
+        $('#boxPost').addClass('translate-y-0');
+        $('#boxPost').removeClass('opacity-0');
+        // $('#interestModal').attr('data-id',$(this).data('id'));
+    });
+    $('.closePost').on('click', function(e){
+        e.stopPropagation();
+        $("#app").addClass('relative')
+        $("#app").removeClass('fixed')
+        $('#boxPost').removeClass('translate-y-0');
+        $('#boxPost').addClass('-translate-y-64');
+        $('#boxPost').addClass('opacity-0');
+        setTimeout(() => {
+            $('#postModal').addClass('invisible');
+        }, 100);
+    });
     $('#contentPosts').keyup(function(){
         if($(this).val() != '')
         {
@@ -111,15 +132,47 @@ $(document).ready(function(){
             $('#btnPosts').removeClass('bg-blue-400 text-white')
         }
     });
+    $('#btnImagePost').click(function(){
+        $('#image_post').trigger('click');
+    })
+    $('#btnVideoPost').click(function(){
+        $('#video_post').trigger('click');
+    })
+    $('#image_post').on('change',function(){
+        $('#overlayPost').css('height','1200px');
+        const file =  $('#image_post')[0].files[0];
+        if(file){
+            const reader = new FileReader();
+            reader.onload = function(){
+                const result = reader.result;
+                $('#review_image_post').attr('src',result);
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+    $('#video_post').on('change',function(){
+        $('#overlayPost').css('height','1200px');
+        $('.video-post').removeClass('hidden')
+        const file =  $(this)[0].files[0];
+        if(file){
+            var $source = $('#review_video_post');
+            $source[0].src = URL.createObjectURL(this.files[0]);
+            $source.parent()[0].load();
+        }
+    })
     $('#btnPosts').click(function(){
         let content = $('#contentPosts').val();
         var formData = new FormData();
         formData.append("content", content);
         formData.append("user_name", userName);
         formData.append("user_id", userID);
-        // for (let index = 0; index < $('#upload')[0].files.length; index++) {
-        //     formData.append("file[]", $('#upload')[0].files[index]);
-        // }
+        for (let index = 0; index < $('#image_post')[0].files.length; index++) {
+            formData.append("file[]", $('#image_post')[0].files[index]);
+        }
+        for (let i = 0; i < $('#video_post')[0].files.length; i++) {
+            formData.append("file[]", $('#video_post')[0].files[i]);
+        }
+        console.log(formData.getAll('file[]'))
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -133,7 +186,10 @@ $(document).ready(function(){
             contentType: false,
             success : function(data) {
                 if(data.status == 'true')
-                {
+                {   
+                    $('.closePost').trigger('click')
+                    let checkImage = data.data.imageOrvideo;
+                    let imagePost = checkImage == '' ? '' : '<img src="image/'+checkImage+'" alt="" class=" m-auto h-96">';
                     Notiflix.Notify.Success('Post successful');
                     $("#btn_off_form_post").trigger('click');
                     $('#contentPosts').val(' ');
@@ -147,7 +203,7 @@ $(document).ready(function(){
                        '+ data.data.content+'\
                     </div>\
                     <div class="py-2 max-h-96">\
-                        <img src="image/'+data.data.imageOrVideo+'" alt="" class=" m-auto h-96">\
+                        '+imagePost+'\
                     </div>\
                     <div class="px-4 py-2">\
                         <div class=" flex items-center justify-between">\
@@ -193,6 +249,32 @@ $(document).ready(function(){
 
     });
     // ENDPOST 
+    // COMMENT
+    $('body').on('click','.btnComment',function(){
+        let id = $(this).data('id');
+        $('#listComment-'+id).removeClass('hidden')
+        $.ajax({
+            url:showComment,
+            method:"GET",
+            data : {
+                id:id
+            },
+            
+            success:function(data)
+            {
+                // let comment = ' <div class="flex space-x-2 "><img src="image/{{ Auth::user()->avatar}}" alt="" class="w-9 h-9 rounded-full"><div><div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm"><span class="font-semibold block">{{Auth::user()->name}}</span><span>'+ data.data.content+' </span></div><div class="p-2 text-xs text-gray-500 dark:text-dark-txt "><span class="font-semibold cursor-pointer">Like </span><span>. </span><span class="font-semibold cursor-pointer"> Reply </span><span> . </span>10m</div></div></div>';
+               console.log(data);
+            //     let result = data.data.map((ele,index)=>{
+            //        return '<div class="flex space-x-2 "><img src="#" alt="" class="w-9 h-9 rounded-full"><div><div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm"><span class="font-semibold block">'+ele.user_id+'</span><span>'+ ele.content+' </span></div><div class="p-2 text-xs text-gray-500 dark:text-dark-txt "><span class="font-semibold cursor-pointer">Like </span><span>. </span><span class="font-semibold cursor-pointer"> Reply </span><span> . </span>10m</div></div></div>'
+            //    })
+               console.log(data.data);
+            //    $('#commentPost-'+data.data[0].post_id).prepend(data.data);
+               $('#commentPost-'+data.post_id).html(data.data);
+               $('.user_comment').val('');
+            },
+        })
+    });
+    // END COMMENT
     // SHOW PROFILE FRIEND
     $('.showProfileFriend').click(function(){
         let friendID = $(this).data('id');
@@ -228,16 +310,17 @@ $(document).ready(function(){
 
     function myFunction() {
         var header_bottom = document.getElementById("info_header_bottom");
-        console.log(header_bottom);
+        // console.log(header_bottom);
         if(header_bottom != null ){
             var sticky = header_bottom.offsetTop;
+            var header_top = document.getElementById("info_header_top");
+            if (window.pageYOffset > sticky-20) {
+                header_top.classList.add("translate-y-14");
+            } else {
+                header_top.classList.remove("translate-y-14");
+            }
         }   
-        var header_top = document.getElementById("info_header_top");
-        if (window.pageYOffset > sticky-20) {
-            header_top.classList.add("translate-y-14");
-        } else {
-            header_top.classList.remove("translate-y-14");
-        }
+        
     }    
 //  END LAYOUT PROFILE
 

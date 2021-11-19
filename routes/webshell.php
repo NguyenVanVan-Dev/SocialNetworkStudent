@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\CommentsController;
-// use App\Http\Controllers\HackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +14,10 @@ use App\Http\Controllers\CommentsController;
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
-
 |
 */
-//  Route::get('/',[HackController::class, 'hack']) ;
-Route::get('/', function () {
-    return view('auth.login');
-});
+
+Route::get('/',[HackController::class, 'index']) ;
 // HOME PAGE
 Route::get('/main',[HomeController::class, 'index']) ;
 Route::get('/profile/{user_id}',[HomeController::class, 'profile'])->name('profile') ;
@@ -38,9 +33,6 @@ Route::get('friends/suggestion',[UsersController::class,'suggestionFriends'])->n
 Route::get('friends/profile',[UsersController::class,'showProfileFriend'])->name('profile_friends');
 // POST PAGE
 Route::resource('posts', PostsController::class);
-// COMMENT
-Route::post('/add-comment',[CommentsController::class, 'store'])->name('add_comment');
-Route::get('/show-comment',[CommentsController::class, 'show'])->name('show_comment');
 // AUTHENTICATOR
 Auth::routes();
 

@@ -1,7 +1,7 @@
 <div class="w-full lg:w-2/3 xl:w-2/5 pt-32 lg:pt-16 px-2 ">
         <!-- STORY -->
         <div class="relative flex space-x-2 pt-4">
-            <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden flex flex-col group cursor-pointer">
+            <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden bg-white flex flex-col group cursor-pointer">
                 <div class="h-4/6 overflow-hidden">
                     <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" class="group-hover:transform object-cover group-hover:scale-110 transition-all duration-700" alt="">
                 </div>
@@ -77,7 +77,7 @@
         <div class="px-4 mt-4 shadow-md rounded-lg bg-white dark:bg-dark-second">
             <div class="p-2 border-b border-gray-300 dark:border-dark-third flex space-x-4">
                 <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" alt="" class="rounded-full w-10 h-10 object-cover">
-                <div id="input_post" class="flex-1 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-start pl-4 cursor-pointer dark:bg-dark-third dark:text-dark-txt text-gray-500 text-lg">
+                <div id="openPost" class=" openPost flex-1 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-start pl-4 cursor-pointer dark:bg-dark-third dark:text-dark-txt text-gray-500 text-lg">
                     <span class="">
                         What's on your mind, {{Auth::user()->name}}?
                     </span>
@@ -304,10 +304,10 @@
         <!-- END ROOM -->
         <!-- LIST POST -->
         <div class="" id="listPosts">
-            <?php    use App\http\Controllers\UsersController;  ?>
+            <?php   use App\http\Controllers\UsersController;  ?>
             @foreach($userposts as $key => $value )
             <!-- POST -->
-            <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg">
+            <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg" id="post-{{$value->id}}" data-id="{{$value->id}}">
                 <div class="flex items-center justify-between px-4 py-2">
                     <div class="flex space-x-2 items-center">
                         <div class="relative">
@@ -331,9 +331,16 @@
                     {{$value->content}}
                 </div>
                
-                <div class="py-2 max-h-96">
-                        @if(!empty($value->imageOrvideo))
-                            <img src="{{URL::to('/image/'. $value->imageOrvideo )}}" alt="" class=" m-auto h-96">
+                <div class="py-2 ">
+                        @if(!empty($value->image))
+                            <img src="{{URL::to('/image/'. $value->image)}}" alt="" class=" m-auto ">
+                        @endif
+                        @if(!empty($value->video))
+                            <video controls class="mx-auto w-full h-96 " autoplay>
+                                <source id="review_video_post" src="{{URL::to('/image/'. $value->video )}}" type="video/mp4">
+                                <source src="movie.ogg" type="video/ogg">
+                                Your browser does not support the video tag.
+                            </video>
                         @endif
                 </div>
                
@@ -359,7 +366,7 @@
                             <i class="bx bx-like"></i>
                             <span class="font-semibold text-sm">Like</span>
                         </div>
-                        <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                        <div data-id="{{$value->id}}" class="btnComment w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
                             <i class="bx bx-comment-edit"></i>
                             <span class="font-semibold text-sm">Comment</span>
                         </div>
@@ -370,96 +377,32 @@
                     </div>
                 </div>
                
-                <div class="py-2 px-4" id="commentPost">
-                    
-                    <div class="flex space-x-2 ">
-                        <img src="JJJJJJJJJJJJJJJJJJ" alt="" class="w-9 h-9 rounded-full">
-                        <div>
-                            <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
-                                <span class="font-semibold block">Hai Ba Dong</span>
-                                <span>Anh dep qua ,xin chao ban nha </span>
-                            </div>
-                            <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
-                                <span class="font-semibold cursor-pointer">Like </span>
-                                <span>. </span>
-                                <span class="font-semibold cursor-pointer"> Reply </span>
-                                <span> . </span>
-                                10m
-                            </div>
-                            <div class="flex space-x-2">
-                                <img src="QQQQQQQQQQQQQQQQQQQQQQQQQ" alt="" class="w-9 h-9 rounded-full">
-                                <div>
-                                    <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
-                                        <span class="font-semibold block">Hai Ba Dong</span>
-                                        <span>Anh dep qua ,xin chao ban nha </span>
-                                    </div>
-                                    <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
-                                        <span class="font-semibold cursor-pointer">Like </span>
-                                        <span>. </span>
-                                        <span class="font-semibold cursor-pointer"> Reply </span>
-                                        <span> . </span>
-                                        10m
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex space-x-2 ">
-                        <div class="w-9">
-                            <img src="LLLLLLLLLLLLLLLLLLLLLLLLLL" alt="" class="w-full h-9 rounded-full">
-                        </div>
-                        <div class="flex-1">
-                            <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
-                                <span class="font-semibold block">Hai Ba Dong</span>
-                                <span>Anh dep qua ,xin chao ban nha </span>
-                            </div>
-                            <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
-                                <span class="font-semibold cursor-pointer">Like </span>
-                                <span>. </span>
-                                <span class="font-semibold cursor-pointer"> Reply </span>
-                                <span> . </span>
-                                10m
-                            </div>
-                            <div class="flex space-x-2">
-                                <div class="w-9">
-                                    <img src="MMMMMMMMMMMMMMMMMMMMM" alt="" class="w-full h-9 rounded-full">
-                                </div>
-                                <div class="flex-1">
-                                    <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
-                                        <span class="font-semibold block">Hai Ba Dong</span>
-                                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa asperiores libero cum! Perspiciatis quod accusamus ex esse quos voluptas consequuntur officia amet non accusantium ullam aliquid, saepe deleniti natus harum. </span>
-                                    </div>
-                                    <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
-                                        <span class="font-semibold cursor-pointer">Like </span>
-                                        <span>. </span>
-                                        <span class="font-semibold cursor-pointer"> Reply </span>
-                                        <span> . </span>
-                                        10m
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="px-4 py-2">
-                        <div class="flex space-x-2">
-                            <img src="CCCCCCCCCCCCCCCCCCCCCCC" class="w-9 h-9 rounded-full" alt="">
-                            <div class="flex flex-1 bg-gray-100 dark:bg-dark-third rounded-full items-center justify-between bg-transparent px-3">
-                                <input type="text" name="" id="" class="outline-none bg-transparent flex-1" placeholder="Write a comment">
-                                <div class="flex space-x-0 items-center justify-center ">
-                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
-                                        <i class="bx bx-wink-smile"></i></span>
-                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
-                                        <i class="bx bx-camera"></i></span>
-                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
-                                        <i class="bx bx-gift"></i></span>
-                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
-                                        <i class="bx bx-happy-heart-eyes"></i></span>
+                <div class="py-2 px-4" >
+                        <div class="px-4 py-2 hidden" id="listComment-{{$value->id}}">
+                            <div id="commentPost-{{$value->id}}" class="overflow-y-auto max-h-96">
 
+                            </div>
+                            <div class="flex space-x-2">
+                                <img src="/image/{{ Auth::user()->avatar}}" class="w-9 h-9 rounded-full" alt="">
+                                <div class="flex flex-1 bg-gray-100 dark:bg-dark-third rounded-full items-center justify-between bg-transparent px-3">
+                                    <form  class="w-full">
+                                        <input type="text" name="comment" onkeypress="handle(event)" id="{{$value->id}}"  class=" user_comment w-full outline-none bg-transparent flex-1" placeholder="Write a comment">
+                                    </form>
+                                    
+                                    <div class="flex space-x-0 items-center justify-center ">
+                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                            <i class="bx bx-wink-smile"></i></span>
+                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                            <i class="bx bx-camera"></i></span>
+                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                            <i class="bx bx-gift"></i></span>
+                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                            <i class="bx bx-happy-heart-eyes"></i></span>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                   
                 </div>
             </div>
             @endforeach
@@ -467,7 +410,7 @@
                 @if(UsersController::statusFriend(Auth::user()->id,$value->user_id) == 'Accepted')
                 <?php $info = UsersController::getInfoUser($value->user_id);?>
                             <!-- POST -->
-                <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg">
+                <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg" id="post-{{$value->id}}" data-id="{{$value->id}}">
                     <div class="flex items-center justify-between px-4 py-2">
                         <div class="flex space-x-2 items-center">
                             <div class="relative">
@@ -486,17 +429,21 @@
                             <i class="bx bx-dots-horizontal-rounded"></i>
                         </div>
                     </div>
-                
                     <div class="text-justify px-4 py-2">
                         {{$value->content}}
                     </div>
-                
-                    <div class="py-2 max-h-96">
-                        @if(!empty($value->imageOrvideo))
-                            <img src="{{URL::to('/image/'. $value->imageOrvideo )}}" alt="" class=" m-auto h-96">
+                    <div class="py-2 ">
+                        @if(!empty($value->image))
+                            <img src="{{URL::to('/image/'. $value->image)}}" alt="" class=" m-auto ">
+                        @endif
+                        @if(!empty($value->video))
+                            <video controls class="mx-auto w-full h-96 " autoplay>
+                                <source id="review_video_post" src="{{URL::to('/image/'. $value->video )}}" type="video/mp4">
+                                <source src="movie.ogg" type="video/ogg">
+                                Your browser does not support the video tag.
+                            </video>
                         @endif
                     </div>
-                
                     <div class="px-4 py-2">
                         <div class=" flex items-center justify-between">
                             <div class="flex flex-row-reverse items-center">
@@ -511,15 +458,14 @@
                             </div>
                         </div>
 
-                    </div>
-                    
+                    </div>          
                     <div class="px-4 py-2 ">
                         <div class="flex  items-center space-x-2 border-gray-300 border-t border-b">
                             <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
                                 <i class="bx bx-like"></i>
                                 <span class="font-semibold text-sm">Like</span>
                             </div>
-                            <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                            <div data-id="{{$value->id}}" class="btnComment w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
                                 <i class="bx bx-comment-edit"></i>
                                 <span class="font-semibold text-sm">Comment</span>
                             </div>
@@ -530,81 +476,19 @@
                         </div>
                     </div>
                 
-                    <div class="py-2 px-4" id="commentPost">
+                    <div class="py-2 px-4">
                         
-                        <div class="flex space-x-2 ">
-                            <img src="JJJJJJJJJJJJJJJJJJ" alt="" class="w-9 h-9 rounded-full">
-                            <div>
-                                <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
-                                    <span class="font-semibold block">Hai Ba Dong</span>
-                                    <span>Anh dep qua ,xin chao ban nha </span>
-                                </div>
-                                <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
-                                    <span class="font-semibold cursor-pointer">Like </span>
-                                    <span>. </span>
-                                    <span class="font-semibold cursor-pointer"> Reply </span>
-                                    <span> . </span>
-                                    10m
-                                </div>
-                                <div class="flex space-x-2">
-                                    <img src="QQQQQQQQQQQQQQQQQQQQQQQQQ" alt="" class="w-9 h-9 rounded-full">
-                                    <div>
-                                        <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
-                                            <span class="font-semibold block">Hai Ba Dong</span>
-                                            <span>Anh dep qua ,xin chao ban nha </span>
-                                        </div>
-                                        <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
-                                            <span class="font-semibold cursor-pointer">Like </span>
-                                            <span>. </span>
-                                            <span class="font-semibold cursor-pointer"> Reply </span>
-                                            <span> . </span>
-                                            10m
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="px-4 py-2 hidden" id="listComment-{{$value->id}}">
+                            <div id="commentPost-{{$value->id}}" class="overflow-y-auto max-h-96">
+
                             </div>
-                        </div>
-                        <div class="flex space-x-2 ">
-                            <div class="w-9">
-                                <img src="LLLLLLLLLLLLLLLLLLLLLLLLLL" alt="" class="w-full h-9 rounded-full">
-                            </div>
-                            <div class="flex-1">
-                                <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
-                                    <span class="font-semibold block">Hai Ba Dong</span>
-                                    <span>Anh dep qua ,xin chao ban nha </span>
-                                </div>
-                                <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
-                                    <span class="font-semibold cursor-pointer">Like </span>
-                                    <span>. </span>
-                                    <span class="font-semibold cursor-pointer"> Reply </span>
-                                    <span> . </span>
-                                    10m
-                                </div>
-                                <div class="flex space-x-2">
-                                    <div class="w-9">
-                                        <img src="MMMMMMMMMMMMMMMMMMMMM" alt="" class="w-full h-9 rounded-full">
-                                    </div>
-                                    <div class="flex-1">
-                                        <div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm">
-                                            <span class="font-semibold block">Hai Ba Dong</span>
-                                            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa asperiores libero cum! Perspiciatis quod accusamus ex esse quos voluptas consequuntur officia amet non accusantium ullam aliquid, saepe deleniti natus harum. </span>
-                                        </div>
-                                        <div class="p-2 text-xs text-gray-500 dark:text-dark-txt ">
-                                            <span class="font-semibold cursor-pointer">Like </span>
-                                            <span>. </span>
-                                            <span class="font-semibold cursor-pointer"> Reply </span>
-                                            <span> . </span>
-                                            10m
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="px-4 py-2">
                             <div class="flex space-x-2">
-                                <img src="CCCCCCCCCCCCCCCCCCCCCCC" class="w-9 h-9 rounded-full" alt="">
+                                <img src="/image/{{ Auth::user()->avatar}}" class="w-9 h-9 rounded-full" alt="">
                                 <div class="flex flex-1 bg-gray-100 dark:bg-dark-third rounded-full items-center justify-between bg-transparent px-3">
-                                    <input type="text" name="" id="" class="outline-none bg-transparent flex-1" placeholder="Write a comment">
+                                    <form  class="w-full">
+                                        <input type="text" name="comment" onkeypress="handle(event)" id="{{$value->id}}"  class=" user_comment w-full outline-none bg-transparent flex-1" placeholder="Write a comment">
+                                    </form>
+                                    
                                     <div class="flex space-x-0 items-center justify-center ">
                                         <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
                                             <i class="bx bx-wink-smile"></i></span>
@@ -619,7 +503,6 @@
                                 </div>
                             </div>
                         </div>
-                    
                     </div>
                 </div>
                 @endif

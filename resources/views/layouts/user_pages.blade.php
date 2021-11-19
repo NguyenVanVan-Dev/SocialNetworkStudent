@@ -56,13 +56,43 @@
     @include('Component.form-post')
     @include('Component.header')
     @yield('content')
-
+    <form action="{{ route('add_comment')}}" method="post" id="formComment" class="w-full hidden">
+        @csrf
+        <input type="hidden" name="post_id" id="post_id" value="">
+        <input type="hidden" name="comment" id="user_comment">
+    </form>
     <script>
         var userName = '{{ Auth::user()->name }}';
         var userID = '{{ Auth::user()->id }}';
         var userAvatar = '{{ Auth::user()->avatar }}';
         var urlPosts = ' {{ route('posts.store')}}';
         var showProfileFriend = '{{ route('profile_friends')}}';
+        var addComment = '{{ route('add_comment')}}';
+        var showComment = '{{ route('show_comment')}}';
+
+        function handle(e){
+            if(e.keyCode === 13){
+                e.preventDefault(); // Ensure it is only this code that runs
+                $('#user_comment').val(e.target.value);
+                $('#post_id').val(e.target.id);
+                if( $('#user_comment').val() != '')
+                {
+                    $.ajax({
+                        url:'{{ route('add_comment')}}',
+                        method:"POST",
+                        data : $('#formComment').serialize(),
+                        
+                        success:function(data)
+                        {
+                            let comment = ' <div class="flex space-x-2 "><img src="image/{{ Auth::user()->avatar}}" alt="" class="w-9 h-9 rounded-full"><div><div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm"><span class="font-semibold block">{{Auth::user()->name}}</span><span>'+ data.data.content+' </span></div><div class="p-2 text-xs text-gray-500 dark:text-dark-txt "><span class="font-semibold cursor-pointer">Like </span><span>. </span><span class="font-semibold cursor-pointer"> Reply </span><span> . </span>10m</div></div></div>';
+                           console.log(data);
+                           $('#commentPost-'+data.data.post_id).append(comment);
+                           $('.user_comment').val('');
+                        },
+                    })
+                }
+            }
+        }
     </script>
     <script src="{{ asset('js/style.js') }}"></script>
 </body>

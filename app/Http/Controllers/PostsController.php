@@ -45,7 +45,24 @@ class PostsController extends Controller
         $content = $request->content;
         $user_id = $request->user_id;
         $user_name = $request->user_name;
+        $media = $request->file('file');
         $data = array();
+        if($media){
+           for ($i=0; $i < count($media) ; $i++) { 
+            $get_name_media = $media[$i]->getClientOriginalName(); 
+            $current_media = current(explode('.',$get_name_media));
+            $new_name_media =  $current_media.rand(0,99).'.'.$media[$i]->getClientOriginalExtension();
+            if($media[$i]->getClientOriginalExtension() == 'jpeg' || $media[$i]->getClientOriginalExtension() == 'png' || $media[$i]->getClientOriginalExtension() == 'gif' || $media[$i]->getClientOriginalExtension() == 'jpg')
+            {
+                $data['image'] = $new_name_media;
+            }else if ($media[$i]->getClientOriginalExtension() == 'mp4')
+            {
+                $data['video'] = $new_name_media;
+            }
+            // $new_name_media =  $current_media.rand(0,99).'.'. explode('.',$get_name_media)[1];
+            $media[$i]->move(\public_path('image'),$new_name_media);
+           }
+        }
         if(!empty($content) && !empty($user_id) && !empty($user_name))
         {
             $data['content'] = htmlspecialchars($content);

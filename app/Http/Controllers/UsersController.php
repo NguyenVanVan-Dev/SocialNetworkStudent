@@ -205,8 +205,8 @@ class UsersController extends Controller
         foreach($data_posts as $key=>$value)
         {
             $image_post = '';
-            if(!empty($value->imageOrvideo)){
-                $image_post = '<img src="/image/'.$value->imageOrvideo.'" alt="" class=" m-auto h-96">';
+            if(!empty($value->image)){
+                $image_post = '<img src="/image/'.$value->image.'" alt="" class=" m-auto h-96">';
             }
             $list_posts .= ' <div>
                             <!-- POST -->
