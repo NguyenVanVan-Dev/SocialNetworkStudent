@@ -189,7 +189,7 @@ $(document).ready(function(){
                 {   
                     $('.closePost').trigger('click')
                     let checkImage = data.data.imageOrvideo;
-                    let imagePost = checkImage == '' ? '' : '<img src="image/'+checkImage+'" alt="" class=" m-auto h-96">';
+                    let imagePost = checkImage == '' ? '' : '<img src="/image/'+checkImage+'" alt="" class=" m-auto h-96">';
                     Notiflix.Notify.Success('Post successful');
                     $("#btn_off_form_post").trigger('click');
                     $('#contentPosts').val(' ');
@@ -262,13 +262,6 @@ $(document).ready(function(){
             
             success:function(data)
             {
-                // let comment = ' <div class="flex space-x-2 "><img src="image/{{ Auth::user()->avatar}}" alt="" class="w-9 h-9 rounded-full"><div><div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm"><span class="font-semibold block">{{Auth::user()->name}}</span><span>'+ data.data.content+' </span></div><div class="p-2 text-xs text-gray-500 dark:text-dark-txt "><span class="font-semibold cursor-pointer">Like </span><span>. </span><span class="font-semibold cursor-pointer"> Reply </span><span> . </span>10m</div></div></div>';
-               console.log(data);
-            //     let result = data.data.map((ele,index)=>{
-            //        return '<div class="flex space-x-2 "><img src="#" alt="" class="w-9 h-9 rounded-full"><div><div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm"><span class="font-semibold block">'+ele.user_id+'</span><span>'+ ele.content+' </span></div><div class="p-2 text-xs text-gray-500 dark:text-dark-txt "><span class="font-semibold cursor-pointer">Like </span><span>. </span><span class="font-semibold cursor-pointer"> Reply </span><span> . </span>10m</div></div></div>'
-            //    })
-               console.log(data.data);
-            //    $('#commentPost-'+data.data[0].post_id).prepend(data.data);
                $('#commentPost-'+data.post_id).html(data.data);
                $('.user_comment').val('');
             },

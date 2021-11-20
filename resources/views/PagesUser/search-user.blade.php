@@ -291,7 +291,7 @@
                                 <img src=" {{URL::to('/image/'.$search_user->avatar)}}" class="rounded-full w-14 h-14 object-cover" alt="">
                                 <div class="ml-4">
                                     <span class="font-semibold block text-lg"> 
-                                        <a href="{{URL::TO('/viewuser/'.$search_user->id)}}" class="hover:underline text-black name_friend">{{ $search_user->name }}</a>
+                                        <a href="{{URL::TO('/view-user/'.$search_user->id)}}" class="hover:underline text-black name_friend">{{ $search_user->name }}</a>
                                     </span>
                                     <span class="text-sm block"> Trường Đại học CNTT và Truyền thông Việt Hàn - VKU</span>
                                 </div>

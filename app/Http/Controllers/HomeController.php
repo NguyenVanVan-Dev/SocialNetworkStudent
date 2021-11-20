@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Post;
+use App\Models\Comments;
 class HomeController extends Controller
 {
     /**
@@ -49,10 +51,12 @@ class HomeController extends Controller
         $user = User::find($user_id);
         return view('PagesUser.profile')->with('user',$user);
     }
-    public function viewuser($id)
+    public function viewUser($id)
     {
         $user = User::find($id);
-        return view('PagesUser.viewuser')->with('user',$user);
+        $posts = Post::where('user_id',$id)->orderBy('created_at','desc')->get();
+        // dd($post);
+        return view('PagesUser.view-user')->with('user',$user)->with('posts',$posts);
     }
     public function search(Request $request){
         $text_search = $request->querytext;
@@ -64,7 +68,7 @@ class HomeController extends Controller
 
             foreach ($reuslt_search as $key => $value) {
                 $output .= '<li class=" w-full text-center p-1 border-b-2 border-gray-200 dark:hover:bg-dark-third items-center dark:text-dark-txt">
-                                <a href="/viewuser/'.$value->id.'" class="flex items-center space-x-2 p-2 rounded-md hover:bg-white">
+                                <a href="/view-user/'.$value->id.'" class="flex items-center space-x-2 p-2 rounded-md hover:bg-white">
                                     <img src="/image/'.$value->avatar.'" alt="" class="w-10 h-10 rounded-full">
                                     <span class="font-semibold block">'.$value->name.'</span>
                                 </a>

@@ -674,9 +674,9 @@
             },
         })
     }
-    setInterval(() => {
-        countNotifiSendFriends();
-    }, 5000);
+    // setInterval(() => {
+    //     countNotifiSendFriends();
+    // }, 5000);
     $('body').on('click','.btn-acceptefriend',function(){
         let toID = $(this).data('id');
         console.log(toID);

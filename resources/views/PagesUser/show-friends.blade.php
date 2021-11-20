@@ -22,7 +22,7 @@
                 @foreach ($friends as $key => $listfriend)
                     @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) == 'RequestFriend')
                         <div class=" shadow-lg rounded-lg bg-white overflow-hidden " id="request-{{ $listfriend->id}}">
-                            <a href="{{URL::TO('/viewuser/'.$listfriend->id)}}">
+                            <a href="{{URL::TO('/view-user/'.$listfriend->id)}}">
                                 <div class="bg-gray-700 opacity-80">
                                     <img src="{{URL::to('/image/'. $listfriend->avatar)}}" alt="" class="w-full h-52 rounded-t-lg object-cover">
                                 </div>

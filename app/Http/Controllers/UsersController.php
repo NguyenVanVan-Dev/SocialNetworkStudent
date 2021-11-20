@@ -208,19 +208,28 @@ class UsersController extends Controller
             if(!empty($value->image)){
                 $image_post = '<img src="/image/'.$value->image.'" alt="" class=" m-auto h-96">';
             }
-            $list_posts .= ' <div>
+            if(!empty($value->video))   
+            {
+                $video_post = ' <video controls class="mx-auto w-full h-96 " autoplay>
+                                    <source  src="/image/'.$value->video.'" type="video/mp4">
+                                    <source src="/image/'.$value->video.'" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                </video>';
+            }
+        
+        $list_posts .= '<div class="" id="listPosts">
                             <!-- POST -->
-                            <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg">
+                            <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg" id="post-'.$value->id.'" data-id="'.$value->id.'">
                                 <div class="flex items-center justify-between px-4 py-2">
                                     <div class="flex space-x-2 items-center">
                                         <div class="relative">
                                             <img src="/image/'.$avatar.'" class="w-10 h-10 rounded-full" alt="">
                                             <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0
-                                        top-3/4 border-white border-2"></span>
+                                            top-3/4 border-white border-2"></span>
                                         </div>
                                         <div>
                                             <div class="font-semibold">
-                                                '.$name.'
+                                            '.$name.'
                                             </div>
                                             <span class="text-sm text-gray-500">'.$value->created_at.'</span>
                                         </div>
@@ -229,18 +238,16 @@ class UsersController extends Controller
                                         <i class="bx bx-dots-horizontal-rounded"></i>
                                     </div>
                                 </div>
-                                <!-- END POST AUTHOR -->
-                                <!-- POST CONTENT -->
+                            
                                 <div class="text-justify px-4 py-2">
-                                    '.$value->content.'
+                                   '. $value->content.'
                                 </div>
-                                <!-- END POST CONTENT -->
-                                <!-- POST IMAGE -->
-                                <div class="py-2 max-h-96">
-                                '.$image_post.' 
+                            
+                                <div class="py-2 ">
+                                        '.$image_post.'
+                                        '.$video_post.'
                                 </div>
-                                <!-- END POST IMAGE -->
-                                <!-- POST REACT -->
+                            
                                 <div class="px-4 py-2">
                                     <div class=" flex items-center justify-between">
                                         <div class="flex flex-row-reverse items-center">
@@ -256,15 +263,14 @@ class UsersController extends Controller
                                     </div>
 
                                 </div>
-                                <!-- END POST REACT -->
-                                <!-- POST ACTION -->
+                                
                                 <div class="px-4 py-2 ">
                                     <div class="flex  items-center space-x-2 border-gray-300 border-t border-b">
                                         <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
                                             <i class="bx bx-like"></i>
                                             <span class="font-semibold text-sm">Like</span>
                                         </div>
-                                        <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                                        <div data-id="'.$value->id.'" class="btnComment w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
                                             <i class="bx bx-comment-edit"></i>
                                             <span class="font-semibold text-sm">Comment</span>
                                         </div>
@@ -273,34 +279,35 @@ class UsersController extends Controller
                                             <span class="font-semibold text-sm">Share</span>
                                         </div>
                                     </div>
-
                                 </div>
-                                <!-- END POST ACTION -->
-                                <!-- LIST COMMENT -->
-                                <div class="py-2 px-4">
-                                    <!-- COMMENT FORM -->
-                                    <div class="px-4 py-2">
-                                        <div class="flex space-x-2">
-                                            <img src="/image/'.Auth::user()->avatar.'" class="w-9 h-9 rounded-full" alt="">
-                                            <div class="flex flex-1 bg-gray-100 dark:bg-dark-third rounded-full items-center justify-between bg-transparent px-3">
-                                                <input type="text" name="" id="" class="outline-none bg-transparent flex-1" placeholder="Write a comment">
-                                                <div class="flex space-x-0 items-center justify-center ">
-                                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
-                                                        <i class="bx bx-wink-smile"></i></span>
-                                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
-                                                        <i class="bx bx-camera"></i></span>
-                                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
-                                                        <i class="bx bx-gift"></i></span>
-                                                    <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
-                                                        <i class=" bx-happy-heart-eyes"></i></span>
+                            
+                                <div class="py-2 px-4" >
+                                        <div class="px-4 py-2 hidden" id="listComment-'.$value->id.'">
+                                            <div id="commentPost-'.$value->id.'" class="overflow-y-auto max-h-96">
 
+                                            </div>
+                                            <div class="flex space-x-2">
+                                                <img src="/image/'.Auth::user()->avatar.'" class="w-9 h-9 rounded-full" alt="">
+                                                <div class="flex flex-1 bg-gray-100 dark:bg-dark-third rounded-full items-center justify-between bg-transparent px-3">
+                                                    <form  class="w-full">
+                                                        <input type="text" name="comment" onkeypress="handle(event)" id="'.$value->id.'"  class=" user_comment w-full outline-none bg-transparent flex-1" placeholder="Write a comment">
+                                                    </form>
+                                                    
+                                                    <div class="flex space-x-0 items-center justify-center ">
+                                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                                            <i class="bx bx-wink-smile"></i></span>
+                                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                                            <i class="bx bx-camera"></i></span>
+                                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                                            <i class="bx bx-gift"></i></span>
+                                                        <span class="w-7 h-7 grid place-items-center rounded-full hover:bg-gray-200 cursor-pointer text-gray-500 dark:text-dark-txt dark:hover:bg-dark-second text-xl">
+                                                            <i class="bx bx-happy-heart-eyes"></i></span>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- END COMMENT FORM -->
                                 </div>
-                                <!-- END LIST COMMENT -->
                             </div>
                             <!-- END POST -->
                         </div>';
