@@ -32,8 +32,8 @@
                         </div>
                         <div class="video-post hidden">
                             <video   controls class="mx-auto w-full h-80">
-                                <source id="review_video_post" src="movie.mp4" type="video/mp4">
-                                <source src="movie.ogg" type="video/ogg">
+                                <source id="review_video_post" src="#" type="video/mp4">
+                                <source src="#" type="video/ogg">
                                 Your browser does not support the video tag.
                             </video>
                             <input type="file" name="video" id="video_post" accept="video/*" style="display: none;">

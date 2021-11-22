@@ -14,7 +14,7 @@ class AddInterestsToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('interests')->after('story');
+            $table->string('interests')->after('story')->nullable();
         });
     }
 

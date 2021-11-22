@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                <a href="{{ route('messenger')}}" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
                     <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
                     <span class="font-semibold block">Pages</span>

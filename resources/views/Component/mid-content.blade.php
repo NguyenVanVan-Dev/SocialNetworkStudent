@@ -338,7 +338,7 @@
                         @if(!empty($value->video))
                             <video controls class="mx-auto w-full h-96 " autoplay>
                                 <source id="review_video_post" src="{{URL::to('/image/'. $value->video )}}" type="video/mp4">
-                                <source src="movie.ogg" type="video/ogg">
+                                <source src="{{URL::to('/image/'. $value->video )}}" type="video/ogg">
                                 Your browser does not support the video tag.
                             </video>
                         @endif
@@ -439,7 +439,7 @@
                         @if(!empty($value->video))
                             <video controls class="mx-auto w-full h-96 " autoplay>
                                 <source id="review_video_post" src="{{URL::to('/image/'. $value->video )}}" type="video/mp4">
-                                <source src="movie.ogg" type="video/ogg">
+                                <source src="{{URL::to('/image/'. $value->video )}}" type="video/ogg">
                                 Your browser does not support the video tag.
                             </video>
                         @endif

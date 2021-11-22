@@ -7,8 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Friend;
 use App\Models\Post;
 use App\Models\Comments;
+use App\Models\Messenger;
+use Pusher\Pusher;
 class HomeController extends Controller
 {
     /**
@@ -98,5 +101,220 @@ class HomeController extends Controller
         }
         return view('PagesUser.search-user')->with('users',$reuslt_user);
         // dd(count($reuslt_user));
+    }
+    public function messenger()
+    {
+        $count_friend =  Friend::where('status' ,'Accepted')->where('id_userTo',Auth::user()->id)->orWhere('id_userFrom',Auth::user()->id)->count();
+        $friends = DB::table('users')->where('id','!=',Auth::user()->id)->orderBy('created_at','desc')->get();
+        // $friends = DB::table('users')->where('id','!=',Auth::user()->id)
+        //                             ->join('messengers','users.id ' ,'=' , 'messengers.id_userFrom')->where('is_read ',0)
+        //                             ->where('messengers.id_userTo',Auth::user()->id)
+        //                             ->orderBy('created_at','desc')->get();
+        return view('PagesUser.messenger')->with('friends',$friends)->with('qtyfriend',$count_friend);
+    }
+    public function getMessages(Request $request)
+    {
+        $receiver_id = $request->receiver_id;
+        $my_id = Auth::user()->id;
+        $info_friend = User::Where('id',$receiver_id)->first();
+        $messages = Messenger::where(function ($query) use ( $receiver_id, $my_id) {
+            $query->where('id_userFrom',  $receiver_id)->where('id_userTo', $my_id);
+        })->orWhere(function ($query) use ( $receiver_id, $my_id) {
+            $query->where('id_userFrom', $my_id)->where('id_userTo',  $receiver_id);
+        })->get();
+        $conversition ='';
+        foreach($messages as $key =>$value)
+        {
+            if($value->id_userFrom == $my_id)
+            {
+                $conversition .= ' <div class="relative flex justify-start items-center py-4 self-end mr-4">
+                                        <div class="absolute -top-1 right-14 text-sm text-gray-700">You</div>
+                                        <div class="mr-4 rounded-xl rounded-br-none p-2 max-w-sm bg-blue-500 text-white">
+                                            <span class="text-base font-normal">
+                                                '.$value->message.'
+                                            </span>
+                                            <div class=" bottom-0 left-14">
+                                                <span class="text-sm "> 12:20 pm</span>
+                                            </div>
+                                        </div>
+                                        <img src="/image/'.Auth::user()->avatar.'" alt="" class="w-10 h-10 rounded-full object-cover">
+                                    </div>';
+            }
+            else {
+                $conversition .= '  <div class="relative flex justify-start items-center py-4 ">
+                                    <div class="absolute -top-1 left-14 text-sm text-gray-700">'. $info_friend->name.'</div>
+                                    <img src="/image/'. $info_friend->avatar.'" alt="" class="w-10 h-10 rounded-full object-cover">
+                                    <div class="ml-4 bg-gray-200 rounded-xl rounded-bl-none p-2 max-w-sm">
+                                        <span class="text-base font-normal">
+                                        '.$value->message.'
+                                        </span>
+                                        <div class=" bottom-0 left-14">
+                                            <span class="text-sm text-gray-700"> 12:20 pm</span>
+                                        </div>
+                                    </div>
+                                    
+                                </div>';
+            }
+            
+        }
+        $info_conversiton = ' <div class="w-full flex justify-center" >
+                                <div class="w-8/12  mr-4">
+                                    <div class="header-conver flex justify-between items-center py-4 border-b border-gray-700">
+                                        <div class="info-friend relative flex justify-between items-center">
+                                            <img src="/image/'. $info_friend->avatar.'" alt="" class="w-10 h-10 rounded-full object-cover">
+                                            <div class="ml-3 text-lg text-gray-700 ">'. $info_friend->name.'</div>
+                                        </div>
+                                        <div class="action-friends flex justify-between items-center mr-4">
+                                            <div class="text-xl hidden xl:grid place-items-center bg-gray-200
+                                            dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-2 cursor-pointer hover:bg-gray-300 relative">
+                                                <i class="bx bx-dots-horizontal-rounded"></i>
+                                            </div>
+                                            <div class="text-xl hidden xl:grid place-items-center bg-gray-200
+                                            dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-2 cursor-pointer hover:bg-gray-300 relative">
+                                                <i class="bx bx-camera-movie"></i>
+                                            </div>
+                                            <div class="text-xl hidden xl:grid place-items-center bg-gray-200
+                                            dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-2 cursor-pointer hover:bg-gray-300 relative">
+                                                <i class="bx bxs-edit"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="h-4/5 max-h-4/5   overflow-y-auto">
+                                        <!-- Chat -->
+                                        <div class="conversition flex flex-col pt-2" id="box_chats">
+                                            '.$conversition.'
+                                        </div>
+                                    </div>
+                                    <div class="form-send flex justify-between items-center border-t border-gray-500 py-2 ">
+                                        <div>
+                                            <ul>
+                                                <li class="inline-block  ">
+                                                    <span class="grid place-items-center text-3xl text-green-500 hover:bg-gray-300 w-10 h-10 rounded-full" id="btnImagePost">
+                                                        <i class="bx bx-images"></i>
+                                                    </span>
+                                                </li>
+                                                <li class="inline-block  ">
+                                                    <span class="grid place-items-center text-3xl text-yellow-500 hover:bg-gray-300 w-10 h-10 rounded-full" id="btnVideoPost" >
+                                                        <i class="bx bxs-videos"></i>
+                                                    </span>
+                                                </li>
+                                                <li class="inline-block  ">
+                                                    <span class="grid place-items-center text-3xl text-blue-500 hover:bg-gray-300 w-10 h-10 rounded-full">
+                                                        <i class="bx bx-smile" ></i>
+                                                    </span>
+                                                </li>
+                                                <li class="inline-block  ">
+                                                    <span class="grid place-items-center text-3xl text-purple-500 hover:bg-gray-300 w-10 h-10 rounded-full">
+                                                        <i class="bx bxs-file-gif"></i>
+                                                    </span>
+                                                </li>
+                                                <li class="inline-block  ">
+                                                    <span class="grid place-items-center text-3xl text-red-500 hover:bg-gray-300 w-10 h-10 rounded-full">
+                                                        <i class="bx bxs-microphone"></i>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class=" flex-1 rounded-full p-2 bg-white text-gray-800 ">
+                                            <form >
+                                                <input type="text" onkeypress="sendMessage(event)" class="px-3 bg-transparent w-full outline-none text-base font-medium send_message" placeholder="Write a message">
+                                            </form>
+                                        </div>
+                                        <div class="">
+                                            <span class="grid place-items-center text-3xl  hover:bg-gray-300 w-10 h-10 rounded-full">
+                                                <i class="bx bx-dots-horizontal-rounded" ></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-4/12 bg-white shadow-md p-2 rounded-md">
+                                    <div class="flex justify-center items-center flex-col mb-3">
+                                        <div class="info">
+                                            <img src="/image/'. $info_friend->avatar.'" alt="" class="w-20 h-20 rounded-t-lg object-cover">
+                                        </div>
+                                        <div class="mx-2">
+                                            <span class="font-semibold text-lg text-center"> '. $info_friend->name.'</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <ul>
+                                            <li class="flex justify-between items-center p-2 hover:bg-gray-200 cursor-pointer rounded-md">
+                                                <div>
+                                                    <span class="font-medium text-base ">Customize chat</span>
+                                                </div>
+                                                <div>
+                                                    <span> <i class="bx bx-chevron-right"></i></span>
+                                                </div>
+                                            </li>
+                                            <li class="flex justify-between items-center p-2 hover:bg-gray-200 cursor-pointer rounded-md">
+                                                <div>
+                                                    <span class="font-medium text-base ">Privacy and support</span>
+                                                </div>
+                                                <div>
+                                                    <span> <i class="bx bx-chevron-right"></i></span>
+                                                </div>
+                                            </li>
+                                            <li class="flex justify-between items-center p-2 hover:bg-gray-200 cursor-pointer rounded-md">
+                                                <div>
+                                                    <span class="font-medium text-base "  > Shared file</span>
+                                                </div>
+                                                <div>
+                                                    <span> <i class="bx bx-chevron-right"></i></span>
+                                                </div>
+                                            </li>
+                                            <li class="flex justify-between items-center p-2 hover:bg-gray-200 cursor-pointer rounded-md">
+                                                <div>
+                                                    <span class="font-medium text-base ">  Shared media files</span>
+                                                </div>
+                                                <div>
+                                                    <span> <i class="bx bx-chevron-right"></i></span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>';
+        // view('Component.conversition')->with('messages',$messages);
+        return  response()->json([
+            'data' => $info_conversiton,
+            'messages' =>$messages,
+        ]);
+    }
+    public function sendMessages(Request $request)
+    {
+        $data = array();
+        $my_id = Auth::user()->id;
+        $message = $request->message;
+        $data['message'] = htmlspecialchars($message);
+        $data['id_userTo']= $request->receiver_id;
+        $data['id_userFrom']= $my_id;
+        $reuslt_send = Messenger::create($data);
+        // event(new Messenger('hello world'));
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $data = ['id_userFrom' =>  $my_id, 'id_userTo' => $request->receiver_id]; // sending from and to user id when pressed enter
+        $pusher->trigger('my-channel', 'my-event', $data);
+        if($reuslt_send)
+        {
+           
+            return response()->json([
+                'status' => 'true',
+                'data'=>  $reuslt_send
+            ]);
+        }else {
+            return response()->json([
+                'status' => 'false',
+            ]);
+        }
     }
 }

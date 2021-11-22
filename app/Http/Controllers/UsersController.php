@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Friend;
 use App\Models\Post;
+use App\Models\Messenger;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -500,5 +501,10 @@ class UsersController extends Controller
     {
         $suggestion_friend = DB::table('users')->where('id','!=',Auth::user()->id)->get();
         return view('PagesUser.suggestion-friends')->with('friends',$suggestion_friend);   
+    }
+    public static function getNotifiMes($id)
+    {
+       $user = Messenger::where('id_userTo',Auth::user()->id)->where('id_userFrom',$id)->where('is_read',0)->count();
+       return $user;
     }
 }

@@ -14,7 +14,7 @@ class AddProfileToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('user_id')->after('id');
+            $table->string('user_id')->after('id')->nullable();
             $table->string('avatar')->default('user-defalut.png');
             $table->string('address')->nullable();
             $table->string('cover_avatar')->nullable();

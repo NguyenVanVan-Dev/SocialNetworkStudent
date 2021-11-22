@@ -41,6 +41,10 @@ Route::resource('posts', PostsController::class);
 // COMMENT
 Route::post('/add-comment',[CommentsController::class, 'store'])->name('add_comment');
 Route::get('/show-comment',[CommentsController::class, 'show'])->name('show_comment');
+// MESSENGER
+Route::get('/messenger',[HomeController::class, 'messenger'])->name('messenger');
+Route::get('/get-messages',[HomeController::class, 'getMessages'])->name('get_messages');
+Route::post('/send-messages',[HomeController::class, 'sendMessages'])->name('send_messages');
 // AUTHENTICATOR
 Auth::routes();
 
