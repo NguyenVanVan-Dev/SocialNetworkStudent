@@ -5,7 +5,7 @@
 <div class="flex justify-end h-screen w-full">
     @include('Component.left-menu-list-messenger')
     <!-- MID CONTENT -->
-    <div class="w-9/12 relative right-0 top-0   pt-32 lg:pt-16 px-4 bg-gray-100 flex justify-center" id="Conversition" >
+    <div class="w-2/3 lg:w-9/12 md:w-2/3 relative right-0 top-0   pt-32 lg:pt-16 px-4 bg-gray-100 flex justify-center" id="Conversition" >
         <!-- CONVERSITION    -->
        
         <!-- END CONVERSITION -->

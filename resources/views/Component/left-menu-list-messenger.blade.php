@@ -1,5 +1,5 @@
  <!-- LEFT MENU MESSENGER -->
- <div class="w-3/12 pt-16 h-full flex flex-col fixed top-0 left-0 shadow-md overflow-y-auto bg-white">
+ <div class="w-1/3 lg:w-3/12 md:w-1/3 pt-16 h-full flex flex-col fixed top-0 left-0 shadow-md overflow-y-auto bg-white">
         <div class="flex justify-between items-center p-4">
             <div class="flex justify-start items-center">
                 <a href="{{ route('show_friends')}}" class="">
@@ -52,7 +52,7 @@
                                 <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
                             </div>
                             <div>
-                                <span class="font-semibold name-{{$listfriend->id}}"> {{ $listfriend->name }}</span>
+                                <span class=" name-{{$listfriend->id}}"> {{ $listfriend->name }}</span>
                             </div>
                         </div>
                     </li>
