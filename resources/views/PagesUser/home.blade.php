@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- MAIN CONTENT -->
-<div class="flex justify-center h-screen">
+<div class="flex lg:justify-center flex-row-reverse h-screen">
     <!-- LEFT MENU -->
     @include('Component.left-menu')
     <!-- END LEFT MENU -->

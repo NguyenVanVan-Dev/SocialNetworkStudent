@@ -60,10 +60,9 @@
         @include('Component.header')
         @yield('content')
     </div>
+    @include('Component.form-post')
     <!-- EDIT PROFILE -->
-    <div id="overlay_profile" class="fixed top-0 right-0 left-0 bottom-0 bg-gray-100 z-40 w-full h-full cursor-pointer bg-opacity-70 hidden ">
-
-    </div>
+    <div id="overlay_profile" class="fixed top-0 right-0 left-0 bottom-0 bg-gray-100 z-40 w-full h-full cursor-pointer bg-opacity-70 hidden "></div>
     <div id="form_profile" class="absolute w-700  z-50  bg-white rounded-md overflow-hidden box-border top-14 left-1/2 transform -translate-x-1/2 hidden">
         <div class="w-full p-5 border-b border-gray-300 relative text-center">
             <span class=" font-semibold text-2xl">Edit profile</span>
@@ -151,10 +150,50 @@
         <input type="hidden" name="id" id="profile_id" value="{{ Auth::user()->id }}">
         <input type="file" name="cover_avatar" accept="image/*" id="profile_cover_avatar" style="display: none;">
     </form>
+    <form action="{{ route('add_comment')}}" method="post" id="formComment" class="w-full hidden">
+        @csrf
+        <input type="hidden" name="post_id" id="post_id" value="">
+        <input type="hidden" name="comment" id="user_comment">
+    </form>
     <!-- END EDIT PROFILE -->
     <script src="{{ asset('js/style.js') }}"></script>
     <script src="{{ asset('js/notiflix-aio-1.9.1.min.js') }}"></script>
     <script >
+        var userName = '{{ Auth::user()->name }}';
+        var userID = '{{ Auth::user()->id }}';
+        var userAvatar = '{{ Auth::user()->avatar }}';
+        var urlPosts = ' {{ route('posts.store')}}';
+        var showProfileFriend = '{{ route('profile_friends')}}';
+        var addComment = '{{ route('add_comment')}}';
+        var showComment = '{{ route('show_comment')}}';
+
+        function handle(e){
+            if(e.keyCode === 13){
+                e.preventDefault();
+                $('#user_comment').val(e.target.value);
+                $('#post_id').val(e.target.id);
+                if( $('#user_comment').val() != '')
+                {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url:'{{ route('add_comment')}}',
+                        method:"POST",
+                        data : $('#formComment').serialize(),
+                        
+                        success:function(data)
+                        {
+                            let comment = ' <div class="flex space-x-2 "><img src="/image/{{ Auth::user()->avatar}}" alt="" class="w-9 h-9 rounded-full"><div><div class="bg-gray-100 dark:bg-dark-third p-2 rounded-2xl text-sm"><span class="font-semibold block">{{Auth::user()->name}}</span><span>'+ data.data.content+' </span></div><div class="p-2 text-xs text-gray-500 dark:text-dark-txt "><span class="font-semibold cursor-pointer">Like </span><span>. </span><span class="font-semibold cursor-pointer"> Reply </span><span> . </span>10m</div></div></div>';
+                           $('#commentPost-'+data.data.post_id).append(comment);
+                           $('.user_comment').val('');
+                        },
+                    })
+                }
+            }
+        }
         $('#edit_avatar').on('click',function(){
             $('#profile_avatar').trigger('click');
         });

@@ -188,12 +188,17 @@ $(document).ready(function(){
                 if(data.status == 'true')
                 {   
                     $('.closePost').trigger('click')
-                    let checkImage = data.data.imageOrvideo;
-                    let imagePost = checkImage == '' ? '' : '<img src="/image/'+checkImage+'" alt="" class=" m-auto h-96">';
+                    let checkImage = data.data.image;
+                    let checkVideo = data.data.video;
+                    // console.log(checkVideo)
+                    let imagePost = checkImage == undefined ? '' : '<img src="/image/'+checkImage+'" alt="" class=" m-auto h-96">';
+                    let videoPost = checkVideo == undefined ? " " : ' <video controls class="mx-auto w-full" ><source id="review_video_post" src="/image/'+ checkVideo+'" type="video/mp4"><source src="/image/'+ checkVideo+'" type="video/ogg">Your browser does not support the video tag.</video>';
                     Notiflix.Notify.Success('Post successful');
                     $("#btn_off_form_post").trigger('click');
                     $('#contentPosts').val(' ');
-                    let post = ' <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg"><div class="flex items-center justify-between px-4 py-2"><div class="flex space-x-2 items-center"><div class="relative"><img src="image/'+ userAvatar +'" class="w-10 h-10 rounded-full" alt=""><span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span></div><div><div class="font-semibold">'+userName +'</div><span class="text-sm text-gray-500">'+ data.data.created_at+'</span>\
+                    $('#image_post')[0].files[0] = ' ';
+                    $('#video_post')[0].files[0] = ' ';
+                    let post = ' <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg"><div class="flex items-center justify-between px-4 py-2"><div class="flex space-x-2 items-center"><div class="relative"><img src="/image/'+ userAvatar +'" class="w-10 h-10 rounded-full" alt=""><span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span></div><div><div class="font-semibold">'+userName +'</div><span class="text-sm text-gray-500">'+ data.data.created_at+'</span>\
                             </div>\
                         </div><div class="w-8 h-8 grid place-items-center text-xl text-gray-500 hover:bg-gray-200 dark:text-dark-txt dark:hover:bg-dark-third rounded-full cursor-pointer">\
                             <i class="bx bx-dots-horizontal-rounded"></i>\
@@ -202,8 +207,9 @@ $(document).ready(function(){
                     <div class="text-justify px-4 py-2">\
                        '+ data.data.content+'\
                     </div>\
-                    <div class="py-2 max-h-96">\
+                    <div class="py-2">\
                         '+imagePost+'\
+                        '+videoPost+'\
                     </div>\
                     <div class="px-4 py-2">\
                         <div class=" flex items-center justify-between">\

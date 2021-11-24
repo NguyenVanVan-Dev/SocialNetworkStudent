@@ -1,4 +1,4 @@
-<div class="w-full lg:w-2/3 xl:w-2/5 pt-32 lg:pt-16 px-2 ">
+<div class="w-full md:w-2/3 lg:w-1/2 pt-32 lg:pt-16 px-2 ">
         <!-- STORY -->
         <div class="relative flex space-x-2 pt-4">
             <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden bg-white flex flex-col group cursor-pointer">
@@ -336,7 +336,7 @@
                             <img src="{{URL::to('/image/'. $value->image)}}" alt="" class=" m-auto ">
                         @endif
                         @if(!empty($value->video))
-                            <video controls class="mx-auto w-full h-96 " autoplay>
+                            <video controls class="mx-auto w-full h-96 bg-gray-500" >
                                 <source id="review_video_post" src="{{URL::to('/image/'. $value->video )}}" type="video/mp4">
                                 <source src="{{URL::to('/image/'. $value->video )}}" type="video/ogg">
                                 Your browser does not support the video tag.
@@ -437,7 +437,7 @@
                             <img src="{{URL::to('/image/'. $value->image)}}" alt="" class=" m-auto ">
                         @endif
                         @if(!empty($value->video))
-                            <video controls class="mx-auto w-full h-96 " autoplay>
+                            <video controls class="mx-auto w-full h-96 bg-gray-600" >
                                 <source id="review_video_post" src="{{URL::to('/image/'. $value->video )}}" type="video/mp4">
                                 <source src="{{URL::to('/image/'. $value->video )}}" type="video/ogg">
                                 Your browser does not support the video tag.

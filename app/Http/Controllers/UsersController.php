@@ -91,11 +91,13 @@ class UsersController extends Controller
         }
         elseif($action == 'count_notifi_send_friends')
         {
+            $list_friends_request = [];
            $result_notifi =  Friend::where('id_userTo',Auth::user()->id)->where('status' ,'Pending')->where('accepted','No')->count();
            $result_friends =  Friend::where('id_userTo',Auth::user()->id)->where('status' ,'Pending')->where('accepted','No')->get();
            foreach($result_friends as $key => $value)
            {
               $list_friends_request = User::where('id',$value->id_userFrom)->get();
+            //   array_push($list_friends_request,User::where('id',$value->id_userFrom)->get());
            }
            return response()->json([
             'quantity_notifi' => $result_notifi,
@@ -162,7 +164,7 @@ class UsersController extends Controller
     public function listFriends()
     {
         $count_friend =  Friend::where('id_userTo',Auth::user()->id)->orWhere('id_userFrom',Auth::user()->id)->where('status' ,'Accepted')->count();
-        $friend = DB::table('users')->where('id','!=',Auth::user()->id)->get();
+        $friend = DB::table('users')->where('id','!=',Auth::user()->id)->orderBy('created_at','desc')->get();
         return view('PagesUser.list-friends')->with('friends',$friend)->with('qtyfriend',$count_friend);
     }
     public function showProfileFriend(Request $request)

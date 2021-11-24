@@ -31,7 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        $friend = DB::table('users')->where('id','!=',Auth::user()->id)->get();
+        $friend = DB::table('users')->where('id','!=',Auth::user()->id)->orderby('created_at','desc')->get();
                 // ->join('friends',function($join)
                 // {
                 //     $join->on('friends.id_userFrom', 'users.id');
@@ -52,7 +52,8 @@ class HomeController extends Controller
     public function profile($user_id)   
     {
         $user = User::find($user_id);
-        return view('PagesUser.profile')->with('user',$user);
+        $posts = Post::where('user_id',$user_id)->orderBy('created_at','desc')->get();
+        return view('PagesUser.profile')->with('user',$user)->with('posts',$posts);
     }
     public function viewUser($id)
     {

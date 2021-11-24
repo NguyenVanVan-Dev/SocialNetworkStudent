@@ -1,12 +1,14 @@
  <!-- RIGHT MENU -->
- <div class="w-1/5 pt-16 h-full hidden xl:flex flex-col  fixed top-0 right-0  ">
+ <div class="hidden lg:w-1/5  lg:flex flex-col  pt-16 h-full  fixed top-0 right-0 bg-white ">
+ <!-- <div class="lg:w-1/5 pt-16 h-full hidden md:block lg:flex flex-col  fixed top-0 right-0 bg-white "> -->
         <div class="h-full  overflow-y-scroll ">
-            <div class="p-3 bg-white rounded-lg mr-2 max-h-64 ">
+            <div class="p-3 bg-white rounded-lg mr-2 max-h-64 hidden xl:block">
                 <div class="flex justify-between items-center  pt-4">
                     <div class="flex justify-center items-center">
                         <img src="{{ asset('image/friends.png') }}" alt="" class="w-4 h-4 m-2">
                         <span class="font-semibold text-gray-800 text-base dark:text-dark-txt"> Friend requests</span>
                     </div>
+                    <div class="border-b border-gray-200 dark:border-dark-third mt-6"></div>
                     <button class="relative  btn_friend">
                         <span class="text-blue-500 cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-thirdp-2 p-2 rounded-xl ">
                             <i class='bx bx-dots-horizontal-rounded w-4 h-4'></i>
@@ -78,7 +80,8 @@
                     </div>
                 </div>
             </div>
-            <ul class="pt-2  ">
+            <div class="border-b border-gray-200 dark:border-dark-third mt-6"></div>
+            <ul class="p-2  ">
             <?php
                 use App\http\Controllers\UsersController;
             ?>

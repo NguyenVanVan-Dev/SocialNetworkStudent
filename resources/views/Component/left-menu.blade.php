@@ -1,5 +1,5 @@
  <!-- LEFT MENU -->
- <div class="w-1/5 pt-16 h-full hidden xl:flex flex-col fixed top-0 left-0 shadow-md overflow-y-scroll">
+ <div class=" hidden md:flex md:w-1/3 lg:w-1/5 pt-16 h-full bg-white  flex-col fixed top-0 left-0 shadow-md overflow-y-scroll">
         <ul class="p-4 ">
             <li>
                 <a href="{{URL::TO('/profile/'. Auth::user()->id)}}" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
@@ -18,8 +18,8 @@
             <li>
                 <a href="{{ route('messenger')}}" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
-                    <img src="{{ asset('image/landing-page.png') }}" alt="" class="w-10 h-10 rounded-full">
-                    <span class="font-semibold block">Pages</span>
+                    <img src="{{ asset('image/mesenger.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Messenger</span>
                 </a>
             </li>
             <li>

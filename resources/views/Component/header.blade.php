@@ -637,10 +637,7 @@
                 action:action
             },
             success:function(data)
-            {
-                console.log(data.quantity_notifi);
-                console.log(data.list_request[0].name);
-                console.log(data.list_request);
+            {  
                 let friendRequest = '<div class="my-2">\
                         <div  class="flex items-center space-x-4 p-2 hover:bg-gray-200 dark:bg-dark-third rounded-lg transition-all">\
                             <img src="image/'+data.list_request[0].avatar +'" class="w-16 h-16 rounded-full" alt="">\
@@ -677,6 +674,9 @@
     // setInterval(() => {
     //     countNotifiSendFriends();
     // }, 5000);
+    setTimeout(() => {
+        countNotifiSendFriends();
+    }, 5000);
     $('body').on('click','.btn-acceptefriend',function(){
         let toID = $(this).data('id');
         console.log(toID);

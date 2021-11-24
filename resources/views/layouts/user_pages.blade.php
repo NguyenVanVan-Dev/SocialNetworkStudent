@@ -199,8 +199,8 @@
     }
         // End Handle Conversition Chat
     </script>
-
     <script src="{{ asset('js/style.js') }}"></script>
+    <script src="{{ asset('js/video-call.js') }}"></script>
 </body>
 
 </html>
