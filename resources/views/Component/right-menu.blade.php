@@ -89,14 +89,20 @@
                 @foreach ($friends as $key => $listfriend)
                     @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) == 'Accepted')
                     <li>
-                        <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
+                        <div class="flex justify-between items-center space-x-4 p-2 hover:bg-gray-200
                         dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">
-                            <div class="relative">
-                                <img src=" {{URL::to('/image/'.$listfriend->avatar)}}" class="rounded-full w-10 h-10 object-cover" alt="">
-                                <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                            <div class="flex-1 flex  items-center"> 
+                                <div class="relative">
+                                    <img src=" {{URL::to('/image/'.$listfriend->avatar)}}" class="rounded-full w-10 h-10 object-cover" alt="">
+                                    <span id="activeStatus-{{$listfriend->id}}" class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                                </div>
+                                <div class="ml-2">
+                                    <span class="font-semibold"> {{ $listfriend->name }}</span>
+                                </div>
                             </div>
-                            <div>
-                                <span class="font-semibold"> {{ $listfriend->name }}</span>
+                            <div id="CallVideo" friend-id="{{$listfriend->user_id}}" class="CallVideo text-xl hidden xl:grid place-items-center bg-gray-200
+                            dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-2 cursor-pointer hover:bg-gray-300 relative">
+                                <i class="bx bx-camera-movie"></i>
                             </div>
                         </div>
                     </li>

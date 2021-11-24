@@ -6,11 +6,11 @@
                 <div class="ml-3 text-lg text-gray-700 "> {{$info_friend->name}}</div>
             </div>
             <div class="action-friends flex justify-between items-center mr-4">
-                <div class="text-xl hidden xl:grid place-items-center bg-gray-200
+                <div  class=" text-xl hidden xl:grid place-items-center bg-gray-200
                 dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-2 cursor-pointer hover:bg-gray-300 relative">
                     <i class="bx bx-dots-horizontal-rounded"></i>
                 </div>
-                <div class="text-xl hidden xl:grid place-items-center bg-gray-200
+                <div id="CallVideo" friend-id="{{$info_friend->user_id}}" class="CallVideo text-xl hidden xl:grid place-items-center bg-gray-200
                 dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-2 cursor-pointer hover:bg-gray-300 relative">
                     <i class="bx bx-camera-movie"></i>
                 </div>

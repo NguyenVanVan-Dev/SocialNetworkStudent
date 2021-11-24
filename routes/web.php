@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\VideoCallController;
 // use App\Http\Controllers\HackController;
 
 /*
@@ -47,6 +48,7 @@ Route::get('/get-messages',[HomeController::class, 'getMessages'])->name('get_me
 Route::post('/send-messages',[HomeController::class, 'sendMessages'])->name('send_messages');
 // AUTHENTICATOR
 Auth::routes();
-
+// CALL VIDEO 
+Route::post('/call-video',[VideoCallController::class, 'callVideo'])->name('call_video');
 // Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

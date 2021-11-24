@@ -48,16 +48,58 @@
             top:-20px;
             left: 0;
         }
-        
+        #video-call-div {
+            position: absolute;
+            top: 65px;
+            width: 75%;
+            height: 90%;
+            display: none;
+        }
+
+        #local-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 16px;
+            border-radius: 16px;
+            max-width: 20%;
+            max-height: 20%;
+            background: #ffffff;
+        }
+
+        #remote-video {
+            background: #000000;
+            width: 100%;
+            height: 100%;
+        }
+
+        .call-action-div {
+            position: absolute;
+            left: 45%;
+            bottom: 32px;
+        }
+
     </style>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
    
 </head>
 
-<body id="app" class="bg-gray-200 dark:bg-dark-main relative overlay flex items-center justify-center ">
+<body id="app" class="bg-gray-200 dark:bg-dark-main relative overlay flex items-center justify-center w-full ">
+    
+    @include('Component.form-callvideo')
     @include('Component.form-post')
     @include('Component.header')
     @yield('content')
+    <div id="video-call-div">
+        <video muted id="local-video" autoplay></video>
+        <video id="remote-video" autoplay></video>
+        <div class="call-action-div">
+            <button onclick="muteVideo()" class="bg-red-500">Mute Video</button>
+            <button onclick="muteAudio()" class="bg-red-500">Mute Audio</button>
+            <button onclick="closeVideo()" class="bg-red-500">Close</button>
+        </div>
+    </div>
+    <button class="openVideoCall hidden"></button>
     <form action="{{ route('add_comment')}}" method="post" id="formComment" class="w-full hidden">
         @csrf
         <input type="hidden" name="post_id" id="post_id" value="">
@@ -66,12 +108,35 @@
     <script>
         var userName = '{{ Auth::user()->name }}';
         var userID = '{{ Auth::user()->id }}';
+        var callID = '{{ Auth::user()->user_id }}';
         var userAvatar = '{{ Auth::user()->avatar }}';
         var urlPosts = ' {{ route('posts.store')}}';
         var showProfileFriend = '{{ route('profile_friends')}}';
         var addComment = '{{ route('add_comment')}}';
         var showComment = '{{ route('show_comment')}}';
+        var routeCallvideo = "{{ route('call_video')}}";
 
+        $('body').on('click','.openVideoCall', function(e){
+            e.stopPropagation();
+            $("#app").addClass('fixed')
+            $("#app").removeClass('relative')
+            $('#callModal').removeClass('invisible');
+            $('#boxVideoCall').removeClass('-translate-y-64');
+            $('#boxVideoCall').addClass('translate-y-0');
+            $('#boxVideoCall').removeClass('opacity-0');
+            // $('#interestModal').attr('data-id',$(this).data('id'));
+        });
+        $('.closeVideoCall').on('click', function(e){
+            e.stopPropagation();
+            $("#app").addClass('relative')
+            $("#app").removeClass('fixed')
+            $('#boxVideoCall').removeClass('translate-y-0');
+            $('#boxVideoCall').addClass('-translate-y-64');
+            $('#boxVideoCall').addClass('opacity-0');
+            setTimeout(() => {
+                $('#callModal').addClass('invisible');
+            }, 100);
+        });
         function handle(e){
             if(e.keyCode === 13){
                 e.preventDefault();
@@ -169,6 +234,8 @@
 
         var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
+            console.log(data.id_userCalled)
+            console.log(callID);
             if(userID == data.id_userFrom){
                 // send message
                 $('#conversition-'+data.id_userTo).click();
@@ -189,6 +256,13 @@
                         $('.name-'+data.id_userFrom).addClass('font-medium');
                     }
                 }
+            }else if(data.id_userCalled ==  callID)
+            {
+                // let info = JSON.parse(data.info_userCall);
+                console.log();
+                $('.openVideoCall').click();
+                $('#nameFriendCall').text(data.info_userCall.name)
+                $('#avatarFriendCall').attr("src","/image/"+data.info_userCall.avatar);
             }
         });
         function scrollToBottomFunc() {
