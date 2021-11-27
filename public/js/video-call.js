@@ -15,6 +15,10 @@ function handleSignallingData(data) {
             break
         case "candidate":
             peerConn.addIceCandidate(data.candidate)
+            break
+        case "leave":
+            closeVideo()
+            break
     }
 }
 
@@ -58,14 +62,16 @@ $('body').on('click','.CallVideo',function(){
 $('body').on('click','#acceptCallVideo',function(){
     let myID = $(this).attr('my-id');
     console.log(myID);
+    $(".audio_call").trigger('pause');
     joinCall(myID);
 });
 
 let localStream
 let peerConn
 function startCall(friendID,userID) {
-    document.getElementById("video-call-div")
-    .style.display = "inline"
+    // document.getElementById("video-call-div")
+    // .style.display = "inline"
+    $('#video-call-div').removeClass('hidden');
     navigator.getUserMedia({
         video: {
             frameRate: 24,
@@ -127,10 +133,21 @@ function createAndSendOffer() {
 
 function closeVideo()
 {
-    peerConn.close();
-    document.getElementById("video-call-div")
-    .style.display = "none";
+    sendData({
+        type: "leave" ,
+    })
+    // document.getElementById("video-call-div")
+    // .style.display = "none";
+    handleLeave(); 
 }
+
+function handleLeave() { 
+    var track = localStream.getTracks()[0]; 
+        track.stop();
+    peerConn.close();
+    peerConn.onicecandidate = null; 
+    peerConn.onaddstream = null; 
+ };
 let isAudio = true
 function muteAudio() {
     isAudio = !isAudio

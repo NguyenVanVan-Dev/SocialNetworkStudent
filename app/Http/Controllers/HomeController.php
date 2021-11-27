@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\User;
 use App\Models\Friend;
 use App\Models\Post;
@@ -295,7 +296,9 @@ class HomeController extends Controller
         $data = array();
         $my_id = Auth::user()->id;
         $message = $request->message;
-        $data['message'] = htmlspecialchars($message);
+        $message =   \Illuminate\Support\Facades\Crypt::encryptString($message);
+        $data['message'] =$message;
+        // $data['message'] = htmlspecialchars($message);
         $data['id_userTo']= $request->receiver_id;
         $data['id_userFrom']= $my_id;
         $reuslt_send = Messenger::create($data);

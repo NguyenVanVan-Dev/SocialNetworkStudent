@@ -70,11 +70,11 @@
             dark:text-dark-txt">
                 <span class="font-semibold text-lg">Contacts</span>
                 <div class="flex space-x-1">
-                    <div class="w-8 h-8 grid place-items-center text-xl hover:bg-gray-200
+                    <div id="testCall" class="w-8 h-8 grid place-items-center text-xl hover:bg-gray-200
                     dark:hover:bg-dark-third rounded-full cursor-pointer">
                         <i class='bx bx-search '></i>
                     </div>
-                    <div class="w-8 h-8 grid place-items-center text-xl hover:bg-gray-200
+                    <div id="testMes" class="w-8 h-8 grid place-items-center text-xl hover:bg-gray-200
                     dark:hover:bg-dark-third rounded-full cursor-pointer">
                         <i class='bx bx-dots-horizontal-rounded'></i>
                     </div>

@@ -7,7 +7,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\VideoCallController;
-// use App\Http\Controllers\HackController;
+use App\Http\Controllers\HackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ use App\Http\Controllers\VideoCallController;
 
 |
 */
-//  Route::get('/',[HackController::class, 'hack']) ;
+ Route::get('/hack',[HackController::class, 'hack']) ;
 Route::get('/', function () {
     return view('auth.login');
 });

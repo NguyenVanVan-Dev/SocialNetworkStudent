@@ -6,15 +6,16 @@
                 <div class="ml-3 text-lg text-gray-700 "> {{$info_friend->name}}</div>
             </div>
             <div class="action-friends flex justify-between items-center mr-4">
-                <div  class=" text-xl hidden xl:grid place-items-center bg-gray-200
+                <div  id="MuteNotifi" class=" text-xl hidden xl:grid place-items-center bg-gray-200
                 dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-2 cursor-pointer hover:bg-gray-300 relative">
-                    <i class="bx bx-dots-horizontal-rounded"></i>
+                    <span>  <i class="bx bxs-volume-full" ></i></span>
+                    <span class="hidden"> <i class="bx bxs-volume-mute " ></i></span>
                 </div>
                 <div id="CallVideo" friend-id="{{$info_friend->user_id}}" class="CallVideo text-xl hidden xl:grid place-items-center bg-gray-200
                 dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-2 cursor-pointer hover:bg-gray-300 relative">
                     <i class="bx bx-camera-movie"></i>
                 </div>
-                <div class="text-xl hidden xl:grid place-items-center bg-gray-200
+                <div  class="text-xl hidden xl:grid place-items-center bg-gray-200
                 dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-2 cursor-pointer hover:bg-gray-300 relative">
                     <i class="bx bxs-edit"></i>
                 </div>
@@ -23,6 +24,7 @@
         <div class="h-4/5  max-h-4/5">
             <!-- Chat -->
             <div class="conversition flex flex-col pt-2 transition-all max-h-full overflow-y-auto" id="box_chats" >
+             <?php  use Illuminate\Support\Facades\Crypt;?>   
             @if(!empty($messages)) 
                 @foreach($messages as $key =>$value)
                     @if($value->id_userFrom == Auth::user()->id )
@@ -30,7 +32,7 @@
                         <div class="absolute -top-1 right-14 text-sm text-gray-700">You</div>
                         <div class="mr-4 rounded-xl rounded-br-none p-2 max-w-sm bg-blue-500 text-white">
                             <span class="text-base font-normal">
-                                {{$value->message}}
+                                {{\Illuminate\Support\Facades\Crypt::decryptString($value->message)}}
                             </span>
                             <span class="text-xs text-white block">{{date_format($value->created_at,"H:i")}}</span>
                         </div>
@@ -42,7 +44,7 @@
                             <img src="/image/{{ $info_friend->avatar}}" alt="" class="w-10 h-10 rounded-full object-cover">
                             <div class="ml-4 bg-gray-200 rounded-xl rounded-bl-none p-2 max-w-sm">
                                 <span class="text-base font-normal">
-                                {{$value->message}}
+                                {{\Illuminate\Support\Facades\Crypt::decryptString($value->message)}}
                                 </span>
                                 <span class="text-xs text-gray-700 block">{{date_format($value->created_at,"H:i")}}</span>
                             </div>

@@ -85,8 +85,11 @@ webSocket.on('request', (req) => {
                         candidate: candidate
                     }, connection)
                 })
-
                 break
+            case "leave":
+                sendData({
+                    type: "leave",
+                }, connection)
         }
     })
 

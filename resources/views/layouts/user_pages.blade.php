@@ -48,7 +48,7 @@
             top:-20px;
             left: 0;
         }
-        #video-call-div {
+        /* #video-call-div {
             position: absolute;
             top: 65px;
             width: 75%;
@@ -75,9 +75,10 @@
 
         .call-action-div {
             position: absolute;
-            left: 45%;
+            left: 50%;
+            transform: translate(-50%,-50%);
             bottom: 32px;
-        }
+        } */
 
     </style>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
@@ -90,14 +91,30 @@
     @include('Component.form-post')
     @include('Component.header')
     @yield('content')
-    <div id="video-call-div">
-        <video muted id="local-video" autoplay></video>
-        <video id="remote-video" autoplay></video>
-        <div class="call-action-div">
-            <button onclick="muteVideo()" class="bg-red-500">Mute Video</button>
-            <button onclick="muteAudio()" class="bg-red-500">Mute Audio</button>
-            <button onclick="closeVideo()" class="bg-red-500">Close</button>
+    <div class="hidden">
+        <audio controls  class="audio_messenger">
+        <source src="/image/tin-nhan.mp3" type="audio/ogg">
+        <source src="/image/tin-nhan.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div class="hidden">
+        <audio controls  class="audio_call">
+        <source src="/image/nhac-chuong-oppo.mp3" type="audio/ogg">
+        <source src="/image/nhac-chuong-oppo.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div id="video-call-div" class=" w-3/4 h-80% fixed top-16 rounded-lg overflow-hidden hidden">
+        <button id="zoom-out" class="z-50 absolute top-4 right-4 bg-gray-500 outline-none p-1 rounded-lg">zoom out</button>
+        <video muted id="local-video" autoplay class="absolute top-0 left-0 m-4  rounded-lg max-h-1/4 bg-gray-500"></video>
+        <video id="remote-video" autoplay class="w-full h-full bg-gray-300"></video>
+        <div class="call-action-div absolute bottom-9 left-1/2 transform -translate-x-1/2">
+            <button onclick="muteVideo()"  class="bg-green-500 rounded-lg p-2 text-lg text-white outline-none border border-white">Mute Video</button>
+            <button onclick="muteAudio()"  class="bg-yellow-500 rounded-lg p-2 text-lg text-white outline-none border border-white">Mute Audio</button>
+            <button onclick="closeVideo()" class="bg-red-500 rounded-lg p-2 text-lg text-white outline-none border border-white">Leave Call</button>
         </div>
+        <button id="zoom-in" class=" hidden absolute top-4 right-4 bg-gray-500 outline-none p-1 rounded-lg">zoom in</button>
     </div>
     <button class="openVideoCall hidden"></button>
     <form action="{{ route('add_comment')}}" method="post" id="formComment" class="w-full hidden">
@@ -115,7 +132,22 @@
         var addComment = '{{ route('add_comment')}}';
         var showComment = '{{ route('show_comment')}}';
         var routeCallvideo = "{{ route('call_video')}}";
-
+        $('#zoom-out').click(function(){
+            $('#video-call-div').addClass(' w-1/5 h-1/5 top-3/4 left-4/5');
+            $('#video-call-div').removeClass('h-80%');
+            $('#local-video').addClass('hidden');
+            $('.call-action-div').addClass('hidden');
+            $(this).addClass('hidden');
+            $('#zoom-in').removeClass('hidden');
+        })
+        $('#zoom-in').click(function(){
+            $('#video-call-div').removeClass(' w-1/5 h-1/5 top-3/4 left-4/5');
+            $('#video-call-div').addClass('h-80%');
+            $('#local-video').removeClass('hidden');
+            $('.call-action-div').removeClass('hidden');
+            $(this).removeClass('hidden')
+            $('#zoom-out').removeClass('hidden');
+        })
         $('body').on('click','.openVideoCall', function(e){
             e.stopPropagation();
             $("#app").addClass('fixed')
@@ -124,8 +156,29 @@
             $('#boxVideoCall').removeClass('-translate-y-64');
             $('#boxVideoCall').addClass('translate-y-0');
             $('#boxVideoCall').removeClass('opacity-0');
-            // $('#interestModal').attr('data-id',$(this).data('id'));
         });
+        $('#testMes').click(function(){
+           $(".audio_messenger").trigger('play');
+        })
+        $('#testCall').click(function(){
+           $(".audio_call").trigger('play');
+        })
+        
+        $('body').on('click','#MuteNotifi', function(){
+            var $audio = $('.audio_messenger');
+            var $call =  $(".audio_call");
+            $('#MuteNotifi span').toggleClass("hidden");
+            if( $(".audio_messenger").prop('muted') )
+            {
+                $(".audio_messenger").prop('muted', false);
+            }
+
+            else {
+            $(".audio_messenger").prop('muted', true);
+            }
+            // $('.audio_messenger').prop('muted', true);
+           
+        })
         $('.closeVideoCall').on('click', function(e){
             e.stopPropagation();
             $("#app").addClass('relative')
@@ -242,6 +295,7 @@
             }else if(userID == data.id_userTo)
             {
                 //receiver massage
+                $(".audio_messenger").trigger('play');
                 if (receiver_id == data.id_userFrom) {
                     // if receiver is selected, reload the selected user ...
                     $('#conversition-'+data.id_userFrom).click();
@@ -260,6 +314,7 @@
             {
                 // let info = JSON.parse(data.info_userCall);
                 console.log();
+                $(".audio_call").trigger('play');
                 $('.openVideoCall').click();
                 $('#nameFriendCall').text(data.info_userCall.name)
                 $('#avatarFriendCall').attr("src","/image/"+data.info_userCall.avatar);
