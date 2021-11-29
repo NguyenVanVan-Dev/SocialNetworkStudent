@@ -48,37 +48,6 @@
             top:-20px;
             left: 0;
         }
-        /* #video-call-div {
-            position: absolute;
-            top: 65px;
-            width: 75%;
-            height: 90%;
-            display: none;
-        }
-
-        #local-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            margin: 16px;
-            border-radius: 16px;
-            max-width: 20%;
-            max-height: 20%;
-            background: #ffffff;
-        }
-
-        #remote-video {
-            background: #000000;
-            width: 100%;
-            height: 100%;
-        }
-
-        .call-action-div {
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            bottom: 32px;
-        } */
 
     </style>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
@@ -128,68 +97,15 @@
         var callID = '{{ Auth::user()->user_id }}';
         var userAvatar = '{{ Auth::user()->avatar }}';
         var urlPosts = ' {{ route('posts.store')}}';
+        var delPost = "{{ route('posts.destroy', Auth::user()->id )}}";
+        var hidPost = "{{ route('posts.display')}}";
+        var urlStory = ' {{ route('stories.store')}}';
+        var yourStory = "{{ route('stories.show', Auth::user()->id )}}";
+        var delStory = "{{ route('stories.destroy', Auth::user()->id )}}";
         var showProfileFriend = '{{ route('profile_friends')}}';
         var addComment = '{{ route('add_comment')}}';
         var showComment = '{{ route('show_comment')}}';
         var routeCallvideo = "{{ route('call_video')}}";
-        $('#zoom-out').click(function(){
-            $('#video-call-div').addClass(' w-1/5 h-1/5 top-3/4 left-4/5');
-            $('#video-call-div').removeClass('h-80%');
-            $('#local-video').addClass('hidden');
-            $('.call-action-div').addClass('hidden');
-            $(this).addClass('hidden');
-            $('#zoom-in').removeClass('hidden');
-        })
-        $('#zoom-in').click(function(){
-            $('#video-call-div').removeClass(' w-1/5 h-1/5 top-3/4 left-4/5');
-            $('#video-call-div').addClass('h-80%');
-            $('#local-video').removeClass('hidden');
-            $('.call-action-div').removeClass('hidden');
-            $(this).removeClass('hidden')
-            $('#zoom-out').removeClass('hidden');
-        })
-        $('body').on('click','.openVideoCall', function(e){
-            e.stopPropagation();
-            $("#app").addClass('fixed')
-            $("#app").removeClass('relative')
-            $('#callModal').removeClass('invisible');
-            $('#boxVideoCall').removeClass('-translate-y-64');
-            $('#boxVideoCall').addClass('translate-y-0');
-            $('#boxVideoCall').removeClass('opacity-0');
-        });
-        $('#testMes').click(function(){
-           $(".audio_messenger").trigger('play');
-        })
-        $('#testCall').click(function(){
-           $(".audio_call").trigger('play');
-        })
-        
-        $('body').on('click','#MuteNotifi', function(){
-            var $audio = $('.audio_messenger');
-            var $call =  $(".audio_call");
-            $('#MuteNotifi span').toggleClass("hidden");
-            if( $(".audio_messenger").prop('muted') )
-            {
-                $(".audio_messenger").prop('muted', false);
-            }
-
-            else {
-            $(".audio_messenger").prop('muted', true);
-            }
-            // $('.audio_messenger').prop('muted', true);
-           
-        })
-        $('.closeVideoCall').on('click', function(e){
-            e.stopPropagation();
-            $("#app").addClass('relative')
-            $("#app").removeClass('fixed')
-            $('#boxVideoCall').removeClass('translate-y-0');
-            $('#boxVideoCall').addClass('-translate-y-64');
-            $('#boxVideoCall').addClass('opacity-0');
-            setTimeout(() => {
-                $('#callModal').addClass('invisible');
-            }, 100);
-        });
         function handle(e){
             if(e.keyCode === 13){
                 e.preventDefault();
@@ -257,19 +173,6 @@
                     
                     success:function(data)
                     {
-                        // let itemMessage = '<div class="relative flex justify-start items-center py-4 self-end mr-4">\
-                        //                 <div class="absolute -top-1 right-14 text-sm text-gray-700">You</div>\
-                        //                 <div class="mr-4 rounded-xl rounded-br-none p-2 max-w-sm bg-blue-500 text-white">\
-                        //                     <span class="text-base font-normal">\
-                        //                         '+data.data.message+'\
-                        //                     </span>\
-                        //                     <div class=" bottom-0 left-14">\
-                        //                         <span class="text-sm "> '+data.data.created_at+'</span>\
-                        //                     </div>\
-                        //                 </div>\
-                        //                 <img src="/image/{{ Auth::user()->avatar}}" alt="" class="w-10 h-10 rounded-full object-cover">\
-                        //             </div>';
-                        // $('#box_chats').append(itemMessage);
                         $('.send_message').val(' ');
                     },
                     complete: function () {

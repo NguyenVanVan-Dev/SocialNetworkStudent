@@ -7,7 +7,8 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\VideoCallController;
-use App\Http\Controllers\HackController;
+use App\Http\Controllers\StoriesController;
+// use App\Http\Controllers\HackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +21,12 @@ use App\Http\Controllers\HackController;
 
 |
 */
- Route::get('/hack',[HackController::class, 'hack']) ;
+//  Route::get('/hack',[HackController::class, 'hack']) ;
 Route::get('/', function () {
     return view('auth.login');
 });
 // HOME PAGE
-Route::get('/main',[HomeController::class, 'index']) ;
+Route::get('/main',[HomeController::class, 'index'])->name('home') ;
 Route::get('/profile/{user_id}',[HomeController::class, 'profile'])->name('profile') ;
 Route::post('/profile/update',[UsersController::class, 'update'])->name('profile_update');
 Route::get('/search',[HomeController::class, 'search'])->name('search');
@@ -38,7 +39,12 @@ Route::get('friends/list',[UsersController::class,'listFriends'])->name('list_fr
 Route::get('friends/suggestion',[UsersController::class,'suggestionFriends'])->name('suggestion_friends');
 Route::get('friends/profile',[UsersController::class,'showProfileFriend'])->name('profile_friends');
 // POST PAGE
-Route::resource('posts', PostsController::class);
+
+Route::resources([
+    'posts' => PostsController::class,
+    'stories' => StoriesController::class,
+]);
+Route::get('/handle-post',[CommentsController::class, 'display'])->name('posts.display');
 // COMMENT
 Route::post('/add-comment',[CommentsController::class, 'store'])->name('add_comment');
 Route::get('/show-comment',[CommentsController::class, 'show'])->name('show_comment');

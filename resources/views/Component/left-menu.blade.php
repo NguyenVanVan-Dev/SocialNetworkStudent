@@ -23,6 +23,13 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('stories.index')}}" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
+                    transition-all dark:text-dark-txt dark:hover:bg-dark-third">
+                    <img src="{{ asset('image/story.png') }}" alt="" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold block">Story</span>
+                </a>
+            </li>
+            <li>
                 <a href="#" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
                     <img src="{{ asset('image/market.png') }}" alt="" class="w-10 h-10 rounded-full">

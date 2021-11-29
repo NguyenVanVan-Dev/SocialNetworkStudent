@@ -1,14 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\File;
-use App\Models\Post;
-use Illuminate\Http\Request;
 
-class PostsController extends Controller
+use Illuminate\Http\Request;
+use App\Models\Story;
+use App\Models\User;
+use App\Models\Friend;
+use App\Models\Post;
+use App\Models\Messenger;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+class StoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +21,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        $stories = Story::orderBy('created_at','desc')->get();
+        return view('PagesUser.story')->with('stories',$stories);
     }
 
     /**
@@ -27,7 +32,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('PagesUser.create-story');
     }
 
     /**
@@ -36,53 +41,35 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getTime()
-    {
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
-        return date_default_timezone_get();
-    }
     public function store(Request $request)
     {
-        $content = $request->content;
-        $user_id = $request->user_id;
-        $user_name = $request->user_name;
+        $data= array();
+        $data['content'] = htmlspecialchars($request->content);
+        $data['user_id'] = Auth::user()->id;
         $media = $request->file('file');
-        $data = array();
-        if($media){
-           for ($i=0; $i < count($media) ; $i++) { 
-            $get_name_media = $media[$i]->getClientOriginalName(); 
-            $current_media = current(explode('.',$get_name_media));
-            $new_name_media =  $current_media.rand(0,99).'.'.$media[$i]->getClientOriginalExtension();
-            if($media[$i]->getClientOriginalExtension() == 'jpeg' || $media[$i]->getClientOriginalExtension() == 'png' || $media[$i]->getClientOriginalExtension() == 'gif' || $media[$i]->getClientOriginalExtension() == 'jpg')
-            {
-                $data['image'] = $new_name_media;
-            }else if ($media[$i]->getClientOriginalExtension() == 'mp4')
-            {
-                $data['video'] = $new_name_media;
-            }
-            $media[$i]->move(\public_path('image'),$new_name_media);
-           }
+        for ($i=0; $i < count($media) ; $i++) { 
+            $get_name_media = $media[$i]->getClientOriginalName();
+            $name_media = current(explode('.',$get_name_media));
+            $extensions_media = $media[$i]->getClientOriginalExtension();
+            $type_media = $media[$i]->getMimeType();
         }
-        if(!empty($content) && !empty($user_id) && !empty($user_name))
+        if($type_media == "image/jpeg" || $type_media == "image/png" || $type_media == "image/jpg" || $type_media == "image/gif")
         {
-            $data['content'] = htmlspecialchars($content);
-            $data['user_id'] = htmlspecialchars($user_id);
-            $data['user_name'] = htmlspecialchars($user_name);
-            $data_return = Post::create($data);
+            $new_name =  $name_media.'-'.uniqid().'.'.$extensions_media;
+            $media[0]->move(\public_path('image'),$new_name);
+            $data['image'] = $new_name ;
+        }else if($type_media == "video/mp4")
+        {
+            $new_name =  $name_media.'-'.uniqid().'.'.$extensions_media;
+            $media[0]->move(\public_path('image'),$new_name);
+            $data['video'] = $new_name ;
         }
-
-        if($data_return->count() > 0)
-        {
+        if(!empty($request->content) &&  Story::create($data)){
             return response()->json([
-                'status' => 'true',
-                'data' => $data_return,
-            ]);
-        } else
-        {
-            return response()->json([
-                'status' => 'false',
+                'status' =>'true',
             ]);
         }
+       
     }
 
     /**
@@ -93,7 +80,8 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        $stories =  Story::where('user_id',$id)->orderBy('created_at','desc')->get();
+        return view('PagesUser.your-story')->with('stories', $stories);
     }
 
     /**
@@ -125,10 +113,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request , $id)
+    public function destroy(Request $request,$id)
     {
-        $Post_id = $request->postID;
-        $info = Post::where('id', $Post_id)->first();
+        $story_id = $request->storyID;
+        $info = Story::where('id', $story_id)->first();
         if(!empty($info))
         {
             if(File::exists(public_path('image/'.$info->image))){
@@ -137,7 +125,7 @@ class PostsController extends Controller
             if(File::exists(public_path('image/'.$info->video))){
                 File::delete(public_path('image/'.$info->video));
             }
-            if(Post::where('id',$Post_id)->delete()){
+            if(Story::where('id',$story_id)->delete()){
                 return response()->json([
                     'status' =>'true',
                 ]);
@@ -147,9 +135,7 @@ class PostsController extends Controller
                 ]);
             }
         }
-    }
-    public function display(Request $request)
-    {
         
+        // dd($info);
     }
 }

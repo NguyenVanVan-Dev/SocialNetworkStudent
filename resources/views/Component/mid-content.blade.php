@@ -1,70 +1,56 @@
 <div class="w-full md:w-2/3 lg:w-1/2 pt-32 lg:pt-16 px-2 ">
+        <?php   use App\http\Controllers\UsersController;  ?>
         <!-- STORY -->
         <div class="relative flex space-x-2 pt-4">
             <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden bg-white flex flex-col group cursor-pointer">
                 <div class="h-4/6 overflow-hidden">
                     <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" class="group-hover:transform object-cover group-hover:scale-110 transition-all duration-700" alt="">
                 </div>
-                <div class="flex-1 relative flex items-center justify-center pb-2 text-center
-                leading-none dark:bg-dark-second dark:text-dark-txt">
-                    <span class="font-semibold">
-                        Create a <br> Story
-                    </span>
-                    <div class=" w-10 h-10 rounded-full bg-blue-500 text-white grid place-items-center text-2xl border-4 border-white dark:border-dark-second absolute
-                    -top-5 left-1/2 transform -translate-x-1/2">
-                        <i class='bx bx-plus'></i>
+                <a href="{{ route('stories.create')}}" class="flex-1">
+                <div class=" relative flex items-center justify-center pb-2 text-center
+                    leading-none dark:bg-dark-second dark:text-dark-txt">
+                        <span class="font-semibold">
+                            Create a <br> Story
+                        </span>
+                        <div class=" w-10 h-10 rounded-full bg-blue-500 text-white grid place-items-center text-2xl border-4 border-white dark:border-dark-second absolute
+                        -top-5 left-1/2 transform -translate-x-1/2">
+                            <i class='bx bx-plus'></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="w-3/4 sm:w-4/5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-1  gap-2 overflow-hidden">
-                <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
-                    <div class="relative h-full group cursor-pointer">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
-                        <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                        <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                            Your Story
-                        </span>
-                        <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
+            @if(!empty($stories))
+                @foreach($stories as $key => $value)   
+                    @if(UsersController::statusFriend(Auth::user()->id,$value->user_id) == 'Accepted' || $value->user_id == Auth::user()->id)
+                    <?php $info = UsersController::getInfoUser($value->user_id);?> 
+                    <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative h-full group cursor-pointer">
+                            @if(!empty($value->image))
+                            <img src="{{ asset('image/'.$value->image ) }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
+                            @endif
+                            @if(!empty($value->video))
+                                <video controls class="mx-auto w-full absolute top-14 z-10 bg-gray-500" >
+                                    <source  src="{{URL::to('/image/'. $value->video )}}" type="video/mp4">
+                                    <source src="{{URL::to('/image/'. $value->video )}}" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                </video>
+                            @endif
+                            <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
+                            <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
+                               {{ $info->name }}
+                            </span>
+                            <div class=" rounded-full overflow-hidden  z-20 absolute top-4 bg-gray-50 opacity-30 right-2 border border-yellow-500 transform -rotate-45 ">
+                                <span class="text-black font-medium p-1 ">{{ $value->content}}</span>
+                            </div>
+                            <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
+                                <img src="{{ asset('image/'.$info->avatar) }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
-                    <div class="relative h-full group cursor-pointer">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
-                        <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                        <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                            Your Story
-                        </span>
-                        <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
-                    <div class="relative h-full group cursor-pointer">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
-                        <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                        <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                            Your Story
-                        </span>
-                        <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
-                    <div class="relative h-full group cursor-pointer">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
-                        <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                        <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                            Your Story
-                        </span>
-                        <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                            <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
-                        </div>
-                    </div>
-                </div>        
+                    @endif
+                @endforeach
+            @endif    
             </div>
            
             <div class="w-12 h-12 rounded-full hidden lg:grid place-items-center text-2xl bg-white absolute -right-6 top-1/2 transform -translate-y-1/2 border border-gray-200
@@ -115,186 +101,16 @@
                     <i class='bx bx-video-plus text-2xl text-purple-500'></i>
                     <span class="text-sm font-semibold text-blue-500">Create Room</span>
                 </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
-                <div class="relative cursor-pointer">
-                    <img src="{{ asset('image/story-1.png') }}" class="rounded-full w-10 h-10" alt="">
-                    <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
-                </div>
+                @if(!empty($friends))  
+                    @foreach ($friends as $key => $listfriend)
+                        @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) == 'Accepted')
+                        <div class="relative cursor-pointer">
+                            <img src="{{ asset('image/'.$listfriend->avatar) }}" class="rounded-full w-10 h-10" alt="">
+                            <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
+                        </div>
+                        @endif
+                    @endforeach
+                @endif
             </div>
             <div id="next_friend" class="absolute  w-12 h-12 rounded-full hidden lg:grid place-items-center text-2xl text-gray-500 bg-white right-3 top-1/2 transform -translate-y-1/2 border border-gray-200 cursor-pointer
                 hover:bg-gray-100 shadow-md dark:bg-dark-third dark:border-dark-third dark:text-dark-txt">
@@ -304,7 +120,7 @@
         <!-- END ROOM -->
         <!-- LIST POST -->
         <div class="" id="listPosts">
-            <?php   use App\http\Controllers\UsersController;  ?>
+           
             @foreach($userposts as $key => $value )
             <!-- POST -->
             <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg" id="post-{{$value->id}}" data-id="{{$value->id}}">
@@ -322,8 +138,22 @@
                             <span class="text-sm text-gray-500">{{ date("h:i:sa d/m/Y", strtotime($value->created_at)) }}</span>
                         </div>
                     </div>
-                    <div class="w-8 h-8 grid place-items-center text-xl text-gray-500 hover:bg-gray-200 dark:text-dark-txt dark:hover:bg-dark-third rounded-full cursor-pointer">
+                    <div data-id="{{$value->id }}" class="w-8 h-8 handelPost relative grid place-items-center text-xl text-gray-500 hover:bg-gray-200 dark:text-dark-txt dark:hover:bg-dark-third rounded-full cursor-pointer">
                         <i class="bx bx-dots-horizontal-rounded"></i>
+                        <div class="absolute top-full right-0 w-40 hidden  dropPost " id="handelPost-{{$value->id }}"> 
+                            <ul>
+                                <li>
+                                    <div class="p-1 text-center bg-gray-100 rounded-md border-b border-gray-200 btnDelPost" data-id="{{$value->id }}"> 
+                                        <span class=" font-medium text-lg"> Remove Post</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="p-1 text-center bg-gray-100 rounded-md border-b border-gray-200 btnHidPost" data-id="{{$value->id }}"> 
+                                        <span class=" font-medium text-lg"> Hidden Post</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                
@@ -425,8 +255,17 @@
                                 <span class="text-sm text-gray-500">{{ date("h:i:sa d/m/Y", strtotime($value->created_at)) }}</span>
                             </div>
                         </div>
-                        <div class="w-8 h-8 grid place-items-center text-xl text-gray-500 hover:bg-gray-200 dark:text-dark-txt dark:hover:bg-dark-third rounded-full cursor-pointer">
+                        <div data-id="{{$value->id }}" class="relative handelPost w-8 h-8 grid place-items-center text-xl text-gray-500 hover:bg-gray-200 dark:text-dark-txt dark:hover:bg-dark-third rounded-full cursor-pointer">
                             <i class="bx bx-dots-horizontal-rounded"></i>
+                            <div class="absolute top-full right-0 w-40 hidden  dropPost " id="handelPost-{{$value->id }}"> 
+                                <ul>
+                                    <li>
+                                        <div class="p-1 text-center bg-gray-100 rounded-md border-b border-gray-200 btnHidPost" data-id="{{$value->id }}"> 
+                                            <span class=" font-medium text-lg"> Hidden Post</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="text-justify px-4 py-2">

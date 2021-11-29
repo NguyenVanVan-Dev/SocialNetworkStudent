@@ -16,30 +16,6 @@ $(document).ready(function(){
         $("#menu_hidden").addClass("hidden")
     
     })
-    // FORM POST
-    // $('#input_post').on('click', function(){
-    //     $("#app").addClass('fixed')
-    //     $('#app').removeClass('relative')
-    //     $('#overlay').removeClass('hidden')
-    //     $('#form_post').removeClass('hidden')
-        
-    // })
-    // $("#btn_off_form_post").on('click', function(){
-    //     $('#app').removeClass('fixed')
-    //     $("#app").addClass('relative')
-    //     $("#content_post").val('')
-    //     $('#overlay').addClass('hidden')
-    //     $('#form_post').addClass('hidden')
-        
-    // })
-    // $('#overlay').on('click', function(){
-    //     $('#app').removeClass('fixed')
-    //     $("#app").addClass('relative')
-    //     $("#content_post").val('')
-    //     $('#form_post').addClass('hidden')
-    //     $(this).addClass('hidden')
-    // })
-    // END FORM POST
     $(".btn_option_setting").on('click',function(){
         $(".box_setting").removeClass('hidden')
     })
@@ -132,10 +108,10 @@ $(document).ready(function(){
             $('#btnPosts').removeClass('bg-blue-400 text-white')
         }
     });
-    $('#btnImagePost').click(function(){
+    $('body').on('click','#btnImagePost',function(){
         $('#image_post').trigger('click');
     })
-    $('#btnVideoPost').click(function(){
+    $('body').on('click','#btnVideoPost',function(){
         $('#video_post').trigger('click');
     })
     $('#image_post').on('change',function(){
@@ -148,7 +124,7 @@ $(document).ready(function(){
                 $('#review_image_post').attr('src',result);
             }
             reader.readAsDataURL(file);
-        }
+    }
     })
     $('#video_post').on('change',function(){
         $('#overlayPost').css('height','1200px');
@@ -195,9 +171,9 @@ $(document).ready(function(){
                     let videoPost = checkVideo == undefined ? " " : ' <video controls class="mx-auto w-full" ><source id="review_video_post" src="/image/'+ checkVideo+'" type="video/mp4"><source src="/image/'+ checkVideo+'" type="video/ogg">Your browser does not support the video tag.</video>';
                     Notiflix.Notify.Success('Post successful');
                     $("#btn_off_form_post").trigger('click');
-                    $('#contentPosts').val(' ');
-                    $('#image_post')[0].files[0] = ' ';
-                    $('#video_post')[0].files[0] = ' ';
+                    $('#contentPosts').val('');
+                    $('#image_post').val('');
+                    $('#video_post').val('');
                     let post = ' <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg"><div class="flex items-center justify-between px-4 py-2"><div class="flex space-x-2 items-center"><div class="relative"><img src="/image/'+ userAvatar +'" class="w-10 h-10 rounded-full" alt=""><span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span></div><div><div class="font-semibold">'+userName +'</div><span class="text-sm text-gray-500">'+ data.data.created_at+'</span>\
                             </div>\
                         </div><div class="w-8 h-8 grid place-items-center text-xl text-gray-500 hover:bg-gray-200 dark:text-dark-txt dark:hover:bg-dark-third rounded-full cursor-pointer">\
@@ -254,6 +230,58 @@ $(document).ready(function(){
         });
 
     });
+    $('body').on('click','.handelPost',function(){
+        $('.dropPost').addClass('hidden')
+        $('#handelPost-'+$(this).attr('data-id')).removeClass('hidden');
+    })
+    $('body').on('click','.btnDelPost',function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        let postID = $(this).attr('data-id');
+        $.ajax({
+            url :delPost,
+            type : 'DELETE',
+            data : {
+                postID: postID
+            },
+            success : function(data) {
+                if(data.status= 'true')
+                {
+                    $('#post-'+postID).remove();
+                }else
+                {
+                    Notiflix.Notify.Warning('Error Delete Post');
+                }
+            }
+        });
+    });
+    $('body').on('click','.btnHidPost',function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        let postID = $(this).attr('data-id');
+        $.ajax({
+            url :hidPost,
+            type : 'GET',
+            data : {
+                postID: postID
+            },
+            success : function(data) {
+                if(data.status= 'true')
+                {
+                    $('#post-'+postID).remove();
+                }else
+                {
+                    Notiflix.Notify.Warning('Error Hidden Post');
+                }
+            }
+        });
+    });
     // ENDPOST 
     // COMMENT
     $('body').on('click','.btnComment',function(){
@@ -303,8 +331,211 @@ $(document).ready(function(){
     });
     // END SHOW PROFILE FRIEND
     //  LAYOUT PROFILE  
+    //POST STORY
+    $('#btnImgStory').click(function(){
+        $('#imageStory').trigger('click')
+        // $('#review_image_story').removeClass('hidden')
+    })
+    $('#btnVideoStory').click(function(){
+        $('#videoStory').trigger('click')
+    })     
+    $('#imageStory').change(function(){
+        $('#videoStory').val("") 
+        $('#review_image_story').removeClass('hidden')
+        $('#rvStory').addClass('hidden')
+        const storyImage =  $(this)[0].files[0];
+        if(storyImage){
+            const reader = new FileReader();
+            reader.onload = function(){
+                const result = reader.result;
+                $('#review_image_story').attr('src',result);
+            }
+            reader.readAsDataURL(storyImage);
+        }
+
+    })
+    $('#videoStory').change(function(){
+        $('#imageStory').val("")
+        $('#rvStory').removeClass('hidden')
+        $('#review_image_story').addClass('hidden')
+        const storyVideo =  $(this)[0].files[0];
+        if(storyVideo){
+            var $source = $('#review_video_story');
+            $source[0].src = URL.createObjectURL(this.files[0]);
+            $source.parent()[0].load();
+        }
+    })
+    $('#contentStoty').keyup(function(){
+        if( $(this).val() == '')
+        {
+            $('#rcStory').addClass('hidden')
+        }
+        else
+        {
+            $('#rcStory').removeClass('hidden')
+            $('#rcStory').text( $(this).val())
+        }
+    })
+    $('#btnPostStory').click(function(){
+        let content = $('#contentStoty').val();
+        var formData = new FormData();
+        formData.append("content", content);
+        formData.append("user_id", userID);
+        if($('#imageStory')[0].files[0] != undefined)
+        {
+            formData.append("file[]", $('#imageStory')[0].files[0]);
+        }
+        if($('#videoStory')[0].files[0] != undefined)
+        {
+            formData.append("file[]", $('#videoStory')[0].files[0]);
+        }
+        console.log(formData.getAll('file[]'))
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url : urlStory,
+            type : 'POST',
+            data : formData,
+            processData: false,
+            contentType: false,
+            success : function(data) {
+                if(data.status == 'true')
+                {   
+                    
+                    Notiflix.Notify.Success('Post story successful');
+                    $('#contentStoty').val('');
+                    $('#videoStory').val('');
+                    $('#imageStory').val('');
+
+                }else
+                {
+                    Notiflix.Notify.Warning('Post story failed');
+                }
+            //   console.log(content,userID,userName) 
+              console.log(data.data) 
+            }
+        });
+
+    })
+    $("#yourStory").click(function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url :yourStory,
+            type : 'GET',
+            data : {
+                userID:userID 
+            },
+            success : function(data) {
+                // console.log(data);
+                if(data != '')
+                {   
+                    $("#listStory").html(data);
+
+                }else
+                {
+                    Notiflix.Notify.Warning('Error Select Story');
+                }
+            }
+        });
+    })
+    $('body').on('click','.deleteStory',function(){
+        $('.dropStory').addClass('hidden')
+        $('#deleteStory-'+$(this).attr('data-id')).removeClass('hidden');
+    });
    
-   
+    $('body').on('click','.btnDelStory',function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        let storyID = $(this).attr('data-id');
+        $.ajax({
+            url :delStory,
+            type : 'DELETE',
+            data : {
+                storyID: storyID
+            },
+            success : function(data) {
+                if(data.status= 'true')
+                {
+                    $('#Story-'+storyID).remove();
+                }else
+                {
+                    Notiflix.Notify.Warning('Error Delete Story');
+                }
+            }
+        });
+    });
+
+    // END POST STORY   
+    //  VIDEO CALL
+    $('#zoom-out').click(function(){
+        $('#video-call-div').addClass(' w-1/5 h-1/5 top-3/4 left-4/5');
+        $('#video-call-div').removeClass('h-80%');
+        $('#local-video').addClass('hidden');
+        $('.call-action-div').addClass('hidden');
+        $(this).addClass('hidden');
+        $('#zoom-in').removeClass('hidden');
+    })
+    $('#zoom-in').click(function(){
+        $('#video-call-div').removeClass(' w-1/5 h-1/5 top-3/4 left-4/5');
+        $('#video-call-div').addClass('h-80%');
+        $('#local-video').removeClass('hidden');
+        $('.call-action-div').removeClass('hidden');
+        $(this).removeClass('hidden')
+        $('#zoom-out').removeClass('hidden');
+    })
+    $('body').on('click','.openVideoCall', function(e){
+        e.stopPropagation();
+        $("#app").addClass('fixed')
+        $("#app").removeClass('relative')
+        $('#callModal').removeClass('invisible');
+        $('#boxVideoCall').removeClass('-translate-y-64');
+        $('#boxVideoCall').addClass('translate-y-0');
+        $('#boxVideoCall').removeClass('opacity-0');
+    });
+    $('#testMes').click(function(){
+       $(".audio_messenger").trigger('play');
+    })
+    $('#testCall').click(function(){
+       $(".audio_call").trigger('play');
+    })
+     
+    $('body').on('click','#MuteNotifi', function(){
+        var $audio = $('.audio_messenger');
+        var $call =  $(".audio_call");
+        $('#MuteNotifi span').toggleClass("hidden");
+        if( $(".audio_messenger").prop('muted') )
+        {
+            $(".audio_messenger").prop('muted', false);
+        }
+
+        else {
+        $(".audio_messenger").prop('muted', true);
+        }
+        // $('.audio_messenger').prop('muted', true);
+       
+    })
+    $('.closeVideoCall').on('click', function(e){
+        e.stopPropagation();
+        $("#app").addClass('relative')
+        $("#app").removeClass('fixed')
+        $('#boxVideoCall').removeClass('translate-y-0');
+        $('#boxVideoCall').addClass('-translate-y-64');
+        $('#boxVideoCall').addClass('opacity-0');
+        setTimeout(() => {
+            $('#callModal').addClass('invisible');
+        }, 100);
+    });
+    // END VIDEO CALL   
     window.onscroll = function() {myFunction()};
 
     function myFunction() {
