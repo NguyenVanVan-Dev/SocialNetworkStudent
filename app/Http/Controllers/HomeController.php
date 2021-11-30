@@ -59,13 +59,32 @@ class HomeController extends Controller
     {
         $user = User::find($user_id);
         $posts = Post::where('user_id',$user_id)->orderBy('created_at','desc')->get();
-        return view('PagesUser.profile')->with('user',$user)->with('posts',$posts);
+        $media = Post::where('user_id',$user_id)->where('image' ,'!=' ,'NULL')->select('image')->orderBy('created_at','desc')->limit(9)->get();
+        $count_friend =  Friend::where('status' ,'Accepted')->where('id_userTo',Auth::user()->id)->orWhere('id_userFrom',Auth::user()->id)->count();
+        $friend = DB::table('users')
+                ->join('friends',function($join)
+                {
+                    $join->on('friends.id_userFrom', 'users.id');
+                    $join->orOn('friends.id_userTo','users.id');
+                })
+                ->where('users.id','!=',Auth::user()->id)
+                ->where('friends.status','Accepted')
+                ->orWhere('friends.id_userFrom',Auth::user()->id)
+                ->Where('friends.id_userTo',Auth::user()->id)
+                ->limit(9)
+                ->orderby('friends.id','desc')->get();
+                // dd($media);
+        return view('PagesUser.profile')
+                ->with('user',$user)
+                ->with('qtyfri',$count_friend)
+                ->with('media',$media)
+                ->with('friends',$friend)
+                ->with('posts',$posts);
     }
     public function viewUser($id)
     {
         $user = User::find($id);
         $posts = Post::where('user_id',$id)->orderBy('created_at','desc')->get();
-        // dd($post);
         return view('PagesUser.view-user')->with('user',$user)->with('posts',$posts);
     }
     public function search(Request $request){

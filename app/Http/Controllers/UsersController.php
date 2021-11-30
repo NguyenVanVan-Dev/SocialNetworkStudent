@@ -128,13 +128,12 @@ class UsersController extends Controller
         }
        
     }
-    //myself friend
     public static function statusFriend($fromID,$toID)
     {
         $output = '';
         $result_status = Friend::where('id_userFrom',$fromID)->where('id_userTo',$toID)->get();
         $check_request_forfriends = Friend::where('id_userFrom',$toID)->where('id_userTo',$fromID)->where('status','!=','Accepted')->get();
-        $check_accepte_friends = Friend::where('id_userFrom',$toID)->where('id_userTo',$fromID)->orWhere('id_userTo',$toID)->where('id_userFrom',$fromID)->where('status','Accepted')->get();
+        $check_accepte_friends = Friend::where('id_userFrom',$toID)->where('id_userTo',$fromID)->where('status','Accepted')->orWhere('id_userTo',$toID)->where('id_userFrom',$fromID)->get();
         foreach($result_status as $key =>$value)
         {
             $output = $value->status;

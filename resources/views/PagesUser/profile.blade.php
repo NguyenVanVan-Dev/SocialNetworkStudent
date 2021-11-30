@@ -74,6 +74,7 @@
         </div>
     </div>
 </div>
+<?php   use App\http\Controllers\UsersController;  ?>
 <!-- END INFO  -->
 <div class="w-full xl:w-942 lg:w-942 flex flex-col lg:flex-row relative xl:mt-63vh">
     <!-- INTRODUCE  -->
@@ -94,69 +95,34 @@
                     rounded-md ">See all image</span>
             </div>
             <div class="rounded-lg grid grid-cols-3 grid-rows-3 gap-1 overflow-hidden">
-                <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block" alt="">
-                <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block" alt="">
-                <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block" alt="">
-                <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block" alt="">
-                <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block" alt="">
-                <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block" alt="">
-                <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block" alt="">
-                <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block" alt="">
-                <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block" alt="">
+                @foreach($media as $key => $value)
+                    @if(!empty($value->image))
+                    <img src="{{ asset('image/'.$value->image) }}" class=" inline-block w-full h-full object-cover" alt="">
+                    @endif
+                @endforeach
             </div>
         </div>
         <div class="p-3 bg-white rounded-md mt-4 shadow-md">
             <div class="flex justify-between items-center px-4  mb-5 ">
                 <div>
                     <span class="font-semibold text-gray-500 text-2xl dark:text-dark-txt">Friends </span>
-                    <p class="text-gray-500 text-lg ">1000 friends</p>
+                    <p class="text-gray-500 text-lg ">{{ $qtyfri}} friends</p>
                 </div>   
                 <span class="text-blue-500 cursor-pointer hover:bg-gray-200 dark:hover:bg-dark-thirdp-2 p-2
                     rounded-md ">See all friends</span>
             </div>
             <div class="rounded-lg grid grid-cols-3 grid-rows-3 gap-1 overflow-hidden">
-               <div class="text-center">
-                  <a href="" class="no-underline text-black">
-                    <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block rounded-lg " alt="">
-                    <p class="font-medium text-lg">Hải Ba Đông </p>
-                  </a>
-               </div>
-               <div class="text-center">
-                  <a href="" class="no-underline text-black">
-                    <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block rounded-lg " alt="">
-                    <p class="font-medium text-lg">Hải Ba Đông </p>
-                  </a>
-               </div>
-               <div class="text-center">
-                  <a href="" class="no-underline text-black">
-                    <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block rounded-lg " alt="">
-                    <p class="font-medium text-lg">Hải Ba Đông </p>
-                  </a>
-               </div>
-               <div class="text-center">
-                  <a href="" class="no-underline text-black">
-                    <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block rounded-lg " alt="">
-                    <p class="font-medium text-lg">Hải Ba Đông </p>
-                  </a>
-               </div>
-               <div class="text-center">
-                  <a href="" class="no-underline text-black">
-                    <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block rounded-lg " alt="">
-                    <p class="font-medium text-lg">Hải Ba Đông </p>
-                  </a>
-               </div>
-               <div class="text-center">
-                  <a href="" class="no-underline text-black">
-                    <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block rounded-lg " alt="">
-                    <p class="font-medium text-lg">Hải Ba Đông </p>
-                  </a>
-               </div>
-               <div class="text-center">
-                  <a href="" class="no-underline text-black">
-                    <img src="{{ asset('image/anh-ysauo.jpg') }}" class=" inline-block rounded-lg " alt="">
-                    <p class="font-medium text-lg">Hải Ba Đông </p>
-                  </a>
-               </div>
+                @foreach($friends as $key => $value)
+                    @if(UsersController::statusFriend(Auth::user()->id,$value->id ) == 'Accepted')
+                    <div class="text-center">
+                        <a href="{{URL::TO('/view-user/'.$value->id)}}" class="no-underline text-black">
+                            <img src="{{ asset('/image/'.$value->avatar) }}" class=" inline-block rounded-lg " alt="">
+                            <p class="font-medium text-lg">{{ $value->name }} </p>
+                        </a>
+                    </div>
+                    @endif
+                @endforeach
+               
             </div>
         </div>
         <div class="mt-auto p-6 text-sm text-gray-500 dark:text-dark-txt">
@@ -240,7 +206,7 @@
                             <img src="{{URL::to('/image/'. $value->image)}}" alt="" class=" m-auto ">
                         @endif
                         @if(!empty($value->video))
-                            <video controls class="mx-auto w-full h-96 " autoplay>
+                            <video controls class="mx-auto w-full h-96 ">
                                 <source id="review_video_post" src="{{URL::to('/image/'. $value->video )}}" type="video/mp4">
                                 <source src="{{URL::to('/image/'. $value->video )}}" type="video/ogg">
                                 Your browser does not support the video tag.

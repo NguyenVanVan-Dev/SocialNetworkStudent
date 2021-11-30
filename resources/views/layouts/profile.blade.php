@@ -55,7 +55,7 @@
     </style>
 </head>
 
-<body id="app" class="bg-gray-100 dark:bg-dark-main   ">
+<body id="app" class="bg-gray-100 dark:bg-dark-main  w-full ">
     <div id="post_content_profile" class=" flex items-center justify-center w-full  relative" >
         @include('Component.header')
         @yield('content')
