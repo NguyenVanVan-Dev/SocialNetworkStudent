@@ -62,7 +62,9 @@ $('body').on('click','.CallVideo',function(){
 $('body').on('click','#acceptCallVideo',function(){
     let myID = $(this).attr('my-id');
     console.log(myID);
-    $(".audio_call").trigger('pause');
+    // $(".audio_call").trigger('pause');
+    $(".audio_call").get(0).pause();
+    $(".audio_call").get(0).currentTime = 0;
     joinCall(myID);
 });
 

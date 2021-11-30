@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
 use App\Models\Post;
+use App\Models\Comments;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -129,6 +130,7 @@ class PostsController extends Controller
     {
         $Post_id = $request->postID;
         $info = Post::where('id', $Post_id)->first();
+        Comments::where('post_id',$Post_id)->delete();
         if(!empty($info))
         {
             if(File::exists(public_path('image/'.$info->image))){

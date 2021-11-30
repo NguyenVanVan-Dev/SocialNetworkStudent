@@ -74,7 +74,7 @@
         Your browser does not support the audio element.
         </audio>
     </div>
-    <div id="video-call-div" class=" w-3/4 h-80% fixed top-16 rounded-lg overflow-hidden hidden">
+    <div id="video-call-div" class=" w-3/4 h-80% fixed top-16 rounded-lg z-30 overflow-hidden hidden">
         <button id="zoom-out" class="z-50 absolute top-4 right-4 bg-gray-500 outline-none p-1 rounded-lg">zoom out</button>
         <video muted id="local-video" autoplay class="absolute top-0 left-0 m-4  rounded-lg max-h-1/4 bg-gray-500"></video>
         <video id="remote-video" autoplay class="w-full h-full bg-gray-300"></video>

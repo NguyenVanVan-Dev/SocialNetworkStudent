@@ -158,7 +158,7 @@ class UsersController extends Controller
     }
     public function showFriends()
     {
-        $friend = DB::table('users')->where('id','!=',Auth::user()->id)->get();
+        $friend = DB::table('users')->where('id','!=',Auth::user()->id)->orderBy('created_at','desc')->get();
         return view('PagesUser.show-friends')->with('friends',$friend);
     }
     public function listFriends()

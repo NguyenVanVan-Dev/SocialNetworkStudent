@@ -286,7 +286,9 @@ $(document).ready(function(){
     // COMMENT
     $('body').on('click','.btnComment',function(){
         let id = $(this).data('id');
+        $('.boxComment').addClass('hidden');
         $('#listComment-'+id).removeClass('hidden')
+       
         $.ajax({
             url:showComment,
             method:"GET",
@@ -526,6 +528,9 @@ $(document).ready(function(){
     })
     $('.closeVideoCall').on('click', function(e){
         e.stopPropagation();
+        // $(".audio_call").trigger('pause');
+        $(".audio_call").get(0).pause();
+        $(".audio_call").get(0).currentTime = 0;
         $("#app").addClass('relative')
         $("#app").removeClass('fixed')
         $('#boxVideoCall').removeClass('translate-y-0');

@@ -106,7 +106,10 @@ class HomeController extends Controller
         {
             Session::forget('message');
         }
-        return view('PagesUser.search-user')->with('users',$reuslt_user);
+        $stories = DB::table('stories')->orderby('created_at','desc')->limit(4)->get();
+        return view('PagesUser.search-user')
+                ->with('users',$reuslt_user)
+                ->with('stories',$stories);
         // dd(count($reuslt_user));
     }
     public function messenger()

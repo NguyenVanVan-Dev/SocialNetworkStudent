@@ -1,4 +1,4 @@
-<div class="w-full md:w-2/3 lg:w-1/2 pt-32 lg:pt-16 px-2 ">
+<div class="w-full md:w-2/3 lg:w-1/2 pt-32 lg:pt-16 px-2 absolute">
         <?php   use App\http\Controllers\UsersController;  ?>
         <!-- STORY -->
         <div class="relative flex space-x-2 pt-4">
@@ -40,7 +40,7 @@
                             <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
                                {{ $info->name }}
                             </span>
-                            <div class=" rounded-full overflow-hidden  z-20 absolute top-4 bg-gray-50 opacity-30 right-2 border border-yellow-500 transform -rotate-45 ">
+                            <div class=" rounded-full overflow-hidden  z-20 absolute top-14 bg-gray-50 opacity-30 right-2 border border-yellow-500 transform  ">
                                 <span class="text-black font-medium p-1 ">{{ $value->content}}</span>
                             </div>
                             <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
@@ -53,7 +53,7 @@
             @endif    
             </div>
            
-            <div class="w-12 h-12 rounded-full hidden lg:grid place-items-center text-2xl bg-white absolute -right-6 top-1/2 transform -translate-y-1/2 border border-gray-200
+            <div class="w-12 h-12 rounded-full hidden lg:grid place-items-center text-2xl bg-white absolute z-20 -right-6 top-1/2 transform -translate-y-1/2 border border-gray-200
             cursor-pointer hover:bg-gray-100 shadow-md text-gray-500 dark:bg-dark-third dark:text-dark-txt dark:border-dark-third">
                 <i class='bx bx-right-arrow-alt'></i>
             </div>
@@ -208,7 +208,7 @@
                 </div>
                
                 <div class="py-2 px-4" >
-                        <div class="px-4 py-2 hidden" id="listComment-{{$value->id}}">
+                        <div class="px-4 py-2 hidden boxComment" id="listComment-{{$value->id}}">
                             <div id="commentPost-{{$value->id}}" class="overflow-y-auto max-h-96">
 
                             </div>
@@ -317,7 +317,7 @@
                 
                     <div class="py-2 px-4">
                         
-                        <div class="px-4 py-2 hidden" id="listComment-{{$value->id}}">
+                        <div class="px-4 py-2 hidden boxComment" id="listComment-{{$value->id}}">
                             <div id="commentPost-{{$value->id}}" class="overflow-y-auto max-h-96">
 
                             </div>

@@ -2,6 +2,7 @@
 
 @section('content')
 <!-- MAIN CONTENT -->
+<?php   use App\http\Controllers\UsersController;  ?>
 <div class="flex justify-end h-screen">
     <!-- LEFT MENU -->
     <div class="w-3/12 pt-16 h-full hidden xl:flex flex-col fixed top-0 left-0 shadow-md overflow-y-scroll">
@@ -204,70 +205,57 @@
      <div class="w-full relative right-0 top-0 xl:w-9/12  pt-32 lg:pt-16 px-2 ">
         <!-- STORY -->
         <div class="relative flex space-x-2 pt-4">
-            <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden flex flex-col group cursor-pointer">
+            <div class="w-1/4 sm:w-1/5 h-80 rounded-lg shadow-md overflow-hidden bg-white flex flex-col group cursor-pointer">
                 <div class="h-4/6 overflow-hidden">
                     <img src="{{URL::to('/image/'. Auth::user()->avatar)}}" class="group-hover:transform object-cover group-hover:scale-110 transition-all duration-700" alt="">
                 </div>
-                <div class="flex-1 relative flex items-center justify-center pb-2 text-center
-                leading-none dark:bg-dark-second dark:text-dark-txt">
-                    <span class="font-semibold">
-                        Create a <br> Story
-                    </span>
-                    <div class=" w-10 h-10 rounded-full bg-blue-500 text-white grid place-items-center text-2xl border-4 border-white dark:border-dark-second absolute
-                    -top-5 left-1/2 transform -translate-x-1/2">
-                        <i class='bx bx-plus'></i>
+                <a href="{{ route('stories.create')}}" class="flex-1">
+                <div class=" relative flex items-center justify-center pb-2 text-center
+                    leading-none dark:bg-dark-second dark:text-dark-txt">
+                        <span class="font-semibold mt-9">
+                            Create a <br> Story
+                        </span>
+                        <div class=" w-10 h-10 rounded-full bg-blue-500 text-white grid place-items-center text-2xl border-4 border-white dark:border-dark-second absolute
+                        -top-5 left-1/2 transform -translate-x-1/2">
+                            <i class='bx bx-plus'></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-            <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden">
-                <div class="relative h-full group cursor-pointer">
-                    <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full" alt="">
-                    <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                    <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                        Your Story
-                    </span>
-                    <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
+            <div class="w-3/4 sm:w-4/5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-1  gap-2 overflow-hidden">
+            @if(!empty($stories))
+                @foreach($stories as $key => $value)   
+                    @if(UsersController::statusFriend(Auth::user()->id,$value->user_id) == 'Accepted' || $value->user_id == Auth::user()->id)
+                    <?php $info = UsersController::getInfoUser($value->user_id);?> 
+                    <div class="w-full h-80 rounded-lg shadow-md overflow-hidden">
+                        <div class="relative h-full group cursor-pointer">
+                            @if(!empty($value->image))
+                            <img src="{{ asset('image/'.$value->image ) }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full object-cover" alt="">
+                            @endif
+                            @if(!empty($value->video))
+                                <video controls class="mx-auto w-full absolute top-14 z-10 bg-gray-500" >
+                                    <source  src="{{URL::to('/image/'. $value->video )}}" type="video/mp4">
+                                    <source src="{{URL::to('/image/'. $value->video )}}" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                </video>
+                            @endif
+                            <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
+                            <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
+                               {{ $info->name }}
+                            </span>
+                            <div class=" rounded-full overflow-hidden  z-20 absolute top-14 bg-gray-50 opacity-30 right-2 border border-yellow-500 transform  ">
+                                <span class="text-black font-medium p-1 ">{{ $value->content}}</span>
+                            </div>
+                            <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
+                                <img src="{{ asset('image/'.$info->avatar) }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700  h-full w-full object-cover" alt="">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden">
-                <div class="relative h-full group cursor-pointer">
-                    <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full" alt="">
-                    <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                    <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                        Your Story
-                    </span>
-                    <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
-                    </div>
-                </div>
+                    @endif
+                @endforeach
+            @endif    
             </div>
 
-            <div class=" hidden md:inline-block w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden">
-                <div class="relative h-full group cursor-pointer">
-                    <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full" alt="">
-                    <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                    <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                        Your Story
-                    </span>
-                    <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                        <img src="{{ asset('image/logo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class=" hidden md:inline-block w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden">
-                <div class="relative h-full group cursor-pointer">
-                    <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700 h-full w-full" alt="">
-                    <div class="w-full h-full bg-black absolute top-0 left-0 bg-opacity-10"></div>
-                    <span class="absolute bottom-0 left-2 pb-2 font-semibold text-white">
-                        Your Story
-                    </span>
-                    <div class="w-10 h-10 rounded-full overflow-hidden absolute top-2 left-2 border-4 border-blue-500">
-                        <img src="{{ asset('image/yasuo.jpg') }}" class="group-hover:transform group-hover:scale-110 transition-all duration-700" alt="">
-                    </div>
-                </div>
-            </div>
         </div>
         <!--  END STORY -->
         <div class=" flex space-x-2 pt-4 w-3/4 m-auto">
@@ -278,8 +266,6 @@
                 echo  ' <li class=" m-4 text-gray-500 text-center font-semibold text-xl bg-gray-200 p-4 rounded-md ">User name <span class="text-red-400 ">"'.$name.'"</span> not found</li>
                 <img src="/image/undraw_people.svg" class="rounded-md  object-cover" > ';
             }
-            use App\http\Controllers\UsersController;
-            
             ?>
            
             @if(!empty($users))  
