@@ -133,7 +133,7 @@ class UsersController extends Controller
         $output = '';
         $result_status = Friend::where('id_userFrom',$fromID)->where('id_userTo',$toID)->get();
         $check_request_forfriends = Friend::where('id_userFrom',$toID)->where('id_userTo',$fromID)->where('status','!=','Accepted')->get();
-        $check_accepte_friends = Friend::where('id_userFrom',$toID)->where('id_userTo',$fromID)->where('status','Accepted')->orWhere('id_userTo',$toID)->where('id_userFrom',$fromID)->get();
+        $check_accepte_friends = Friend::where('id_userFrom',$toID)->where('id_userTo',$fromID)->orWhere('id_userTo',$toID)->where('id_userFrom',$fromID)->where('status','Accepted')->get();
         foreach($result_status as $key =>$value)
         {
             $output = $value->status;
@@ -507,5 +507,29 @@ class UsersController extends Controller
     {
        $user = Messenger::where('id_userTo',Auth::user()->id)->where('id_userFrom',$id)->where('is_read',0)->count();
        return $user;
+    }
+    public static function getNumNotiMes()
+    {
+       $num = Messenger::where('id_userTo',Auth::user()->id)->where('is_read',0)->count();
+       return $num;
+    }
+    public static function checkRule($content)
+    {
+        $rule = [
+            'đánh','mắng','đâm','chém','giết','hành hạ','đấm'
+        ];
+        $check_rule = '';
+        for ($i=0; $i < count($rule); $i++) { 
+            if(strpos($content,$rule[$i]) !== false )
+            {
+                $check_rule = 'false';
+            }
+            else
+            {
+                $check_rule = 'true';
+            }
+        }
+        return $check_rule;
+
     }
 }

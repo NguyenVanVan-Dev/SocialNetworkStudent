@@ -60,6 +60,35 @@
     @include('Component.form-post')
     @include('Component.header')
     @yield('content')
+    <div id="notifiBox" class="fixed top-14 right-0 rounded-md  bg-white overflow-hidden transition-all  transform  translate-x-full ">
+        <div>
+            <div class=" px-2 py-3 ">
+                <a href="javascript:void(0)" class="">
+                    <div class="flex items-center">
+                        <div class="w-max mr-3">
+                            <img id="avatarNotifi" src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="rounded-full w-11 h-11">
+                        </div>
+                        <div class="flex-auto">
+                            <div class="flex items-center justify-between text-lg">
+                                <span id="nameNotifi" class="font-semibold">Nguyễn Văn Vấn</span>
+                                <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
+                            </div>
+                            <div class="text-gray-500 text-sm flex justify-between items-center">
+                                <div class="w-4/5 ">
+                                    <p class="truncate w-56" id="contentNotifi">
+                                        Xin chào các bạn mình là vấn best yasuo
+                                    </p>
+                                </div>
+                                <div class="w-1/5">
+                                    <span class="text-xs "> 1 phút </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
     <div class="hidden">
         <audio controls  class="audio_messenger">
         <source src="/image/tin-nhan.mp3" type="audio/ogg">
@@ -152,7 +181,6 @@
                     },
                     success:function(data)
                     {
-                        // console.log(data)
                         $("#Conversition").html(data);
                         $('.name-'+receiver_id).removeClass('font-medium');
                         scrollToBottomFunc();
@@ -190,13 +218,20 @@
 
         var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
-            console.log(data.id_userCalled)
-            console.log(callID);
             if(userID == data.id_userFrom){
                 // send message
                 $('#conversition-'+data.id_userTo).click();
             }else if(userID == data.id_userTo)
             {
+                $('#notifiBox').toggleClass('translate-x-full');
+                $('#notifiBox').toggleClass('translate-x-0');
+                $('#avatarNotifi').attr('src','/image/'+data.info_send.avatar);
+                $('#nameNotifi').text(data.info_send.name);
+                $('#contentNotifi').text(data.message);
+                setTimeout(() => {
+                    $('#notifiBox').toggleClass('translate-x-full');
+                    $('#notifiBox').toggleClass('translate-x-0');
+                }, 3000);
                 //receiver massage
                 $(".audio_messenger").trigger('play');
                 if (receiver_id == data.id_userFrom) {
@@ -205,6 +240,7 @@
                 } else {
                     // if receiver is not seleted, add notification for that user
                     var pending = parseInt($('#conversition-' + data.id_userFrom).find('.pending').html());
+                    var notifiMes = parseInt($('#Messenger').find('.pending').text());
                     if (pending) {
                         $('#conversition-' + data.id_userFrom).find('.pending').html(pending + 1);
                         $('.name-'+data.id_userFrom).addClass('font-medium');
@@ -212,23 +248,27 @@
                         $('#notification-' + data.id_userFrom).append(' <span class="bg-red-500  rounded-full absolute -right-2 -top-1 w-5 h-5 flex items-center justify-center text-white pending">1</span>');
                         $('.name-'+data.id_userFrom).addClass('font-medium');
                     }
+                    if(notifiMes)
+                    {
+                        $('#Messenger').find('.pending').html(notifiMes + 1 );
+                    }else
+                    {
+                        $('#Messenger').append('<span id="notifiMes" class="pending absolute top-1/2 right-4 transform -translate-y-1/2 bg-red-500 rounded-full w-6 h-6 grid place-content-center text-white"> 1 </span>')
+                    }
                 }
             }else if(data.id_userCalled ==  callID)
             {
-                // let info = JSON.parse(data.info_userCall);
-                console.log();
                 $(".audio_call").trigger('play');
                 $('.openVideoCall').click();
                 $('#nameFriendCall').text(data.info_userCall.name)
                 $('#avatarFriendCall').attr("src","/image/"+data.info_userCall.avatar);
             }
         });
-        function scrollToBottomFunc() {
-            console.log($('.conversition').get(0).scrollHeight)
-        $('.conversition').animate({
-            scrollTop: $('.conversition').get(0).scrollHeight
-        }, 50);
-    }
+        function scrollToBottomFunc() {    
+            $('.conversition').animate({
+                scrollTop: $('.conversition').get(0).scrollHeight
+            }, 50);
+        }
         // End Handle Conversition Chat
     </script>
     <script src="{{ asset('js/style.js') }}"></script>

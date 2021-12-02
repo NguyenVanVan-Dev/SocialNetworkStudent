@@ -160,6 +160,7 @@ class HomeController extends Controller
         // $data['message'] = htmlspecialchars($message);
         $data['id_userTo']= $request->receiver_id;
         $data['id_userFrom']= $my_id;
+        $info_sender = User::where('id',$my_id)->first();
         $reuslt_send = Messenger::create($data);
         $options = array(
             'cluster' => 'ap1',
@@ -173,7 +174,7 @@ class HomeController extends Controller
             $options
         );
 
-        $data = ['id_userFrom' =>  $my_id, 'id_userTo' => $request->receiver_id]; // sending from and to user id when pressed enter
+        $data = ['id_userFrom' =>  $my_id, 'id_userTo' => $request->receiver_id,'info_send' =>$info_sender,'message'=>$request->message]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
         if($reuslt_send)
         {

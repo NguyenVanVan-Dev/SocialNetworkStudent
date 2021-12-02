@@ -540,7 +540,14 @@ $(document).ready(function(){
             $('#callModal').addClass('invisible');
         }, 100);
     });
-    // END VIDEO CALL   
+    // END VIDEO CALL 
+    // NOTIFI ALL WEB
+    $('#notifiSystem').click(function(){
+        
+        $('#notifiBox').toggleClass('translate-x-full');
+        $('#notifiBox').toggleClass('translate-x-0');
+    })  
+    //  END NOTIFI ALL WEB  
     window.onscroll = function() {myFunction()};
 
     function myFunction() {

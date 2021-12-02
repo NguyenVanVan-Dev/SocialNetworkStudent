@@ -439,7 +439,7 @@
                 </button>
             </li>
             <li>
-                <div class="text-xl hidden xl:grid place-items-center bg-gray-200
+                <div id="notifiSystem" class="text-xl hidden xl:grid place-items-center bg-gray-200
                 dark:bg-dark-third dark:text-dark-txt rounded-full mx-1 p-3 cursor-pointer hover:bg-gray-300 relative">
                     <i class='bx bxs-bell-ring'></i>
                     <span class="text-xs absolute top-0 right-0 bg-red-500 text-white
