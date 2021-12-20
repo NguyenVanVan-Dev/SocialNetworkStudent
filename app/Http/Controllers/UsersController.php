@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Friend;
 use App\Models\Post;
 use App\Models\Messenger;
+use App\Models\Comments;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -207,6 +208,7 @@ class UsersController extends Controller
         foreach($data_posts as $key=>$value)
         {
             $image_post = '';
+            $video_post  = '';
             if(!empty($value->image)){
                 $image_post = '<img src="/image/'.$value->image.'" alt="" class=" m-auto h-96">';
             }
@@ -532,4 +534,10 @@ class UsersController extends Controller
         return $check_rule;
 
     }
+    public static function countComment($id)
+    {
+        $count_comment = Comments::where('post_id',$id)->count();
+        return $count_comment;
+    }
+    
 }

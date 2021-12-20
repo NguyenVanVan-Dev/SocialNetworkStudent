@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVideocallTable extends Migration
+class AddDataToVideocall extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateVideocallTable extends Migration
      */
     public function up()
     {
-        Schema::create('videocall', function (Blueprint $table) {
-            $table->id();
-            $table->string('id_userCalled');
-            $table->string('id_userCall');
-            $table->timestamps();
+        Schema::table('videocall', function (Blueprint $table) {
+            $table->string('who_leave')->after('status')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateVideocallTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('videocall');
+        Schema::table('videocall', function (Blueprint $table) {
+            //
+        });
     }
 }

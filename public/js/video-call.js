@@ -43,6 +43,11 @@ $('body').on('click','.CallVideo',function(){
     console.log(friendID);
     startCall(friendID,callID);
     sendUsername(friendID);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
     $.ajax({
         url:routeCallvideo,
         method:"POST",

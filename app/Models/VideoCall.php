@@ -12,5 +12,6 @@ class VideoCall extends Model
     protected $fillable = [
         'id_userCalled',
         'id_userCall',
+        'status',
     ];
 }

@@ -1,5 +1,8 @@
 //  Dat bien file js tu dau viet thuong ,tu tiep theo chu cai dau ghi hoa 
-
+$(window).on('load', function(event) {
+    $('body').removeClass('preloading');
+    $('.loader').delay(1000).fadeOut('fast');
+});
 $(document).ready(function(){
     $('#signIn').removeClass('scale-0')
     $('#text_signin').removeClass('scale-0')
@@ -245,7 +248,7 @@ $(document).ready(function(){
             url :delPost,
             type : 'DELETE',
             data : {
-                postID: postID
+                postID // Enhand object literals 
             },
             success : function(data) {
                 if(data.status= 'true')
@@ -269,7 +272,7 @@ $(document).ready(function(){
             url :hidPost,
             type : 'GET',
             data : {
-                postID: postID
+                postID // Enhand object literals 
             },
             success : function(data) {
                 if(data.status= 'true')
@@ -283,6 +286,32 @@ $(document).ready(function(){
         });
     });
     // ENDPOST 
+    // LIKE 
+    $('body').on('click','.btnLike',function(){
+        let id = $(this).data('id');
+        let action = 'like';
+        $(this).addClass('text-blue-500')
+        $(this).removeClass('text-gray-500')
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url:likePost,
+            method:"PUT",
+            data : {
+                id, // Enhand object literals 
+                action
+            },
+            success:function(data)
+            {
+                console.log(data);
+               $('#like-'+id).text(data);
+            },
+        })
+    });
+    // END LIKE
     // COMMENT
     $('body').on('click','.btnComment',function(){
         let id = $(this).data('id');
@@ -293,7 +322,7 @@ $(document).ready(function(){
             url:showComment,
             method:"GET",
             data : {
-                id:id
+                id // Enhand object literals 
             },
             
             success:function(data)
@@ -317,7 +346,7 @@ $(document).ready(function(){
             url: showProfileFriend,
             method:"GET",
             data : {
-                friendID: friendID,
+                friendID // Enhand object literals 
             },
             
             success:function(data)
@@ -463,7 +492,7 @@ $(document).ready(function(){
             url :delStory,
             type : 'DELETE',
             data : {
-                storyID: storyID
+                storyID // Enhand object literals 
             },
             success : function(data) {
                 if(data.status= 'true')

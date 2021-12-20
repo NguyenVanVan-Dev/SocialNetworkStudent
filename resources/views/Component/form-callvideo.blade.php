@@ -1,7 +1,7 @@
  <!-- FORM CALL VIDEO MODAL -->
 <div class="fixed z-50 inset-0 invisible overflow-y-auto transition ease-out duration-500 transform  cursor-pointer" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="callModal">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity closeVideoCall" aria-hidden="true" id="overlayPost" style="height: 722px;"></div>
+        <div class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity closeVideoCall" aria-hidden="true" id="overlayPost" ></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
             <div id="boxVideoCall" class=" -translate-y-64 inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition ease-out duration-500 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div  class="w-full bg-white rounded-xl shadow-2xl ">

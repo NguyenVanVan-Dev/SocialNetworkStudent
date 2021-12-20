@@ -48,14 +48,80 @@
             top:-20px;
             left: 0;
         }
+        /* Load Page  */
+        .loader{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: rgba(244, 244, 245,1);
+            z-index: 1000;
+            display: block;
+            overflow: hidden;
+        }
+        .center-div{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+        }
+        .xoay{
+            display: flex;
+            align-items: center;
+            transform: translate(-50%,-50%);
+            width: 202px;
+            height: 200px;
+            background: white;
+            border-radius: 50%;
+            border-right: 4px solid rgba(114, 33, 205, 0.8);
+            animation: xoay 1.5s linear infinite;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+        }
+        .loader__icon{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 3.4rem;
+            color: red;
+            transform: translate(-50%,-50%);
+        }
+        @keyframes xoay{
+            0%{
+                transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+        }
+            100%{
+                transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+        }
+        }
 
     </style>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
    
 </head>
 
-<body id="app" class="bg-gray-200 dark:bg-dark-main relative overlay flex items-center justify-center w-full ">
-    
+<body id="app" class="preloading bg-gray-200 dark:bg-dark-main relative overlay flex items-center justify-center w-full ">
+    <div class="loader">
+        <div class="center-div">
+            <div class="xoay"></div>
+           <img src="/image/logo_md.png" alt="" class="loader__icon">
+        </div>
+     </div>
     @include('Component.form-callvideo')
     @include('Component.form-post')
     @include('Component.header')
@@ -103,14 +169,14 @@
         Your browser does not support the audio element.
         </audio>
     </div>
-    <div id="video-call-div" class=" w-3/4 h-80% fixed top-16 rounded-lg z-30 overflow-hidden hidden">
+    <div id="video-call-div" class=" w-3/4 h-80% fixed top-16 rounded-lg z-30 overflow-hidden hidden" friend-id="0" my-id="0">
         <button id="zoom-out" class="z-50 absolute top-4 right-4 bg-gray-500 outline-none p-1 rounded-lg">zoom out</button>
         <video muted id="local-video" autoplay class="absolute top-0 left-0 m-4  rounded-lg max-h-1/4 bg-gray-500"></video>
         <video id="remote-video" autoplay class="w-full h-full bg-gray-300"></video>
         <div class="call-action-div absolute bottom-9 left-1/2 transform -translate-x-1/2">
             <button onclick="muteVideo()"  class="bg-green-500 rounded-lg p-2 text-lg text-white outline-none border border-white">Mute Video</button>
             <button onclick="muteAudio()"  class="bg-yellow-500 rounded-lg p-2 text-lg text-white outline-none border border-white">Mute Audio</button>
-            <button onclick="closeVideo()" class="bg-red-500 rounded-lg p-2 text-lg text-white outline-none border border-white">Leave Call</button>
+            <button id="closeVideo" class=" bg-red-500 rounded-lg p-2 text-lg text-white outline-none border border-white">Leave Call</button>
         </div>
         <button id="zoom-in" class=" hidden absolute top-4 right-4 bg-gray-500 outline-none p-1 rounded-lg">zoom in</button>
     </div>
@@ -128,6 +194,7 @@
         var urlPosts = ' {{ route('posts.store')}}';
         var delPost = "{{ route('posts.destroy', Auth::user()->id )}}";
         var hidPost = "{{ route('posts.display')}}";
+        var likePost = "{{ route('posts.update',Auth::user()->id)}}";
         var urlStory = ' {{ route('stories.store')}}';
         var yourStory = "{{ route('stories.show', Auth::user()->id )}}";
         var delStory = "{{ route('stories.destroy', Auth::user()->id )}}";
@@ -135,6 +202,7 @@
         var addComment = '{{ route('add_comment')}}';
         var showComment = '{{ route('show_comment')}}';
         var routeCallvideo = "{{ route('call_video')}}";
+        var leaveCallVideo = "{{ route('leave_video')}}";
         function handle(e){
             if(e.keyCode === 13){
                 e.preventDefault();
@@ -256,14 +324,50 @@
                         $('#Messenger').append('<span id="notifiMes" class="pending absolute top-1/2 right-4 transform -translate-y-1/2 bg-red-500 rounded-full w-6 h-6 grid place-content-center text-white"> 1 </span>')
                     }
                 }
-            }else if(data.id_userCalled ==  callID)
+            }else if(data.info_call.id_userCalled ==  callID && data.info_call.status == 'Request Call')
             {
+                $("#video-call-div").attr('friend-id',data.id_userCalled)
                 $(".audio_call").trigger('play');
                 $('.openVideoCall').click();
                 $('#nameFriendCall').text(data.info_userCall.name)
                 $('#avatarFriendCall').attr("src","/image/"+data.info_userCall.avatar);
             }
+            else if(data.info_call.who_leave !=  callID && data.info_call.status == 'Leave Call' )
+            { 
+                console.log(data.info_call.who_leave)
+                console.log(callID)
+                console.log(data.info_call.status)
+                alert('disconnect call');
+                window.location.reload(true);
+            }
+            $('#closeVideo').on('click',function(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: leaveCallVideo,
+                    method:"GET",
+                    data : {
+                        id_call:data.id_call,
+                        who_leave:callID,
+                    },
+                    
+                    success:function(data)
+                    {
+                        if(data.status == 'true')
+                        {
+                        //    console.log('disconect call')
+                            window.location.reload(true);
+                        }
+                        
+                    },
+                })
+                // window.location.reload();
+            })
         });
+        
         function scrollToBottomFunc() {    
             $('.conversition').animate({
                 scrollTop: $('.conversition').get(0).scrollHeight

@@ -48,6 +48,7 @@ Route::get('/handle-post',[CommentsController::class, 'display'])->name('posts.d
 // COMMENT
 Route::post('/add-comment',[CommentsController::class, 'store'])->name('add_comment');
 Route::get('/show-comment',[CommentsController::class, 'show'])->name('show_comment');
+// Route::get('/like-post',[PostsController::class, 'addLike'])->name('like_post');
 // MESSENGER
 Route::get('/messenger',[HomeController::class, 'messenger'])->name('messenger');
 Route::get('/get-messages',[HomeController::class, 'getMessages'])->name('get_messages');
@@ -56,5 +57,6 @@ Route::post('/send-messages',[HomeController::class, 'sendMessages'])->name('sen
 Auth::routes();
 // CALL VIDEO 
 Route::post('/call-video',[VideoCallController::class, 'callVideo'])->name('call_video');
+Route::get('/leave-video',[VideoCallController::class, 'leaveVideo'])->name('leave_video');
 // Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

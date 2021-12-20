@@ -117,9 +117,29 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        if($request->action === 'like')
+        {
+            $like = 0;
+            $data = [];
+            $Post_id = $request->id;
+            $post =  Post::where('id',$Post_id)->first();
+            $like += $post->like + 1;
+            $data['like'] = $like;
+            $result_like =  Post::where('id',$Post_id)->update($data);
+            if($result_like)
+            {
+                return $like;
+            }
 
+        }
+         
+    }
+    public static function countLike($id)
+    {
+        $count_comment = Post::where('id',$id)->first();
+
+        return $count_comment->like;
+    }
     /**
      * Remove the specified resource from storage.
      *

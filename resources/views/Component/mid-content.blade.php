@@ -1,5 +1,7 @@
 <div class="w-full md:w-2/3 lg:w-1/2 pt-32 lg:pt-16 px-2 absolute">
-        <?php   use App\http\Controllers\UsersController;  ?>
+        <?php   use App\http\Controllers\UsersController;
+                use App\http\Controllers\PostsController;  
+        ?>
         <!-- STORY -->
         <div class="relative flex space-x-2 pt-4">
             <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden bg-white flex flex-col group cursor-pointer">
@@ -178,13 +180,13 @@
                     <div class="px-4 py-2">
                         <div class=" flex items-center justify-between">
                             <div class="flex flex-row-reverse items-center">
-                                <span class="ml-2 text-gray-500 dark:text-dark-txt ">999</span>
+                                <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{PostsController::countLike($value->id)}} </span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
                             </div>
                             <div class=" text-gray-500 dark:text-dark-txt">
-                                <span>900 comment</span>
+                                <span>{{UsersController::countComment($value->id)}} Comments</span>
                                 <span>500 share</span>
                             </div>
                         </div>
@@ -193,7 +195,7 @@
                     
                     <div class="px-4 py-2 ">
                         <div class="flex  items-center space-x-2 border-gray-300 border-t border-b">
-                            <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                            <div data-id="{{$value->id}}" class=" btnLike  w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
                                 <i class="bx bx-like"></i>
                                 <span class="font-semibold text-sm">Like</span>
                             </div>
@@ -277,13 +279,13 @@
                     <div class="px-4 py-2">
                         <div class=" flex items-center justify-between">
                             <div class="flex flex-row-reverse items-center">
-                                <span class="ml-2 text-gray-500 dark:text-dark-txt ">999</span>
+                            <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{PostsController::countLike($value->id)}} </span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
                             </div>
                             <div class=" text-gray-500 dark:text-dark-txt">
-                                <span>900 comment</span>
+                                <span>{{UsersController::countComment($value->id)}} Comments </span>
                                 <span>500 share</span>
                             </div>
                         </div>
@@ -292,8 +294,9 @@
                     
                     <div class="px-4 py-2 ">
                         <div class="flex  items-center space-x-2 border-gray-300 border-t border-b">
-                            <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                            <div data-id="{{$value->id}}" class=" btnLike w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
                                 <i class="bx bx-like"></i>
+                                
                                 <span class="font-semibold text-sm">Like</span>
                             </div>
                             <div data-id="{{$value->id}}" class="btnComment w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
@@ -362,13 +365,13 @@
                         <div class="px-4 py-2">
                             <div class=" flex items-center justify-between">
                                 <div class="flex flex-row-reverse items-center">
-                                    <span class="ml-2 text-gray-500 dark:text-dark-txt ">999</span>
+                                <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{PostsController::countLike($value->id)}} </span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
                                 </div>
                                 <div class=" text-gray-500 dark:text-dark-txt">
-                                    <span>900 comment</span>
+                                    <span>{{UsersController::countComment($value->id)}} Comments </span>
                                     <span>500 share</span>
                                 </div>
                             </div>
@@ -376,7 +379,7 @@
                         </div>          
                         <div class="px-4 py-2 ">
                             <div class="flex  items-center space-x-2 border-gray-300 border-t border-b">
-                                <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                                <div data-id="{{$value->id}}" class=" btnLike w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
                                     <i class="bx bx-like"></i>
                                     <span class="font-semibold text-sm">Like</span>
                                 </div>
@@ -455,13 +458,13 @@
                         <div class="px-4 py-2">
                             <div class=" flex items-center justify-between">
                                 <div class="flex flex-row-reverse items-center">
-                                    <span class="ml-2 text-gray-500 dark:text-dark-txt ">999</span>
+                                <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{PostsController::countLike($value->id)}} </span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
                                 </div>
                                 <div class=" text-gray-500 dark:text-dark-txt">
-                                    <span>900 comment</span>
+                                    <span>{{UsersController::countComment($value->id)}} Comments </span>
                                     <span>500 share</span>
                                 </div>
                             </div>
@@ -469,7 +472,7 @@
                         </div>          
                         <div class="px-4 py-2 ">
                             <div class="flex  items-center space-x-2 border-gray-300 border-t border-b">
-                                <div class="w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
+                                <div data-id="{{$value->id}}" class=" btnLike w-1/3 flex space-x-2 justify-center items-center rounded-lg py-2 text-xl hover:bg-gray-200 dark:hover:bg-dark-third cursor-pointer text-gray-500 dark:text-dark-txt">
                                     <i class="bx bx-like"></i>
                                     <span class="font-semibold text-sm">Like</span>
                                 </div>

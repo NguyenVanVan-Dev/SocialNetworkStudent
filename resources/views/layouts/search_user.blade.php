@@ -53,10 +53,77 @@
         .mr-top {
             margin-top: 63vh;
         }
+        /* Load Page  */
+        .loader{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: rgba(244, 244, 245,1);
+            z-index: 1000;
+            display: block;
+            overflow: hidden;
+        }
+        .center-div{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+        }
+        .xoay{
+            display: flex;
+            align-items: center;
+            transform: translate(-50%,-50%);
+            width: 202px;
+            height: 200px;
+            background: white;
+            border-radius: 50%;
+            border-right: 4px solid rgba(114, 33, 205, 0.8);
+            animation: xoay 1.5s linear infinite;
+            -webkit-transform: translate(-50%,-50%);
+            -moz-transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+            -o-transform: translate(-50%,-50%);
+        }
+        .loader__icon{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 3.4rem;
+            color: red;
+            transform: translate(-50%,-50%);
+        }
+        @keyframes xoay{
+            0%{
+                transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+            }
+                100%{
+                    transform: rotate(360deg);
+                    -webkit-transform: rotate(360deg);
+                    -moz-transform: rotate(360deg);
+                    -ms-transform: rotate(360deg);
+                    -o-transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
 <body id="app" class="bg-gray-100 dark:bg-dark-main   ">
+    <div class="loader">
+        <div class="center-div">
+            <div class="xoay"></div>
+           <img src="/image/logo_md.png" alt="" class="loader__icon">
+        </div>
+    </div>
     <div id="post_content_profile" class=" flex items-center justify-center w-full  relative" >
         @include('Component.header')
         @yield('content')
