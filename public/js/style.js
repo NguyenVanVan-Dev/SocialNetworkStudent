@@ -55,7 +55,6 @@ $(document).ready(function(){
         $(document.documentElement).toggleClass('dark')
     })
     $('#dark_mode_mb').on('click', function(){
-    
         $(document.documentElement).toggleClass('dark')
     })
     //  FORM EDIT INFO PROFILE
@@ -572,9 +571,24 @@ $(document).ready(function(){
     // END VIDEO CALL 
     // NOTIFI ALL WEB
     $('#notifiSystem').click(function(){
-        
-        $('#notifiBox').toggleClass('translate-x-full');
-        $('#notifiBox').toggleClass('translate-x-0');
+        $('#box_notification').toggleClass('md:hidden z-30');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url :showNotifi,
+            type : 'GET',
+            data : {
+                userID
+            },
+            success : function(data) {
+                $('#list_notification').html('');
+               $('#list_notification').append(data);
+            }
+        });
+
     })  
     //  END NOTIFI ALL WEB  
     window.onscroll = function() {myFunction()};

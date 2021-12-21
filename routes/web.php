@@ -8,6 +8,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\VideoCallController;
 use App\Http\Controllers\StoriesController;
+use App\Http\Controllers\NotificationsController;
 // use App\Http\Controllers\HackController;
 
 /*
@@ -43,6 +44,7 @@ Route::get('friends/profile',[UsersController::class,'showProfileFriend'])->name
 Route::resources([
     'posts' => PostsController::class,
     'stories' => StoriesController::class,
+    'notifi' => NotificationsController::class,
 ]);
 Route::get('/handle-post',[CommentsController::class, 'display'])->name('posts.display');
 // COMMENT

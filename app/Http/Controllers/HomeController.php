@@ -13,6 +13,7 @@ use App\Models\Post;
 use App\Models\Comments;
 use App\Models\Messenger;
 use App\Models\Story;
+use App\Models\Notification;
 use Pusher\Pusher;
 class HomeController extends Controller
 {
@@ -153,32 +154,34 @@ class HomeController extends Controller
     public function sendMessages(Request $request)
     {
         $data = array();
+        $data_notifi = [];
         $my_id = Auth::user()->id;
         $message = $request->message;
-        $message =   \Illuminate\Support\Facades\Crypt::encryptString($message);
+        $message = \Illuminate\Support\Facades\Crypt::encryptString($message);
         $data['message'] =$message;
         // $data['message'] = htmlspecialchars($message);
-        $data['id_userTo']= $request->receiver_id;
-        $data['id_userFrom']= $my_id;
+        $data['id_userFrom']= $data_notifi['user_id'] = $my_id;
+            $data['id_userTo']= $data_notifi['friend_id'] = $request->receiver_id;
         $info_sender = User::where('id',$my_id)->first();
         $reuslt_send = Messenger::create($data);
         $options = array(
             'cluster' => 'ap1',
             'useTLS' => true
         );
-
         $pusher = new Pusher(
             env('PUSHER_APP_KEY'),
             env('PUSHER_APP_SECRET'),
             env('PUSHER_APP_ID'),
             $options
         );
-
         $data = ['id_userFrom' =>  $my_id, 'id_userTo' => $request->receiver_id,'info_send' =>$info_sender,'message'=>$request->message]; // sending from and to user id when pressed enter
         $pusher->trigger('my-channel', 'my-event', $data);
         if($reuslt_send)
         {
-           
+            $data_notifi['user_name'] =   $info_sender->name;
+            $data_notifi['user_avatar'] =   $info_sender->avatar;
+            $data_notifi['notification'] =  'Sent a message to you';
+            Notification::create($data_notifi);
             return response()->json([
                 'status' => 'true',
                 'data'=>  $reuslt_send

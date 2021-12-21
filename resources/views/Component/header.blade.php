@@ -444,6 +444,72 @@
                     <i class='bx bxs-bell-ring'></i>
                     <span class="text-xs absolute top-0 right-0 bg-red-500 text-white
                     font-semibold rounded-full px-1 text-center">9+</span>
+                    <div id="box_notification" class=" box_notification md:hidden absolute w-96 p-2   group-focus:block bg-white shadow-2xl rounded-lg top-12 -right-24">
+                        <div class=" px-2 flex justify-between items-center">
+                            <span class="font-semibold text-2xl mb-2">Notification </span>
+                            <ul>
+                                <li class="inline-block mx-1 ">
+                                    <span>
+                                        <i class='bx bx-customize'></i>
+                                    </span>
+                                </li>
+                                <li class="inline-block mx-1 ">
+                                    <span>
+                                        <i class='bx bx-exit-fullscreen'></i>
+                                    </span>
+                                </li>
+                                <li class="inline-block mx-1 ">
+                                    <span>
+                                        <i class='bx bx-camera-movie'></i>
+                                    </span>
+                                </li>
+                                <li class="inline-block">
+                                    <span>
+                                        <i class='bx bxs-edit'></i>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class=" px-2 w-full relative my-2">
+                            <span class="absolute top-1.5 left-4 text-gray-500"><i class='bx bx-search'></i></span>
+                            <input type="text" class="w-full bg-gray-200 rounded-full px-9 overflow-hidden py-3 outline-none h-9 text-sm text-gray-700" placeholder="Tìm kiếm trên Messenger">
+                        </div>
+                        <div class="overflow-y-auto max-h-556">
+                            <ul class=" h-full" id="list_notification">
+                                <!-- <li class=" px-2 py-3 rounded-md hover:bg-gray-200">
+                                    <a href="" class="">
+                                        <div class="flex items-center">
+                                            <div class="w-max mr-3">
+                                                <img src="{{ asset('image/anh-ysauo.jpg') }}" alt="" class="rounded-full w-11 h-11">
+                                            </div>
+                                            <div class="flex-auto">
+                                                <div class="flex items-center justify-between text-lg">
+                                                    <span class="font-semibold">Nguyễn Văn Vấn</span>
+                                                    <span class="w-3 h-3 bg-blue-700 rounded-full"></span>
+                                                </div>
+                                                <div class="text-gray-500 text-sm flex justify-between items-center">
+                                                    <div class="w-4/5 ">
+                                                        <p class="truncate w-56">
+                                                            <span>
+                                                                You:
+                                                            </span>
+                                                            Xin chào các bạn mình là vấn best yasuo
+                                                        </p>
+                                                    </div>
+                                                    <div class="w-1/5">
+                                                        <span class="text-xs "> 14 phút </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li> -->
+                            </ul>
+                        </div>
+                        <div class="text-center m-2">
+                            <span class="p-2 text-blue-500 hover:underline text-lg font-semibold">See All Notification </span>
+                        </div>
+                    </div>
                 </div>
             </li>
             <li>
@@ -673,10 +739,10 @@
     }
     // setInterval(() => {
     //     countNotifiSendFriends();
+    // }, 2000);
+    // setTimeout(() => {
+    //     countNotifiSendFriends();
     // }, 5000);
-    setTimeout(() => {
-        countNotifiSendFriends();
-    }, 5000);
     $('body').on('click','.btn-acceptefriend',function(){
         let toID = $(this).data('id');
         console.log(toID);

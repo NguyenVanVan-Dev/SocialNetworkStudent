@@ -198,6 +198,7 @@
         var urlStory = ' {{ route('stories.store')}}';
         var yourStory = "{{ route('stories.show', Auth::user()->id )}}";
         var delStory = "{{ route('stories.destroy', Auth::user()->id )}}";
+        var showNotifi = "{{ route('notifi.show', Auth::user()->id)}}";
         var showProfileFriend = '{{ route('profile_friends')}}';
         var addComment = '{{ route('add_comment')}}';
         var showComment = '{{ route('show_comment')}}';
@@ -367,7 +368,24 @@
                 // window.location.reload();
             })
         });
-        
+
+        var handleFriend = pusher.subscribe('handle-friend');
+        handleFriend.bind('action',function(data){
+            if(data.action == 'send_request' && data.myInfo.user_id == callID )
+            {
+                $(".audio_messenger").trigger('play');
+                $('#notifiBox').toggleClass('translate-x-full');
+                $('#notifiBox').toggleClass('translate-x-0');
+                $('#avatarNotifi').attr('src','/image/'+data.infoFriend.avatar);
+                $('#nameNotifi').text(data.infoFriend.name);
+                $('#contentNotifi').text(data.message);
+                setTimeout(() => {
+                    $('#notifiBox').toggleClass('translate-x-full');
+                    $('#notifiBox').toggleClass('translate-x-0');
+                }, 3000);
+            }
+            
+        })
         function scrollToBottomFunc() {    
             $('.conversition').animate({
                 scrollTop: $('.conversition').get(0).scrollHeight

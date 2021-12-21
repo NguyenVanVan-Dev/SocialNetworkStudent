@@ -8,6 +8,8 @@ use App\Models\Friend;
 use App\Models\Post;
 use App\Models\Messenger;
 use App\Models\Comments;
+use App\Models\Notification;
+use Pusher\Pusher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -69,15 +71,37 @@ class UsersController extends Controller
         $from_id = Auth::user()->id;
         $action = $request->action;
         $data = array();
+        $data_notifi = [];
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
         if($action == 'send_request')
         {
             $to_id = $request->toID;
-            $data['id_userFrom'] = $from_id;
-            $data['id_userTo'] = $to_id;
+            $data['id_userFrom']= $data_notifi['user_id'] = $from_id;
+            $data['id_userTo']= $data_notifi['friend_id'] = $to_id;
             $data['status'] = 'Pending';
             $data['accepted'] = 'No';
-            // DB::table('friends')->insert($data);
-            Friend::create($data);
+            $frined_info = User::where('id', $from_id)->first();
+            $my_info = User::where('id', $to_id)->first();
+            if(Friend::create($data))
+            {
+                $data_notifi['user_name'] =  $frined_info->name;
+                $data_notifi['user_avatar'] =  $frined_info->avatar;
+                $data_notifi['notification'] =  'Send you a friend request';
+            }
+            if(Notification::create($data_notifi)){
+                $result_action = ['infoFriend'=>$frined_info, 'myInfo' => $my_info ,'action' => $action,'message'=>'Send you a friend request']; 
+                $pusher->trigger('handle-friend', 'action', $result_action);
+            }
+           
         }
         elseif($action == 'undo_request')
         {
@@ -127,6 +151,7 @@ class UsersController extends Controller
                 ]);
             }
         }
+        
        
     }
     public static function statusFriend($fromID,$toID)

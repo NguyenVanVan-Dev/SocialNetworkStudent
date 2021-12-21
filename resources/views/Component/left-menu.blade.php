@@ -1,6 +1,6 @@
  <!-- LEFT MENU -->
  <?php   use App\http\Controllers\UsersController;  ?>
- <div class=" hidden md:flex md:w-1/3 lg:w-1/5 pt-16 h-full bg-white  flex-col fixed top-0 left-0 shadow-md overflow-y-scroll">
+ <div class=" hidden md:flex md:w-1/3 lg:w-1/5 pt-16 h-full bg-white  flex-col fixed top-0 left-0 shadow-md overflow-y-auto">
         <ul class="p-4 ">
             <li>
                 <a href="{{URL::TO('/profile/'. Auth::user()->id)}}" class="flex items-center space-x-2 p-2 hover:bg-gray-200 rounded-full
