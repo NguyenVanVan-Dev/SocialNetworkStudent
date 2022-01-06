@@ -9,7 +9,7 @@ use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\VideoCallController;
 use App\Http\Controllers\StoriesController;
 use App\Http\Controllers\NotificationsController;
-// use App\Http\Controllers\HackController;
+//  use App\Http\Controllers\HackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ use App\Http\Controllers\NotificationsController;
 
 |
 */
-//  Route::get('/hack',[HackController::class, 'hack']) ;
+// Route::get('/',[HackController::class, 'hack']) ;
 Route::get('/', function () {
     return view('auth.login');
 });

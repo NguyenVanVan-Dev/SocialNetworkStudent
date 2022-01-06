@@ -3,7 +3,7 @@
 @section('content')
 <!-- MAIN CONTENT -->
 <?php   use App\http\Controllers\UsersController;  ?>
-<div class="flex justify-end h-screen">
+<div class="flex justify-end h-screen w-full">
     <!-- LEFT MENU -->
     <div class="w-3/12 pt-16 h-full hidden xl:flex flex-col fixed top-0 left-0 shadow-md overflow-y-scroll">
         <ul class="p-4 ">

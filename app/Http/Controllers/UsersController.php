@@ -45,6 +45,8 @@ class UsersController extends Controller
         //     $data['interests'] = $request->interests;
         // }
         $data['story'] = $request->story;
+        // $data['story'] = htmlspecialchars($request->story);
+
         $data['interests'] = $request->interests;
         $check_update = DB::table('users')->where('id',$request->id)->update($data);
         if ($check_update) {
