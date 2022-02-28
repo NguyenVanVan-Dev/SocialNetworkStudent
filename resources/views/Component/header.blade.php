@@ -737,9 +737,9 @@
             },
         })
     }
-    // setInterval(() => {
-    //     countNotifiSendFriends();
-    // }, 2000);
+    setInterval(() => {
+        countNotifiSendFriends();
+    }, 2000);
     // setTimeout(() => {
     //     countNotifiSendFriends();
     // }, 5000);
