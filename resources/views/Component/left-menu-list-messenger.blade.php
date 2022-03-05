@@ -40,13 +40,13 @@
             ?>
             @if(!empty($friends))  
                 @foreach ($friends as $key => $listfriend)
-                    @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) == 'Accepted')
+                    @if(statusFriend(Auth::user()->id,$listfriend->id) == 'Accepted')
                     <li >
                         <div class="flex items-center space-x-4 p-2 hover:bg-gray-100
                         dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer showConversition" data-id="{{ $listfriend->id}}" id="conversition-{{ $listfriend->id}}">
                             <div class="relative" id="notification-{{$listfriend->id}}">
-                                @if(UsersController::getNotifiMes($listfriend->id))
-                                <span class="bg-red-500  rounded-full absolute -right-2 -top-1 w-5 h-5 flex items-center justify-center text-white pending">{{ UsersController::getNotifiMes($listfriend->id)}}</span>
+                                @if(getNotifiMes($listfriend->id))
+                                <span class="bg-red-500  rounded-full absolute -right-2 -top-1 w-5 h-5 flex items-center justify-center text-white pending">{{ getNotifiMes($listfriend->id)}}</span>
                                 @endif
                                 <img src=" {{URL::to('/image/'.$listfriend->avatar)}}" class="rounded-full w-10 h-10 object-cover" alt="">
                                 <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>

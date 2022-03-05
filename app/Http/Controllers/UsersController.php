@@ -178,11 +178,7 @@ class UsersController extends Controller
 
         return  $output;
     }
-    public static function getInfoUser($id)
-    {
-       $user = User::where('id',$id)->first();
-       return $user;
-    }
+    
     public function showFriends()
     {
         $friend = DB::table('users')->where('id','!=',Auth::user()->id)->orderBy('created_at','desc')->get();

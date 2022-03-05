@@ -20,7 +20,7 @@
             ?>
             @if(!empty($friends))  
                 @foreach ($friends as $key => $listfriend)
-                    @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) == 'RequestFriend')
+                    @if(statusFriend(Auth::user()->id,$listfriend->id) == 'RequestFriend')
                         <div class=" shadow-lg rounded-lg bg-white overflow-hidden " id="request-{{ $listfriend->id}}">
                             <a href="{{URL::TO('/view-user/'.$listfriend->id)}}">
                                 <div class="bg-gray-700 opacity-80">
@@ -51,7 +51,7 @@
             
             @if(!empty($friends))  
                 @foreach ($friends as $key => $listfriend)
-                   @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) != 'Pending' && UsersController::statusFriend(Auth::user()->id,$listfriend->id) != 'Accepted' && UsersController::statusFriend(Auth::user()->id,$listfriend->id) != "RequestFriend")
+                   @if(statusFriend(Auth::user()->id,$listfriend->id) != 'Pending' && statusFriend(Auth::user()->id,$listfriend->id) != 'Accepted' && statusFriend(Auth::user()->id,$listfriend->id) != "RequestFriend")
                    <div class=" shadow-lg rounded-lg bg-white overflow-hidden " id="item-{{$listfriend->id}}">
                         <a href="{{URL::TO('/viewuser/'.$listfriend->id)}}">
                             <div class="bg-gray-700 opacity-80">

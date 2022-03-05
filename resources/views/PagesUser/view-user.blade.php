@@ -44,7 +44,7 @@
                 <?php
                     use App\http\Controllers\UsersController;
                 ?>
-                @if(UsersController::statusFriend(Auth::user()->id,$user->id) == 'Pending')
+                @if(statusFriend(Auth::user()->id,$user->id) == 'Pending')
                 <div class=" grid place-items-center btn-unrequest" data-id="{{$user->id}}" id="btn-unrequest-{{$user->id}}" >
                     <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100">
                         <i class="bx bxs-user-check text-2xl mr-2"></i>Undo Request
@@ -55,13 +55,13 @@
                         <i class="bx bxs-user-check text-2xl mr-2"></i>Add Frined
                     </span>
                 </div>  
-                @elseif(UsersController::statusFriend(Auth::user()->id,$user->id) == 'Accepted')
+                @elseif(statusFriend(Auth::user()->id,$user->id) == 'Accepted')
                 <div class=" grid place-items-center btn-unfriend openModal " data-id="{{ $user->id }}" id="btn-unfriend-{{ $user->id }}" >
                     <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100">
                         <i class="bx bxs-user text-2xl mr-2"></i>Friend
                     </span>
                 </div>
-                @elseif(UsersController::statusFriend(Auth::user()->id,$user->id) == 'RequestFriend')
+                @elseif(statusFriend(Auth::user()->id,$user->id) == 'RequestFriend')
                 <div class=" grid place-items-center btn-acceptefriend " data-id="{{ $user->id }}" id="btn-acceptefriend-{{ $user->id }}" >
                     <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100">
                         <i class="bx bxs-user text-2xl mr-2"></i>Accepted Request

@@ -87,7 +87,7 @@
             ?>
             @if(!empty($friends))  
                 @foreach ($friends as $key => $listfriend)
-                    @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) == 'Accepted')
+                    @if(statusFriend(Auth::user()->id,$listfriend->id) == 'Accepted')
                     <li>
                         <div class="flex justify-between items-center space-x-4 p-2 hover:bg-gray-200
                         dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer">

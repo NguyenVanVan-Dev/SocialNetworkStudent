@@ -3,8 +3,8 @@
 ?>
 @if(!empty($stories))
     @foreach($stories as $key => $value)   
-        @if(UsersController::statusFriend(Auth::user()->id,$value->user_id) == 'Accepted' || $value->user_id == Auth::user()->id)
-        <?php $info = UsersController::getInfoUser($value->user_id);?> 
+        @if(statusFriend(Auth::user()->id,$value->user_id) == 'Accepted' || $value->user_id == Auth::user()->id)
+        <?php $info = getInfoUser($value->user_id);?> 
         <div class="w-full h-96 rounded-lg shadow-md overflow-hidden" id="Story-{{ $value->id}}">
             <div class="relative h-full group cursor-pointer">
                 @if(!empty($value->image))

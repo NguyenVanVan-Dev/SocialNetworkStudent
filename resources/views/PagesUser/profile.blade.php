@@ -113,7 +113,7 @@
             </div>
             <div class="rounded-lg grid grid-cols-3 grid-rows-3 gap-1 overflow-hidden">
                 @foreach($friends as $key => $value)
-                    @if(UsersController::statusFriend(Auth::user()->id,$value->id ) == 'Accepted')
+                    @if(statusFriend(Auth::user()->id,$value->id ) == 'Accepted')
                     <div class="text-center">
                         <a href="{{URL::TO('/view-user/'.$value->id)}}" class="no-underline text-black">
                             <img src="{{ asset('/image/'.$value->avatar) }}" class=" inline-block rounded-lg " alt="">

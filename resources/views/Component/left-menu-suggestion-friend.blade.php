@@ -24,7 +24,7 @@
             ?>
             @if(!empty($friends))  
                 @foreach ($friends as $key => $listfriend)
-                    @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) != 'Accepted' && UsersController::statusFriend(Auth::user()->id,$listfriend->id) != 'Pending' && UsersController::statusFriend(Auth::user()->id,$listfriend->id) != 'RequestFriend')
+                    @if(statusFriend(Auth::user()->id,$listfriend->id) != 'Accepted' && statusFriend(Auth::user()->id,$listfriend->id) != 'Pending' && statusFriend(Auth::user()->id,$listfriend->id) != 'RequestFriend')
                     <li >
                         <div class="flex items-center space-x-4 p-2 hover:bg-gray-200
                         dark:hover:bg-dark-third dark:text-dark-txt rounded-lg cursor-pointer showProfileFriend" data-id="{{ $listfriend->id}}" id="friend-{{ $listfriend->id}}">

@@ -225,8 +225,8 @@
             <div class="w-3/4 sm:w-4/5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-1  gap-2 overflow-hidden">
             @if(!empty($stories))
                 @foreach($stories as $key => $value)   
-                    @if(UsersController::statusFriend(Auth::user()->id,$value->user_id) == 'Accepted' || $value->user_id == Auth::user()->id)
-                    <?php $info = UsersController::getInfoUser($value->user_id);?> 
+                    @if(statusFriend(Auth::user()->id,$value->user_id) == 'Accepted' || $value->user_id == Auth::user()->id)
+                    <?php $info = getInfoUser($value->user_id);?> 
                     <div class="w-full h-80 rounded-lg shadow-md overflow-hidden">
                         <div class="relative h-full group cursor-pointer">
                             @if(!empty($value->image))
@@ -288,7 +288,7 @@
                                 dark:text-dark-txt">
                                     <i class='bx bxl-messenger'></i>
                                 </div>
-                                @if(UsersController::statusFriend(Auth::user()->id,$search_user->id) == 'Pending')
+                                @if(statusFriend(Auth::user()->id,$search_user->id) == 'Pending')
                                 <div class=" grid place-items-center btn-unrequest" data-id="{{$search_user->id}}" id="btn-unrequest-{{$search_user->id}}" >
                                     <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100">
                                         <i class="bx bxs-user-check text-2xl mr-2"></i>Undo Request
@@ -299,13 +299,13 @@
                                         <i class="bx bxs-user-check text-2xl mr-2"></i>Add Frined
                                     </span>
                                 </div>  
-                                @elseif(UsersController::statusFriend(Auth::user()->id,$search_user->id) == 'Accepted')
+                                @elseif(statusFriend(Auth::user()->id,$search_user->id) == 'Accepted')
                                 <div class=" grid place-items-center btn-unfriend openModal " data-id="{{ $search_user->id }}" id="btn-unfriend-{{ $search_user->id }}" >
                                     <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100">
                                         <i class="bx bxs-user text-2xl mr-2"></i>Friend
                                     </span>
                                 </div>
-                                @elseif(UsersController::statusFriend(Auth::user()->id,$search_user->id) == 'RequestFriend')
+                                @elseif(statusFriend(Auth::user()->id,$search_user->id) == 'RequestFriend')
                                 <div class=" grid place-items-center btn-acceptefriend " data-id="{{ $search_user->id }}" id="btn-acceptefriend-{{ $search_user->id }}" >
                                     <span class="flex items-center dark:bg-dark-third rounded-md mx-3 px-3 py-2 cursor-pointer dark:text-dark-txt text-blue-500 bg-blue-100">
                                         <i class="bx bxs-user text-2xl mr-2"></i>Accepted Request

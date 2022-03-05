@@ -229,7 +229,7 @@
         var userName = '{{ Auth::user()->name }}';
         var userID = '{{ Auth::user()->id }}';
         var userAvatar = '{{ Auth::user()->avatar }}';
-        var urlPosts = ' {{ route('posts.store')}}';
+        var urlPosts = '{{ route('posts.store')}}';
         var showProfileFriend = '{{ route('profile_friends')}}';
         var addComment = '{{ route('add_comment')}}';
         var showComment = '{{ route('show_comment')}}';

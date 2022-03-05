@@ -1,5 +1,5 @@
  <!-- LEFT MENU -->
- <?php   use App\http\Controllers\UsersController;  ?>
+
  <div class=" hidden md:flex md:w-1/3 lg:w-1/5 pt-16 h-full bg-white  flex-col fixed top-0 left-0 shadow-md overflow-y-auto">
         <ul class="p-4 ">
             <li>
@@ -21,8 +21,8 @@
                     transition-all dark:text-dark-txt dark:hover:bg-dark-third">
                     <img src="{{ asset('image/mesenger.png') }}" alt="" class="w-10 h-10 rounded-full">
                     <span class="font-semibold block">Messenger</span>
-                    @if(UsersController::getNumNotiMes())
-                        <span id="notifiMes" class="pending absolute top-1/2 right-4 transform -translate-y-1/2 bg-red-500 rounded-full w-6 h-6 grid place-content-center text-white"> {{ UsersController::getNumNotiMes()}} </span>
+                    @if(getNumNotiMes())
+                        <span id="notifiMes" class="pending absolute top-1/2 right-4 transform -translate-y-1/2 bg-red-500 rounded-full w-6 h-6 grid place-content-center text-white"> {{getNumNotiMes()}} </span>
                     @endif
                     
                 </a>

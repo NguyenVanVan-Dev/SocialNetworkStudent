@@ -1,7 +1,5 @@
 <div class="w-full md:w-2/3 lg:w-1/2 pt-32 lg:pt-16 px-2 absolute">
-        <?php   use App\http\Controllers\UsersController;
-                use App\http\Controllers\PostsController;  
-        ?>
+    <?php use App\Http\Controllers\PostsController;?>
         <!-- STORY -->
         <div class="relative flex space-x-2 pt-4">
             <div class="w-1/4 sm:w-1/5 h-48 rounded-lg shadow-md overflow-hidden bg-white flex flex-col group cursor-pointer">
@@ -24,8 +22,8 @@
             <div class="w-3/4 sm:w-4/5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-rows-1  gap-2 overflow-hidden">
             @if(!empty($stories))
                 @foreach($stories as $key => $value)   
-                    @if(UsersController::statusFriend(Auth::user()->id,$value->user_id) == 'Accepted' || $value->user_id == Auth::user()->id)
-                    <?php $info = UsersController::getInfoUser($value->user_id);?> 
+                    @if(statusFriend(Auth::user()->id,$value->user_id) == 'Accepted' || $value->user_id == Auth::user()->id)
+                    <?php $info = getInfoUser($value->user_id);?> 
                     <div class="w-full h-48 rounded-lg shadow-md overflow-hidden">
                         <div class="relative h-full group cursor-pointer">
                             @if(!empty($value->image))
@@ -105,7 +103,7 @@
                 </div>
                 @if(!empty($friends))  
                     @foreach ($friends as $key => $listfriend)
-                        @if(UsersController::statusFriend(Auth::user()->id,$listfriend->id) == 'Accepted')
+                        @if(statusFriend(Auth::user()->id,$listfriend->id) == 'Accepted')
                         <div class="relative cursor-pointer">
                             <img src="{{ asset('image/'.$listfriend->avatar) }}" class="rounded-full w-10 h-10" alt="">
                             <span class="bg-green-500 w-3 h-3 rounded-full absolute right-0 top-3/4 border-white border-2"></span>
@@ -125,7 +123,7 @@
            
             @foreach($userposts as $key => $value )
             <!-- POST -->
-                @if(UsersController::checkRule($value->content) == 'true')
+                @if(checkRule($value->content) == 'true')
                 <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg" id="post-{{$value->id}}" data-id="{{$value->id}}">
                     <div class="flex items-center justify-between px-4 py-2">
                         <div class="flex space-x-2 items-center">
@@ -180,13 +178,13 @@
                     <div class="px-4 py-2">
                         <div class=" flex items-center justify-between">
                             <div class="flex flex-row-reverse items-center">
-                                <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{PostsController::countLike($value->id)}} </span>
+                                <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{countLike($value->id)}} </span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
                             </div>
                             <div class=" text-gray-500 dark:text-dark-txt">
-                                <span>{{UsersController::countComment($value->id)}} Comments</span>
+                                <span>{{countComment($value->id)}} Comments</span>
                                 <span>500 share</span>
                             </div>
                         </div>
@@ -279,13 +277,13 @@
                     <div class="px-4 py-2">
                         <div class=" flex items-center justify-between">
                             <div class="flex flex-row-reverse items-center">
-                            <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{PostsController::countLike($value->id)}} </span>
+                            <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{countLike($value->id)}} </span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
                                 <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
                             </div>
                             <div class=" text-gray-500 dark:text-dark-txt">
-                                <span>{{UsersController::countComment($value->id)}} Comments </span>
+                                <span>{{countComment($value->id)}} Comments </span>
                                 <span>500 share</span>
                             </div>
                         </div>
@@ -313,10 +311,10 @@
                 @endif
             @endforeach
             @foreach($friendposts as $key =>$value)
-                @if(UsersController::statusFriend(Auth::user()->id,$value->user_id) == 'Accepted')
-                    <?php $info = UsersController::getInfoUser($value->user_id);?>
+                @if(statusFriend(Auth::user()->id,$value->user_id) == 'Accepted')
+                    <?php $info = getInfoUser($value->user_id);?>
 
-                    @if(UsersController::checkRule($value->content) == 'true')
+                    @if(checkRule($value->content) == 'true')
                     
                             <!-- POST -->
                     <div class="shadow-md bg-white dark:bg-dark-second dark:text-dark-txt mt-4 rounded-lg" id="post-{{$value->id}}" data-id="{{$value->id}}">
@@ -365,13 +363,13 @@
                         <div class="px-4 py-2">
                             <div class=" flex items-center justify-between">
                                 <div class="flex flex-row-reverse items-center">
-                                <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{PostsController::countLike($value->id)}} </span>
+                                <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{countLike($value->id)}} </span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
                                 </div>
                                 <div class=" text-gray-500 dark:text-dark-txt">
-                                    <span>{{UsersController::countComment($value->id)}} Comments </span>
+                                    <span>{{countComment($value->id)}} Comments </span>
                                     <span>500 share</span>
                                 </div>
                             </div>
@@ -458,13 +456,13 @@
                         <div class="px-4 py-2">
                             <div class=" flex items-center justify-between">
                                 <div class="flex flex-row-reverse items-center">
-                                <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{PostsController::countLike($value->id)}} </span>
+                                <span id="like-{{$value->id}}" class="ml-2 text-gray-500 dark:text-dark-txt ">{{countLike($value->id)}} </span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-red-500"> <i class="bx bx-angry"></i></span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-pink-500"><i class="bx bxs-heart"></i></span>
                                     <span class="rounded-full grid place-items-center text-2xl -ml-1 text-yellow-500"><i class="bx bxs-happy-alt"></i></span>
                                 </div>
                                 <div class=" text-gray-500 dark:text-dark-txt">
-                                    <span>{{UsersController::countComment($value->id)}} Comments </span>
+                                    <span>{{countComment($value->id)}} Comments </span>
                                     <span>500 share</span>
                                 </div>
                             </div>
